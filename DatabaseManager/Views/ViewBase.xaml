@@ -2,6 +2,7 @@
     x:Class="DatabaseManager.Views.ViewBase"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:converters="clr-namespace:ClassLibrary.Windows.Converters;assembly=ClassLibrary.Windows"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -24,8 +25,8 @@
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="200 " />
-            <RowDefinition Height="500" />
+            <RowDefinition Height="Auto " />
+            <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
@@ -46,7 +47,7 @@
                 Foreground="{DynamicResource AccentBaseColorBrush}"
                 Visibility="{Binding ., Converter={StaticResource ObjectToVisibilityConverter}}" />
             <myControls:EditableTextBlock
-                Margin="0"
+                Margin="0,1"
                 DataContext="{Binding Subtitle}"
                 FontSize="16"
                 Foreground="{DynamicResource AccentColorBrush2}"
@@ -58,36 +59,46 @@
                 Visibility="{Binding ., Converter={StaticResource ObjectToVisibilityConverter}}" />
         </StackPanel>
 
-        <Grid Grid.Row="1">
-            <ItemsControl ItemsSource="{Binding NativeProperties}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Margin="5" Orientation="Vertical">
-                            <TextBlock Text="{Binding Path=Name, Mode=OneWay}" />
-                            <myControls:NativeTypeEditor Type="{Binding Type}" Value="{Binding Value, Mode=TwoWay}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
+        <controls:MetroAnimatedSingleRowTabControl Grid.Row="1">
+            <TabItem Header="General">
+                <Grid>
+                    <ItemsControl ItemsSource="{Binding NativeProperties}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="5" Orientation="Vertical">
+                                    <TextBlock Text="{Binding Path=Name, Mode=OneWay}" />
+                                    <myControls:NativeTypeEditor Type="{Binding Type}" Value="{Binding Value, Mode=TwoWay}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
 
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Vertical" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-        </Grid>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Vertical" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </Grid>
+            </TabItem>
+        </controls:MetroAnimatedSingleRowTabControl>
 
-        <StackPanel Grid.Row="2">
-            <ItemsControl ItemsSource="{Binding LeftOverProperties}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Margin="5" Orientation="Horizontal">
-                            <TextBlock Margin="0,0,5,0" Text="{Binding Path=Name, Mode=OneWay}" />
-                            <TextBlock Text="{Binding Path=Value}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </StackPanel>
+
+        <Border
+            Grid.Row="2"
+            BorderBrush="Black"
+            BorderThickness="1">
+            <StackPanel>
+                <ItemsControl ItemsSource="{Binding LeftOverProperties}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="5" Orientation="Horizontal">
+                                <TextBlock Margin="0,0,5,0" Text="{Binding Path=Name, Mode=OneWay}" />
+                                <TextBlock Text="{Binding Path=Value}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>

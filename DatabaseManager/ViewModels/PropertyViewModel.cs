@@ -67,10 +67,10 @@ namespace DatabaseManager.ViewModels
 
         #region METHODS
 
-        public static IEnumerable<IPropertyVM> ConvertToProperties(IEnumerable<PropertyInfo> propertyInfos, object parent)
+        public static IEnumerable<PropertyViewModel> ConvertToProperties(IEnumerable<PropertyInfo> propertyInfos, object parent)
             => propertyInfos.Select(x => new PropertyViewModel(x, parent));
 
-        public static IEnumerable<IPropertyVM> GetPropertiesFromObject(object parent)
+        public static IEnumerable<PropertyViewModel> GetPropertiesFromObject(object parent)
             => ConvertToProperties(parent.GetType().GetProperties(), parent);
 
         protected override bool SetProperty<T>(ref T storage, T value, string propertyName = null)

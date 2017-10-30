@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
@@ -19,12 +20,14 @@ namespace DatabaseManager.ViewModels
 
         private object _model;
 
-        private IPropertyVM _title;
-        private IPropertyVM _subTitle;
-        private IPropertyVM _description;
+        private PropertyViewModel _title;
+        private PropertyViewModel _subTitle;
+        private PropertyViewModel _description;
 
         private ObservableCollection<IPropertyVM> _nativeProperties;
-        private ObservableCollection<IPropertyVM> _lefOverProperties;
+        private ObservableCollection<IEnumerable> _enumerableProperties;
+
+        private ObservableCollection<PropertyViewModel> _lefOverProperties;
 
         #endregion FIELDS
 
@@ -42,17 +45,18 @@ namespace DatabaseManager.ViewModels
 
                 LeftOverProperties = PropertyViewModel.GetPropertiesFromObject(_model).ToCPObservableCollection();
 
-                Title = LeftOverProperties.SingleOrDefault(x => x.IsTitle);
-                LeftOverProperties -= Title;
+                SetProperty(ref _title, LeftOverProperties.SingleOrDefault(x => x.IsTitle), nameof(Title));
+                LeftOverProperties -= (PropertyViewModel)Title;
 
-                Subtitle = LeftOverProperties.SingleOrDefault(x => x.IsSubTitle);
-                LeftOverProperties -= Subtitle;
+                SetProperty(ref _subTitle, LeftOverProperties.SingleOrDefault(x => x.IsSubTitle), nameof(Subtitle));
+                LeftOverProperties -= (PropertyViewModel)Subtitle;
 
-                Description = LeftOverProperties.SingleOrDefault(x => x.IsDescription);
-                LeftOverProperties -= Description;
+                SetProperty(ref _description, LeftOverProperties.SingleOrDefault(x => x.IsDescription), nameof(Description));
+                LeftOverProperties -= (PropertyViewModel)Description;
 
                 NativeProperties = LeftOverProperties
                     .Where(x => x.Type.IsNativType())
+                    .Cast<IPropertyVM>()
                     .ToCPObservableCollection();
 
                 LeftOverProperties.RemoveWhere(x => NativeProperties.Any(y => x.Name == y.Name));
@@ -62,23 +66,11 @@ namespace DatabaseManager.ViewModels
             }
         }
 
-        public IPropertyVM Title
-        {
-            get => _title;
-            private set => SetProperty(ref _title, value);
-        }
+        public IPropertyVM Title => _title;
 
-        public IPropertyVM Subtitle
-        {
-            get => _subTitle;
-            private set => SetProperty(ref _subTitle, value);
-        }
+        public IPropertyVM Subtitle => _subTitle;
 
-        public IPropertyVM Description
-        {
-            get => _description;
-            private set => SetProperty(ref _description, value);
-        }
+        public IPropertyVM Description => _description;
 
         public ObservableCollection<IPropertyVM> NativeProperties
         {
@@ -101,7 +93,16 @@ namespace DatabaseManager.ViewModels
             }
         }
 
-        public ObservableCollection<IPropertyVM> LeftOverProperties
+        public ObservableCollection<IEnumerable> EnumerableProperties
+        {
+            get => _enumerableProperties;
+            private set
+            {
+                SetProperty(ref _enumerableProperties, value);
+            }
+        }
+
+        public ObservableCollection<PropertyViewModel> LeftOverProperties
         {
             get => _lefOverProperties;
             private set => SetProperty(ref _lefOverProperties, value);

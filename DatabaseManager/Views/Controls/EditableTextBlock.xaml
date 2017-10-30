@@ -15,11 +15,13 @@
             controls:TextBoxHelper.AutoWatermark="True"
             controls:TextBoxHelper.ClearTextButton="True"
             controls:TextBoxHelper.Watermark="{Binding Name}"
+            CaretBrush="{DynamicResource AccentBaseColorBrush}"
             FontFamily="{Binding ElementName=UserControl, Path=FontFamily}"
             FontSize="{Binding ElementName=UserControl, Path=FontSize}"
             FontStretch="{Binding ElementName=UserControl, Path=FontStretch}"
             FontStyle="{Binding ElementName=UserControl, Path=FontStyle}"
             FontWeight="{Binding ElementName=UserControl, Path=FontWeight}"
+            Foreground="{Binding ElementName=UserControl, Path=Foreground}"
             LostFocus="OnTextBoxLostFocus"
             Text="{Binding Value, Mode=TwoWay}"
             TextChanged="TextBox_OnTextChanged"
@@ -27,11 +29,13 @@
             Visibility="Collapsed" />
         <TextBlock
             Name="TextBlock"
+            Margin="4"
             FontFamily="{Binding ElementName=UserControl, Path=FontFamily}"
             FontSize="{Binding ElementName=UserControl, Path=FontSize}"
             FontStretch="{Binding ElementName=UserControl, Path=FontStretch}"
             FontStyle="{Binding ElementName=UserControl, Path=FontStyle}"
             FontWeight="{Binding ElementName=UserControl, Path=FontWeight}"
+            Foreground="{Binding ElementName=UserControl, Path=Foreground}"
             MouseUp="OnTextBlockMouseUp"
             TextWrapping="Wrap" />
     </StackPanel>
