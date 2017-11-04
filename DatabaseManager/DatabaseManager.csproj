@@ -73,7 +73,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -95,27 +94,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Attributes\DescriptionAttribute.cs" />
-    <Compile Include="Attributes\SubtitleAttribute.cs" />
-    <Compile Include="Attributes\TitleAttribute.cs" />
-    <Compile Include="Helpers\ObjectExtensions.cs" />
-    <Compile Include="Helpers\TypeExtensions.cs" />
-    <Compile Include="Helpers\ValueChangedEventArgs.cs" />
-    <Compile Include="ViewModelInterfaces\IPropertyVM.cs" />
-    <Compile Include="ViewModelInterfaces\IViewBaseVM.cs" />
-    <Compile Include="Helpers\Property.cs" />
-    <Compile Include="ViewModels\PropertyViewModel.cs" />
-    <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="ViewModelInterfaces\IMainWindowVM.cs" />
-    <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="Views\Controls\Behaviours\TextBoxBehaviour.cs" />
-    <Compile Include="Views\Controls\ListEditor.cs" />
-    <Compile Include="Views\Controls\NativeTypeEditor.cs" />
-    <Compile Include="Views\Controls\ObjectEditor.cs" />
-    <Compile Include="Views\Controls\EditableTextBlock.cs" />
-    <Compile Include="Views\ViewBase.xaml.cs">
-      <DependentUpon>ViewBase.xaml</DependentUpon>
-    </Compile>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -125,26 +103,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="Models\SomeModel.cs" />
-    <Compile Include="Models\SomeNestedModel.cs" />
-    <Compile Include="ViewModels\ViewBaseViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="Views\Controls\EditableTextBlock.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\Styles\CustomStyles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Styles\EditableTextBlock.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Styles\ObjectEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ViewBase.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -176,9 +141,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Converters\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,9 +1,19 @@
-﻿using DatabaseManager.ViewModelInterfaces;
+﻿using Prism.Mvvm;
 
 namespace DatabaseManager.ViewModels
 {
-    public class MainWindowViewModel : IMainWindowVM 
+    public class MainWindowViewModel : BindableBase
     {
-        public string Title { get; } = "Database Manager";
+        private string _title = "Prism Unity Application";
+        public string Title
+        {
+            get { return _title; }
+            set { SetProperty(ref _title, value); }
+        }
+
+        public MainWindowViewModel()
+        {
+
+        }
     }
 }

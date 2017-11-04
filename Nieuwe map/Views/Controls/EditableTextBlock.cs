@@ -3,7 +3,7 @@ using System.Windows.Controls;
 
 namespace DatabaseManager.Views.Controls
 {
-    public class EditableTextBlock: Control
+    public class EditableTextBlock : UserControl
     {
         #region DEPENDENCY PROPERTIES
 
@@ -12,7 +12,7 @@ namespace DatabaseManager.Views.Controls
             typeof(string),
             typeof(EditableTextBlock),
             new PropertyMetadata(default(string)));
-
+        
         public static readonly DependencyProperty WaterMarkProperty = DependencyProperty.Register(
             nameof(WaterMark),
             typeof(string),
@@ -24,29 +24,29 @@ namespace DatabaseManager.Views.Controls
             typeof(bool),
             typeof(EditableTextBlock),
             new PropertyMetadata(default(bool)));
-
+        
         #endregion DEPENDENCY PROPERTIES
 
         #region PROPERTIES
 
         public string Text
         {
-            get => (string)GetValue(TextProperty);
+            get => (string) GetValue(TextProperty);
             set => SetValue(TextProperty, value);
         }
 
         public string WaterMark
         {
-            get => (string)GetValue(WaterMarkProperty);
+            get => (string) GetValue(WaterMarkProperty);
             set => SetValue(WaterMarkProperty, value);
         }
 
         public bool IsInEditingMode
         {
-            get => (bool)GetValue(IsInEditingModeProperty);
+            get => (bool) GetValue(IsInEditingModeProperty);
             set => SetValue(IsInEditingModeProperty, value);
         }
-
+        
         #endregion PROPERTIES
 
         #region CONSTRUCTOR
@@ -59,10 +59,14 @@ namespace DatabaseManager.Views.Controls
 
         public EditableTextBlock()
         {
-            MouseDown += (sender, args) => IsInEditingMode = true;
-            LostFocus += (sender, args) => IsInEditingMode = false;
+           MouseDown += (sender, args) => IsInEditingMode = true;
+           LostFocus += (sender, args) => IsInEditingMode = false;
         }
 
         #endregion CONSTRUCTOR
+
+        #region METHODS
+        
+        #endregion METHODS
     }
 }

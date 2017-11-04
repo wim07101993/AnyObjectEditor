@@ -2,11 +2,10 @@
 using Prism.Unity;
 using DatabaseManager.Views;
 using System.Windows;
-using DatabaseManager.ViewModels;
 
 namespace DatabaseManager
 {
-    internal class Bootstrapper : UnityBootstrapper
+    class Bootstrapper : UnityBootstrapper
     {
         protected override DependencyObject CreateShell()
         {
@@ -15,9 +14,7 @@ namespace DatabaseManager
 
         protected override void InitializeShell()
         {
-            Container.RegisterType<MainWindowViewModel>();
-            Container.RegisterType<ViewBaseViewModel>();
-            Application.Current.MainWindow?.Show();
+            Application.Current.MainWindow.Show();
         }
     }
 }

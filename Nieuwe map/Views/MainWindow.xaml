@@ -5,15 +5,19 @@
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:myControls="clr-namespace:DatabaseManager.Views.Controls"
     xmlns:prism="http://prismlibrary.com/"
     xmlns:viewModels="clr-namespace:DatabaseManager.ViewModels"
+    xmlns:views="clr-namespace:DatabaseManager.Views"
     Title="{Binding Title}"
-    d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}"
+    d:DataContext="{d:DesignInstance viewModels:ViewBaseViewModel}"
     prism:ViewModelLocator.AutoWireViewModel="True"
-    GlowBrush="{DynamicResource AccentBaseColorBrush}"
+    WindowState="Maximized"
     mc:Ignorable="d">
-    <Grid>
-        <ContentControl prism:RegionManager.RegionName="ContentRegion" />
-    </Grid>
+    <StackPanel>
+        <myControls:ObjectEditor
+            Width="auto"
+            Height="auto"
+            Model="{Binding .}" />
+    </StackPanel>
 </controls:MetroWindow>
-
