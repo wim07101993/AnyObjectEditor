@@ -1,9 +1,9 @@
 ﻿using Microsoft.Practices.Unity;
 using Prism.Unity;
-using DatabaseManager.Views;
+using TestApp.Views;
 using System.Windows;
 
-namespace DatabaseManager
+namespace TestApp
 {
     class Bootstrapper : UnityBootstrapper
     {

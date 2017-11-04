@@ -1,5 +1,5 @@
 ﻿<Application
-    x:Class="DatabaseManager.App"
+    x:Class="TestApp.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Application.Resources>
@@ -13,10 +13,8 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
 
-                <!--  Custom Styles  -->
-                <ResourceDictionary Source="Views/Styles/CustomStyles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/DatabaseManager;Component/Views/Styles/CustomStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-
     </Application.Resources>
 </Application>

@@ -13,8 +13,8 @@ namespace DatabaseManager.Views.Controls
             typeof(EditableTextBlock),
             new PropertyMetadata(default(string)));
 
-        public static readonly DependencyProperty WaterMarkProperty = DependencyProperty.Register(
-            nameof(WaterMark),
+        public static readonly DependencyProperty PropertyNameProperty = DependencyProperty.Register(
+            nameof(PropertyName),
             typeof(string),
             typeof(EditableTextBlock),
             new PropertyMetadata(default(string)));
@@ -35,10 +35,10 @@ namespace DatabaseManager.Views.Controls
             set => SetValue(TextProperty, value);
         }
 
-        public string WaterMark
+        public string PropertyName
         {
-            get => (string)GetValue(WaterMarkProperty);
-            set => SetValue(WaterMarkProperty, value);
+            get => (string)GetValue(PropertyNameProperty);
+            set => SetValue(PropertyNameProperty, value);
         }
 
         public bool IsInEditingMode
