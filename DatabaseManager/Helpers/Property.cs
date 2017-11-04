@@ -7,13 +7,12 @@ using System.Reflection;
 using ClassLibrary.Portable.Extensions;
 using ClassLibrary.Prism;
 using DatabaseManager.Attributes;
-using DatabaseManager.Helpers;
 using DatabaseManager.ViewModelInterfaces;
 using DescriptionAttribute = DatabaseManager.Attributes.DescriptionAttribute;
 
-namespace DatabaseManager.ViewModels
+namespace DatabaseManager.Helpers
 {
-    public class PropertyViewModel : AObservableBase, IPropertyVM
+    public class Property : AObservableBase
     {
         #region FIELDS
 
@@ -51,12 +50,8 @@ namespace DatabaseManager.ViewModels
         #endregion PROPERTIES
 
         #region CONSTRUCTORS
-
-        public PropertyViewModel()
-        {
-        }
-
-        public PropertyViewModel(PropertyInfo propertyInfo, object parent) : this()
+        
+        public Property(PropertyInfo propertyInfo, object parent)
         {
             Name = propertyInfo.GetDisplayName();
             Value = propertyInfo.GetValue(parent);
@@ -77,11 +72,11 @@ namespace DatabaseManager.ViewModels
 
         #region METHODS
 
-        public static IEnumerable<PropertyViewModel> ConvertToProperties(IEnumerable<PropertyInfo> propertyInfos,
+        public static IEnumerable<Property> ConvertToProperties(IEnumerable<PropertyInfo> propertyInfos,
             object parent)
-            => propertyInfos.Select(x => new PropertyViewModel(x, parent));
+            => propertyInfos.Select(x => new Property(x, parent));
 
-        public static IEnumerable<PropertyViewModel> GetPropertiesFromObject(object parent)
+        public static IEnumerable<Property> GetPropertiesFromObject(object parent)
             => ConvertToProperties(parent.GetType().GetProperties(), parent);
 
         protected override bool SetProperty<T>(ref T storage, T value, string propertyName = null)

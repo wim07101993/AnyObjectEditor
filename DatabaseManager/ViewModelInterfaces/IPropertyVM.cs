@@ -8,5 +8,8 @@ namespace DatabaseManager.ViewModelInterfaces
         string Name { get; }
         object Value { get; set; }
         Type Type { get; }
+
+        bool IsEnumerable { get; }
+        bool IsNativeType { get; }
     }
 }

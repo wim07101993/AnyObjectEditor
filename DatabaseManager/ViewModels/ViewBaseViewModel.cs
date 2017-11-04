@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using ClassLibrary.Portable.Collections;
 using ClassLibrary.Portable.Extensions;
 using ClassLibrary.Prism;
@@ -25,14 +26,16 @@ namespace DatabaseManager.ViewModels
         private PropertyViewModel _description;
 
         private ObservableCollection<IPropertyVM> _nativeProperties;
-        private ObservableCollection<IEnumerable> _enumerableProperties;
+        private ObservableCollection<IPropertyVM> _enumerableProperties;
 
         private ObservableCollection<PropertyViewModel> _lefOverProperties;
+        private ObservableCollection<IPropertyVM> _parts = new ObservableCollection<IPropertyVM>();
 
         #endregion FIELDS
 
         #region PROPERTIES
 
+        public object Something { get; set; } = new SomeModel();
         public object Model
         {
             get => _model;
@@ -58,8 +61,18 @@ namespace DatabaseManager.ViewModels
                     .Where(x => x.Type.IsNativType())
                     .Cast<IPropertyVM>()
                     .ToCPObservableCollection();
+                var generalProperty = new PropertyViewModel(typeof(ViewBaseViewModel).GetProperty(nameof(NativeProperties)), this);
+                Parts.Add(generalProperty);
 
-                LeftOverProperties.RemoveWhere(x => NativeProperties.Any(y => x.Name == y.Name));
+                EnumerableProperties = LeftOverProperties
+                    .Where(x => x.Value is IEnumerable)
+                    .Cast<IPropertyVM>()
+                .ToCPObservableCollection();
+
+                Parts += EnumerableProperties;
+                
+                LeftOverProperties.RemoveWhere(
+                    x => NativeProperties.Any(y => x.Name == y.Name) || EnumerableProperties.Any(z => x.Name == z.Name));
 
                 if (_model is INotifyPropertyChanged afterUpdatePropertyChanged)
                     afterUpdatePropertyChanged.PropertyChanged += ModelPropertyChanged;
@@ -72,34 +85,23 @@ namespace DatabaseManager.ViewModels
 
         public IPropertyVM Description => _description;
 
+        [DisplayName("General")]
         public ObservableCollection<IPropertyVM> NativeProperties
         {
             get => _nativeProperties;
-            private set
-            {
-                if (Equals(_nativeProperties, value))
-                    return;
-
-                if (_nativeProperties != null)
-                {
-                    RemoveListenersFromProperties(_nativeProperties);
-                    _nativeProperties.CollectionChanged -= NativePropertiesCollectionChanged;
-                }
-
-                SetProperty(ref _nativeProperties, value);
-
-                _nativeProperties.CollectionChanged += NativePropertiesCollectionChanged;
-                AddListenersToProperties(_nativeProperties);
-            }
+            private set => SetPropertiesObservableCollection(ref _nativeProperties, value);
         }
 
-        public ObservableCollection<IEnumerable> EnumerableProperties
+        public ObservableCollection<IPropertyVM> EnumerableProperties
         {
             get => _enumerableProperties;
-            private set
-            {
-                SetProperty(ref _enumerableProperties, value);
-            }
+            private set => SetPropertiesObservableCollection(ref _enumerableProperties, value);
+        }
+
+        public ObservableCollection<IPropertyVM> Parts
+        {
+            get => _parts;
+            private set => SetPropertiesObservableCollection(ref _parts, value);
         }
 
         public ObservableCollection<PropertyViewModel> LeftOverProperties
@@ -121,6 +123,25 @@ namespace DatabaseManager.ViewModels
         #endregion CONSTRUCTOR
 
         #region METHODS
+
+        private bool SetPropertiesObservableCollection(ref ObservableCollection<IPropertyVM> storage,
+            ObservableCollection<IPropertyVM> value, [CallerMemberName] string propertyName = null)
+        {
+            if (Equals(storage, value))
+                 return false;
+
+            if (storage != null)
+            {
+                RemoveListenersFromProperties(storage);
+                storage.CollectionChanged -= PropertiesCollectionChanged;
+            }
+
+            SetProperty(ref storage, value, propertyName);
+
+            storage.CollectionChanged += PropertiesCollectionChanged;
+            AddListenersToProperties(storage);
+            return true;
+        }
 
         private void ModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -153,7 +174,7 @@ namespace DatabaseManager.ViewModels
                     .ForEach(y => y.Value = val);
         }
 
-        private void NativePropertiesCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void PropertiesCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             RemoveListenersFromProperties(e.OldItems.Cast<PropertyViewModel>());
             AddListenersToProperties(e.NewItems.Cast<PropertyViewModel>());

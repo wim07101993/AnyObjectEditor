@@ -73,6 +73,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -102,21 +103,19 @@
     <Compile Include="Helpers\ValueChangedEventArgs.cs" />
     <Compile Include="ViewModelInterfaces\IPropertyVM.cs" />
     <Compile Include="ViewModelInterfaces\IViewBaseVM.cs" />
+    <Compile Include="Helpers\Property.cs" />
     <Compile Include="ViewModels\PropertyViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ViewModelInterfaces\IMainWindowVM.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="Views\Controls\EditableTextBlock.xaml.cs">
-      <DependentUpon>EditableTextBlock.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Views\Controls\Behaviours\TextBoxBehaviour.cs" />
+    <Compile Include="Views\Controls\ListEditor.cs" />
     <Compile Include="Views\Controls\NativeTypeEditor.cs" />
+    <Compile Include="Views\Controls\ObjectEditor.cs" />
+    <Compile Include="Views\Controls\EditableTextBlock.cs" />
     <Compile Include="Views\ViewBase.xaml.cs">
       <DependentUpon>ViewBase.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\Controls\EditableTextBlock.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -133,6 +132,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Styles\CustomStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Styles\EditableTextBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Styles\ObjectEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ViewBase.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

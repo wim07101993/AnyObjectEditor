@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using ClassLibrary.Portable.Collections.Interfaces;
 using DatabaseManager.Helpers;
 using MahApps.Metro.Controls;
 
@@ -11,17 +10,17 @@ namespace DatabaseManager.Views.Controls
     {
         #region FIELDS
 
-        private TextBox _textBox = new TextBox
+        private readonly TextBox _textBox = new TextBox
         {
             Visibility = Visibility.Collapsed
         };
 
-        private NumericUpDown _numericUpDown = new NumericUpDown
+        private readonly NumericUpDown _numericUpDown = new NumericUpDown
         {
             Visibility = Visibility.Collapsed
         };
 
-        private ToggleSwitch _toggleSwitch = new ToggleSwitch
+        private readonly ToggleSwitch _toggleSwitch = new ToggleSwitch
         {
             Visibility = Visibility.Collapsed,
             OffLabel = "",
@@ -80,11 +79,106 @@ namespace DatabaseManager.Views.Controls
 
             Content = grid;
         }
-        
+
+        public NativeTypeEditor(object value, Type type)
+            : this()
+        {
+            Value = value;
+            Type = type;
+        }
+
+        #region with typed value
+
+        public NativeTypeEditor(bool value) : this()
+        {
+            Value = value;
+            Type = typeof(bool);
+        }
+
+        public NativeTypeEditor(string value) : this()
+        {
+            Value = value;
+            Type = typeof(string);
+        }
+
+        public NativeTypeEditor(char value) : this()
+        {
+            Value = value;
+            Type = typeof(char);
+        }
+
+        public NativeTypeEditor(byte value) : this()
+        {
+            Value = value;
+            Type = typeof(byte);
+        }
+
+        public NativeTypeEditor(sbyte value) : this()
+        {
+            Value = value;
+            Type = typeof(sbyte);
+        }
+
+        public NativeTypeEditor(short value) : this()
+        {
+            Value = value;
+            Type = typeof(short);
+        }
+
+        public NativeTypeEditor(ushort value) : this()
+        {
+            Value = value;
+            Type = typeof(ushort);
+        }
+
+        public NativeTypeEditor(int value) : this()
+        {
+            Value = value;
+            Type = typeof(int);
+        }
+
+        public NativeTypeEditor(uint value) : this()
+        {
+            Value = value;
+            Type = typeof(uint);
+        }
+
+        public NativeTypeEditor(long value) : this()
+        {
+            Value = value;
+            Type = typeof(long);
+        }
+
+        public NativeTypeEditor(ulong value) : this()
+        {
+            Value = value;
+            Type = typeof(ulong);
+        }
+
+        public NativeTypeEditor(decimal value) : this()
+        {
+            Value = value;
+            Type = typeof(decimal);
+        }
+
+        public NativeTypeEditor(double value) : this()
+        {
+            Value = value;
+            Type = typeof(double);
+        }
+
+        public NativeTypeEditor(float value) : this()
+        {
+            Value = value;
+            Type = typeof(float);
+        }
+
+        #endregion with typed value
+
         #endregion CONSTRUCTORS
 
         #region METHODS
-        
+
         private static void OnTypeChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
         {
             var This = (NativeTypeEditor) obj;
@@ -139,14 +233,14 @@ namespace DatabaseManager.Views.Controls
         {
             var oldValue = Value;
             Value = _numericUpDown.Value;
-            ValueChanged?.Invoke(this, new ValueChangedEventArgs { OldValue = oldValue, NewValue = Value });
+            ValueChanged?.Invoke(this, new ValueChangedEventArgs {OldValue = oldValue, NewValue = Value});
         }
 
         private void OnToggle(object sender, EventArgs e)
         {
             var oldValue = Value;
             Value = _toggleSwitch.IsChecked;
-            ValueChanged?.Invoke(this, new ValueChangedEventArgs { OldValue = oldValue, NewValue = Value });
+            ValueChanged?.Invoke(this, new ValueChangedEventArgs {OldValue = oldValue, NewValue = Value});
         }
 
         #endregion METHODS

@@ -25,6 +25,11 @@ namespace DatabaseManager.Models
             }
         };
 
+        private List<string> _someSecondList = new List<string>
+        {
+            "hello", "world", "to", "you"
+        };
+
         [Title]
         [Browsable(false)]
         [DisplayName("First name")]
@@ -76,6 +81,12 @@ namespace DatabaseManager.Models
         {
             get => _someList;
             set => SetProperty(ref _someList, value);
+        }
+
+        public List<string> SomeSecondList
+        {
+            get => _someSecondList;
+            set => SetProperty(ref _someSecondList, value);
         }
     }
 }

@@ -5,6 +5,7 @@
     xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:converters="clr-namespace:ClassLibrary.Windows.Converters;assembly=ClassLibrary.Windows"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:DatabaseManager.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:myControls="clr-namespace:DatabaseManager.Views.Controls"
     xmlns:prism="http://prismlibrary.com/"
@@ -20,13 +21,14 @@
             <converters:ObjectToBooleanConverter x:Key="ObjectToBooleanConverter" />
             <converters:MultiBooleanOrToVisibilityConverter x:Key="MultiBooleanOrToVisibilityConverter" />
             <converters:ObjectToVisibilityConverter x:Key="ObjectToVisibilityConverter" />
+            <converters:InvertedBooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter" />
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto " />
-            <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
@@ -59,16 +61,41 @@
                 Visibility="{Binding ., Converter={StaticResource ObjectToVisibilityConverter}}" />
         </StackPanel>
 
-        <controls:MetroAnimatedSingleRowTabControl Grid.Row="1">
-            <TabItem Header="General">
-                <Grid>
-                    <ItemsControl ItemsSource="{Binding NativeProperties}">
+        <controls:MetroAnimatedSingleRowTabControl
+            Name="PartsTab"
+            Grid.Row="1"
+            ItemsSource="{Binding Parts}">
+            <controls:MetroAnimatedSingleRowTabControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+            </controls:MetroAnimatedSingleRowTabControl.ItemTemplate>
+
+            <controls:MetroAnimatedSingleRowTabControl.ContentTemplate>
+                <DataTemplate DataType="viewModels:PropertyViewModel">
+                    <ItemsControl ItemsSource="{Binding Value}">
                         <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Margin="5" Orientation="Vertical">
-                                    <TextBlock Text="{Binding Path=Name, Mode=OneWay}" />
-                                    <myControls:NativeTypeEditor Type="{Binding Type}" Value="{Binding Value, Mode=TwoWay}" />
-                                </StackPanel>
+                            <DataTemplate DataType="viewModels:PropertyViewModel">
+                                <Grid>
+                                    <ItemsControl ItemsSource="{Binding Value}" Visibility="{Binding IsEnumerable, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate DataType="viewModels:PropertyViewModel">
+                                                <StackPanel Margin="5" Orientation="Vertical">
+                                                    <TextBlock Text="{Binding Path=Name, Mode=OneWay}" />
+                                                    <myControls:NativeTypeEditor Type="{Binding Type}" Value="{Binding Value, Mode=TwoWay}" />
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                    <StackPanel
+                                        Margin="5"
+                                        Orientation="Vertical"
+                                        Visibility="{Binding IsEnumerable, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                                        <TextBlock Text="{Binding Path=Name, Mode=OneWay}" />
+                                        <myControls:NativeTypeEditor Type="{Binding Type}" Value="{Binding Value, Mode=TwoWay}" />
+                                    </StackPanel>
+                                </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
 
@@ -78,27 +105,8 @@
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                     </ItemsControl>
-                </Grid>
-            </TabItem>
+                </DataTemplate>
+            </controls:MetroAnimatedSingleRowTabControl.ContentTemplate>
         </controls:MetroAnimatedSingleRowTabControl>
-
-
-        <Border
-            Grid.Row="2"
-            BorderBrush="Black"
-            BorderThickness="1">
-            <StackPanel>
-                <ItemsControl ItemsSource="{Binding LeftOverProperties}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="5" Orientation="Horizontal">
-                                <TextBlock Margin="0,0,5,0" Text="{Binding Path=Name, Mode=OneWay}" />
-                                <TextBlock Text="{Binding Path=Value}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </StackPanel>
-        </Border>
     </Grid>
 </UserControl>
