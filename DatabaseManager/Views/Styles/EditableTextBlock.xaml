@@ -17,7 +17,6 @@
                         <TextBlock
                             Name="WatermarkTextBlock"
                             Margin="7,2,0,0"
-                            Panel.ZIndex="9"
                             Background="{DynamicResource ControlBackgroundBrush}"
                             FontFamily="{TemplateBinding FontFamily}"
                             FontSize="10"
@@ -30,10 +29,6 @@
                         <Grid>
                             <TextBox
                                 Name="TextBox"
-                                Panel.ZIndex="10"
-                                controls:TextBoxHelper.AutoWatermark="True"
-                                controls:TextBoxHelper.ClearTextButton="True"
-                                controls:TextBoxHelper.Watermark="{TemplateBinding Name}"
                                 Background="{DynamicResource ControlBackgroundBrush}"
                                 CaretBrush="{DynamicResource AccentBaseColorBrush}"
                                 FontFamily="{TemplateBinding FontFamily}"
@@ -42,13 +37,12 @@
                                 FontStyle="{TemplateBinding FontStyle}"
                                 FontWeight="{TemplateBinding FontWeight}"
                                 Foreground="{TemplateBinding Foreground}"
-                                Text="{TemplateBinding Text}"
+                                Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, Mode=TwoWay}"
                                 TextWrapping="Wrap"
                                 Visibility="Collapsed" />
                             <TextBlock
                                 Name="TextBlock"
                                 Margin="6,4,4,6"
-                                Panel.ZIndex="8"
                                 Background="{DynamicResource ControlBackgroundBrush}"
                                 FontFamily="{TemplateBinding FontFamily}"
                                 FontSize="{TemplateBinding FontSize}"
@@ -69,11 +63,6 @@
 
                         <Trigger SourceName="TextBox" Property="Visibility" Value="Visible">
                             <Setter TargetName="TextBox" Property="behaviours:TextBoxBehaviour.Focus" Value="True" />
-                        </Trigger>
-
-                        <Trigger Property="Text" Value="">
-                            <Setter TargetName="TextBlock" Property="Visibility" Value="Collapsed" />
-                            <Setter TargetName="WatermarkTextBlock" Property="Visibility" Value="Visible" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

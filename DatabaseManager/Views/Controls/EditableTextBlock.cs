@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace DatabaseManager.Views.Controls
@@ -12,7 +13,7 @@ namespace DatabaseManager.Views.Controls
             typeof(string),
             typeof(EditableTextBlock),
             new PropertyMetadata(default(string)));
-
+      
         public static readonly DependencyProperty PropertyNameProperty = DependencyProperty.Register(
             nameof(PropertyName),
             typeof(string),
