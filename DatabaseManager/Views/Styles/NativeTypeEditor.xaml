@@ -6,6 +6,7 @@
     xmlns:myControls="clr-namespace:DatabaseManager.Views.Controls">
 
     <converters:ObjectToDoubleConverter x:Key="ObjectToDoubleConverter" />
+    <converters:ObjectToCharConverter x:Key="ObjectToCharConverter" />
 
     <Style TargetType="{x:Type myControls:NativeTypeEditor}">
         <Setter Property="Template">
@@ -23,7 +24,8 @@
                             Foreground="{DynamicResource TextBrush}"
                             Text="{TemplateBinding PropertyName}"
                             TextWrapping="Wrap" />
-                        <StackPanel>
+
+                        <Grid>
                             <TextBox
                                 Name="TextBox"
                                 controls:TextBoxHelper.ClearTextButton="True"
@@ -38,6 +40,22 @@
                                 Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Mode=TwoWay}"
                                 TextWrapping="Wrap"
                                 Visibility="Collapsed" />
+
+                            <TextBox
+                                Name="CharTextBox"
+                                controls:TextBoxHelper.ClearTextButton="True"
+                                Background="{DynamicResource ControlBackgroundBrush}"
+                                CaretBrush="{DynamicResource AccentBaseColorBrush}"
+                                FontFamily="{TemplateBinding FontFamily}"
+                                FontSize="{TemplateBinding FontSize}"
+                                FontStretch="{TemplateBinding FontStretch}"
+                                FontStyle="{TemplateBinding FontStyle}"
+                                FontWeight="{TemplateBinding FontWeight}"
+                                Foreground="{TemplateBinding Foreground}"
+                                MaxLength="1"
+                                Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Mode=TwoWay, Converter={StaticResource ObjectToCharConverter}}"
+                                Visibility="Collapsed" />
+
                             <controls:NumericUpDown
                                 Name="NumericUpDown"
                                 Background="{DynamicResource ControlBackgroundBrush}"
@@ -49,13 +67,14 @@
                                 Foreground="{TemplateBinding Foreground}"
                                 Visibility="Collapsed"
                                 Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Mode=TwoWay, Converter={StaticResource ObjectToDoubleConverter}}" />
+
                             <controls:ToggleSwitch
                                 Name="ToggleSwitch"
                                 IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Mode=TwoWay}"
                                 OffLabel=""
                                 OnLabel=""
                                 Visibility="Collapsed" />
-                        </StackPanel>
+                        </Grid>
                     </StackPanel>
 
                     <ControlTemplate.Triggers>
@@ -79,8 +98,27 @@
                             <Setter TargetName="NumericUpDown" Property="Visibility" Value="Visible" />
                         </Trigger>
 
+                        <Trigger Property="Type" Value="UInt16">
+                            <Setter TargetName="NumericUpDown" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="NumericUpDown" Property="Minimum" Value="0" />
+                        </Trigger>
+
+                        <Trigger Property="Type" Value="UInt32">
+                            <Setter TargetName="NumericUpDown" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="NumericUpDown" Property="Minimum" Value="0" />
+                        </Trigger>
+
+                        <Trigger Property="Type" Value="UInt64">
+                            <Setter TargetName="NumericUpDown" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="NumericUpDown" Property="Minimum" Value="0" />
+                        </Trigger>
+
                         <Trigger Property="Type" Value="String">
                             <Setter TargetName="TextBox" Property="Visibility" Value="Visible" />
+                        </Trigger>
+
+                        <Trigger Property="Type" Value="Char">
+                            <Setter TargetName="CharTextBox" Property="Visibility" Value="Visible" />
                         </Trigger>
 
                         <Trigger Property="Type" Value="Boolean">

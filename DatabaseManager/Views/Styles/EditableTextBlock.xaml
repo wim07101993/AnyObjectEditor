@@ -26,9 +26,11 @@
                             Foreground="{DynamicResource TextBrush}"
                             Text="{TemplateBinding PropertyName}"
                             TextWrapping="Wrap" />
+
                         <Grid>
                             <TextBox
                                 Name="TextBox"
+                                controls:TextBoxHelper.ClearTextButton="True"
                                 Background="{DynamicResource ControlBackgroundBrush}"
                                 CaretBrush="{DynamicResource AccentBaseColorBrush}"
                                 FontFamily="{TemplateBinding FontFamily}"
@@ -40,6 +42,7 @@
                                 Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, Mode=TwoWay}"
                                 TextWrapping="Wrap"
                                 Visibility="Collapsed" />
+
                             <TextBlock
                                 Name="TextBlock"
                                 Margin="6,4,4,6"
