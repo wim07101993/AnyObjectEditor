@@ -76,15 +76,20 @@
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Property.cs" />
-    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\Behaviours\TextBoxBehaviour.cs" />
     <Compile Include="Views\Controls\EditableTextBlock.cs" />
+    <Compile Include="Views\Controls\NativeTypeEditor.cs" />
     <Compile Include="Views\Converters\NullOrEmptyToVisibilityConverter.cs" />
+    <Compile Include="Views\Converters\ObjectConverters.cs" />
     <Page Include="Views\Styles\CustomStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Styles\EditableTextBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Styles\NativeTypeEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
