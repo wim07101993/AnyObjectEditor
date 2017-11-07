@@ -2,5 +2,6 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="EditableTextBlock.xaml" />
         <ResourceDictionary Source="NativeTypeEditor.xaml" />
+        <ResourceDictionary Source="ObjectEditor.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
