@@ -68,5 +68,14 @@ namespace DatabaseManager.Properties {
                 return ResourceManager.GetString("Value_not_right_type_Error", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value {0} is not found as an element of enum ENativType.
+        /// </summary>
+        internal static string ValueNotFouneAsElementOfEnum {
+            get {
+                return ResourceManager.GetString("ValueNotFouneAsElementOfEnum", resourceCulture);
+            }
+        }
     }
 }

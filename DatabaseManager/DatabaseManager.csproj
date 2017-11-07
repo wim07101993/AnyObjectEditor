@@ -72,8 +72,10 @@
     <Compile Include="Attributes\DescriptionAttribute.cs" />
     <Compile Include="Attributes\SubtitleAttribute.cs" />
     <Compile Include="Attributes\TitleAttribute.cs" />
+    <Compile Include="ENativeType.cs" />
     <Compile Include="EventArgs\ValueChangedEventArgs.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Property.cs" />
     <Compile Include="Views\Behaviours\TextBoxBehaviour.cs" />

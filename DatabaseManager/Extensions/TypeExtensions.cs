@@ -13,9 +13,9 @@ namespace DatabaseManager.Extensions
             typeof(short), typeof(ushort),
             typeof(int), typeof(uint),
             typeof(long), typeof(ulong),
+            typeof(float),
             typeof(decimal),
             typeof(double),
-            typeof(float),
         };
 
         public static bool IsNativType(this Type This)

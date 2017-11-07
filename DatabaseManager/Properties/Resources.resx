@@ -117,4 +117,7 @@
   <data name="Value_not_right_type_Error" xml:space="preserve">
     <value>value is not of the right type</value>
   </data>
+  <data name="ValueNotFouneAsElementOfEnum" xml:space="preserve">
+    <value>Value {0} is not found as an element of enum ENativType</value>
+  </data>
 </root>
