@@ -1,10 +1,9 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace DatabaseManager.Views.Controls
 {
-    public class EditableTextBlock: Control
+    public class EditableTextBlock : Control
     {
         #region DEPENDENCY PROPERTIES
 
@@ -13,7 +12,7 @@ namespace DatabaseManager.Views.Controls
             typeof(string),
             typeof(EditableTextBlock),
             new PropertyMetadata(default(string)));
-      
+
         public static readonly DependencyProperty PropertyNameProperty = DependencyProperty.Register(
             nameof(PropertyName),
             typeof(string),
@@ -32,19 +31,19 @@ namespace DatabaseManager.Views.Controls
 
         public string Text
         {
-            get => (string)GetValue(TextProperty);
+            get => (string) GetValue(TextProperty);
             set => SetValue(TextProperty, value);
         }
 
         public string PropertyName
         {
-            get => (string)GetValue(PropertyNameProperty);
+            get => (string) GetValue(PropertyNameProperty);
             set => SetValue(PropertyNameProperty, value);
         }
 
         public bool IsInEditingMode
         {
-            get => (bool)GetValue(IsInEditingModeProperty);
+            get => (bool) GetValue(IsInEditingModeProperty);
             set => SetValue(IsInEditingModeProperty, value);
         }
 
