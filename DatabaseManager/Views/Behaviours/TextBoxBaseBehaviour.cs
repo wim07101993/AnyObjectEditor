@@ -3,13 +3,13 @@ using System.Windows.Controls.Primitives;
 
 namespace DatabaseManager.Views.Behaviours
 {
-    public static class TextBoxBehaviour
+    public static class TextBoxBaseBehaviour
     {
         public static readonly DependencyProperty FocusProperty = DependencyProperty.RegisterAttached(
             "Focus",
             typeof(bool),
-            typeof(TextBoxBehaviour),
-            new UIPropertyMetadata(false, OnFocusChanged));
+            typeof(TextBoxBaseBehaviour),
+            new UIPropertyMetadata(default(bool), OnFocusChanged));
 
         public static bool GetFocus(TextBoxBase target)
             => (bool)target.GetValue(FocusProperty);

@@ -77,5 +77,14 @@ namespace DatabaseManager.Properties {
                 return ResourceManager.GetString("ValueNotFouneAsElementOfEnum", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to value is not of type Type.
+        /// </summary>
+        internal static string valueNotOfTypeType {
+            get {
+                return ResourceManager.GetString("valueNotOfTypeType", resourceCulture);
+            }
+        }
     }
 }

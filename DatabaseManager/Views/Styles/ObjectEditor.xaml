@@ -2,14 +2,17 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:converters="clr-namespace:DatabaseManager.Views.Converters"
     xmlns:databaseManager="clr-namespace:DatabaseManager"
     xmlns:myControls="clr-namespace:DatabaseManager.Views.Controls">
+    <converters:TypeToENativeTypeConverter x:Key="TypeToENativeTypeConverter" />
+
     <Style TargetType="{x:Type myControls:ObjectEditor}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type myControls:ObjectEditor}">
                     <Border
-                        Margin="5"
+                        Margin="1"
                         BorderBrush="{DynamicResource GrayBrush}"
                         BorderThickness="1">
                         <Grid>
@@ -19,7 +22,7 @@
                                 <RowDefinition />
                             </Grid.RowDefinitions>
 
-                            <StackPanel Grid.Row="0">
+                            <StackPanel Grid.Row="0" Margin="1">
                                 <myControls:EditableTextBlock
                                     ClearTextButton="True"
                                     FontSize="26"
@@ -37,17 +40,39 @@
                                     TextWrapping="True" />
                             </StackPanel>
 
-                            <Grid Grid.Row="1">
-                                <ItemsControl ItemsSource="{TemplateBinding NativeProperties}" />
+                            <Border
+                                Grid.Row="1"
+                                Margin="3"
+                                Padding="5"
+                                BorderBrush="{DynamicResource GrayBrush8}"
+                                BorderThickness="1">
+                                <StackPanel>
+                                    <ItemsControl ItemsSource="{TemplateBinding NativeProperties}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate DataType="{x:Type databaseManager:Property}">
+                                                <myControls:NativeTypeEditor
+                                                    PropertyName="{Binding Name}"
+                                                    Type="{Binding Type, Converter={StaticResource TypeToENativeTypeConverter}}"
+                                                    Value="{Binding Value}" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
 
-                                <!--<controls:MetroAnimatedSingleRowTabControl ItemsSource="{TemplateBinding Properties}">
-                                    <controls:MetroAnimatedSingleRowTabControl.ItemTemplate>
-                                        <DataTemplate DataType="{x:Type databaseManager:Property}">
-                                            <TextBlock Text="{Binding Name}" />
-                                        </DataTemplate>
-                                    </controls:MetroAnimatedSingleRowTabControl.ItemTemplate>
-                                </controls:MetroAnimatedSingleRowTabControl>-->
-                            </Grid>
+                                    <controls:MetroAnimatedSingleRowTabControl ItemsSource="{TemplateBinding Properties}">
+                                        <controls:MetroAnimatedSingleRowTabControl.ItemTemplate>
+                                            <DataTemplate DataType="{x:Type databaseManager:Property}">
+                                                <TextBlock Text="{Binding Name}" />
+                                            </DataTemplate>
+                                        </controls:MetroAnimatedSingleRowTabControl.ItemTemplate>
+
+                                        <controls:MetroAnimatedSingleRowTabControl.ContentTemplate>
+                                            <DataTemplate DataType="{x:Type databaseManager:Property}">
+                                                <Label Content="{Binding Value}" />
+                                            </DataTemplate>
+                                        </controls:MetroAnimatedSingleRowTabControl.ContentTemplate>
+                                    </controls:MetroAnimatedSingleRowTabControl>
+                                </StackPanel>
+                            </Border>
                         </Grid>
                     </Border>
                 </ControlTemplate>

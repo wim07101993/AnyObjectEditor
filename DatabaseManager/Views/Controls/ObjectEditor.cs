@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using ClassLibrary.Portable.Extensions;
@@ -29,6 +30,9 @@ namespace DatabaseManager.Views.Controls
         public static readonly DependencyProperty TabsProperty = DependencyProperty.Register(
             "Tabs", typeof(IEnumerable), typeof(ObjectEditor), new PropertyMetadata(default(IEnumerable)));
 
+        public static readonly DependencyProperty NativePropertiesProperty = DependencyProperty.Register(
+            nameof(NativeProperties), typeof(IEnumerable), typeof(ObjectEditor), new PropertyMetadata(default(IEnumerable)));
+        
         #endregion DEPENDENCY PROPERTIES
 
         #region PROPERTIES
@@ -63,7 +67,11 @@ namespace DatabaseManager.Views.Controls
             set => SetValue(PropertiesProperty, value);
         }
         
-        public IEnumerable<Property> NativeProperties { get; set; }
+        public PropertyList NativeProperties
+        {
+            get => (PropertyList)GetValue(NativePropertiesProperty);
+            set => SetValue(NativePropertiesProperty, value); 
+        }
 
         #endregion PROPERTIES
 
@@ -82,11 +90,17 @@ namespace DatabaseManager.Views.Controls
         private static void OnValueChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
         {
             var model = obj.GetValue(ValueProperty);
-            var properties = Property.ConvertToProperties(model.GetType().GetProperties(), model).ToCPList();
+            var properties = Property.ConvertToProperties(model.GetType().GetProperties(), model)
+                .Where(x => x.IsBrowsable)
+                .ToCPList();
 
             var headerProperties = GetAndSetHeaderProperties(obj, properties);
             properties -= headerProperties;
 
+            var nativeProperties = properties.Where(x => x.IsNativeType).ToList();
+            obj.SetValue(NativePropertiesProperty, nativeProperties);
+            properties -= nativeProperties;
+            
             obj.SetValue(PropertiesProperty, properties);
         }
 

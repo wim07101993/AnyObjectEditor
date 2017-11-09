@@ -78,6 +78,8 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Property.cs" />
+    <Compile Include="PropertyList.cs" />
+    <Compile Include="Views\Converters\TypeToENativeTypeConverter.cs" />
     <Compile Include="Views\Behaviours\TextBoxBaseBehaviour.cs" />
     <Compile Include="Views\Controls\EditableTextBlock.cs" />
     <Compile Include="Views\Controls\NativeTypeEditor.cs" />
