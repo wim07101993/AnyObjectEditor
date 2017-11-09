@@ -44,6 +44,7 @@
 
                             <controls:NumericUpDown
                                 Name="NumericUpDown"
+                                HorizontalContentAlignment="Left"
                                 Background="{DynamicResource ControlBackgroundBrush}"
                                 FontFamily="{TemplateBinding FontFamily}"
                                 FontSize="{TemplateBinding FontSize}"
@@ -58,6 +59,7 @@
 
                             <controls:ToggleSwitch
                                 Name="ToggleSwitch"
+                                HorizontalAlignment="Left"
                                 IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Mode=TwoWay}"
                                 OffLabel=""
                                 OnLabel=""
