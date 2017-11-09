@@ -78,9 +78,10 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Property.cs" />
-    <Compile Include="Views\Behaviours\TextBoxBehaviour.cs" />
+    <Compile Include="Views\Behaviours\TextBoxBaseBehaviour.cs" />
     <Compile Include="Views\Controls\EditableTextBlock.cs" />
     <Compile Include="Views\Controls\NativeTypeEditor.cs" />
+    <Compile Include="Views\Controls\ObjectEditor.cs" />
     <Compile Include="Views\Converters\NullOrEmptyToVisibilityConverter.cs" />
     <Compile Include="Views\Converters\ObjectConverters.cs" />
     <Page Include="Views\Styles\CustomStyles.xaml">
@@ -92,6 +93,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Styles\NativeTypeEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Styles\ObjectEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
