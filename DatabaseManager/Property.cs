@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using ClassLibrary.Portable.Extensions;
@@ -30,14 +29,14 @@ namespace DatabaseManager
             get => _value;
             set
             {
-                if (!Type.IsInstanceOfType(value))
+                if (Type == null || !Type.IsInstanceOfType(value))
                     SetProperty(ref _value, value);
                 else
                     throw new ArgumentException(Resources.Value_not_right_type_Error, nameof(value));
             }
         }
 
-        public Type Type => Value.GetType();
+        public Type Type => Value?.GetType();
 
         public bool IsEnumerable => Value is IEnumerable;
         public bool IsNativeType => Value.HasNativeType();
