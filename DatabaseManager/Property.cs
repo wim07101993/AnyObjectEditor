@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using ClassLibrary.Portable.Extensions;
@@ -57,8 +58,7 @@ namespace DatabaseManager
             Value = propertyInfo.GetValue(parent);
 
             IsBrowsable = ((BrowsableAttribute) Attribute.GetCustomAttribute(
-                              propertyInfo,
-                              typeof(BrowsableAttribute)))
+                              propertyInfo, typeof(BrowsableAttribute)))
                           ?.Browsable != false;
 
             IsTitle = propertyInfo.HasAttribute(typeof(TitleAttribute));
