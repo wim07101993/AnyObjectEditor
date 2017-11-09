@@ -23,30 +23,52 @@
                             FontStretch="{TemplateBinding FontStretch}"
                             FontStyle="{TemplateBinding FontStyle}"
                             FontWeight="{TemplateBinding FontWeight}"
-                            Foreground="{DynamicResource TextBrush}"
+                            Foreground="{TemplateBinding Foreground}"
                             Text="{TemplateBinding PropertyName}"
-                            TextWrapping="Wrap" />
+                            TextWrapping="{TemplateBinding TextWrapping}" />
 
                         <Grid>
                             <TextBox
                                 Name="TextBox"
-                                controls:TextBoxHelper.ClearTextButton="True"
-                                Background="{DynamicResource ControlBackgroundBrush}"
-                                CaretBrush="{DynamicResource AccentBaseColorBrush}"
+                                controls:TextBoxHelper.ButtonCommand="{TemplateBinding ButtonCommand}"
+                                controls:TextBoxHelper.ButtonCommandParameter="{TemplateBinding ButtonCommandParameter}"
+                                controls:TextBoxHelper.ButtonContent="{TemplateBinding ButtonContent}"
+                                controls:TextBoxHelper.ButtonContentTemplate="{TemplateBinding ButtonContentTemplate}"
+                                controls:TextBoxHelper.ButtonFontFamily="{TemplateBinding ButtonFontFamily}"
+                                controls:TextBoxHelper.ButtonFontSize="{TemplateBinding ButtonFontSize}"
+                                controls:TextBoxHelper.ButtonTemplate="{TemplateBinding ButtonTemplate}"
+                                controls:TextBoxHelper.ButtonWidth="{TemplateBinding ButtonWidth}"
+                                controls:TextBoxHelper.ClearTextButton="{TemplateBinding ClearTextButton}"
+                                controls:TextBoxHelper.HasText="{Binding HasText, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                controls:TextBoxHelper.IsClearTextButtonBehaviorEnabled="{TemplateBinding IsClearTextButtonBehaviorEnabled}"
+                                controls:TextBoxHelper.IsMonitoring="{TemplateBinding IsMonitoring}"
+                                controls:TextBoxHelper.IsSpellCheckContextMenuEnabled="{TemplateBinding IsSpellCheckContextMenuEnabled}"
+                                controls:TextBoxHelper.IsWaitingForData="{TemplateBinding IsWaitingForData}"
+                                controls:TextBoxHelper.SelectAllOnFocus="{TemplateBinding SelectAllOnFocus}"
+                                controls:TextBoxHelper.TextButton="{TemplateBinding TextButton}"
+                                Background="{TemplateBinding Background}"
+                                CaretBrush="{TemplateBinding CaretBrush}"
+                                CharacterCasing="{TemplateBinding CharacterCasing}"
                                 FontFamily="{TemplateBinding FontFamily}"
                                 FontSize="{TemplateBinding FontSize}"
                                 FontStretch="{TemplateBinding FontStretch}"
                                 FontStyle="{TemplateBinding FontStyle}"
                                 FontWeight="{TemplateBinding FontWeight}"
                                 Foreground="{TemplateBinding Foreground}"
+                                MaxLength="{TemplateBinding MaxLength}"
+                                MaxLines="{TemplateBinding MaxLines}"
+                                MinLines="{TemplateBinding MinLines}"
+                                SelectionBrush="{TemplateBinding SelectionBrush}"
                                 Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, Mode=TwoWay}"
-                                TextWrapping="Wrap"
+                                TextAlignment="{TemplateBinding TextAlignment}"
+                                TextDecorations="{TemplateBinding TextDecorations}"
+                                TextWrapping="{TemplateBinding TextWrapping}"
                                 Visibility="Collapsed" />
 
                             <TextBlock
                                 Name="TextBlock"
                                 Margin="6,4,4,6"
-                                Background="{DynamicResource ControlBackgroundBrush}"
+                                Background="{TemplateBinding Background}"
                                 FontFamily="{TemplateBinding FontFamily}"
                                 FontSize="{TemplateBinding FontSize}"
                                 FontStretch="{TemplateBinding FontStretch}"
@@ -54,7 +76,8 @@
                                 FontWeight="{TemplateBinding FontWeight}"
                                 Foreground="{TemplateBinding Foreground}"
                                 Text="{TemplateBinding Text}"
-                                TextWrapping="Wrap" />
+                                TextAlignment="{TemplateBinding TextAlignment}"
+                                TextWrapping="{TemplateBinding TextWrapping}" />
                         </Grid>
                     </StackPanel>
 
@@ -65,7 +88,7 @@
                         </Trigger>
 
                         <Trigger SourceName="TextBox" Property="Visibility" Value="Visible">
-                            <Setter TargetName="TextBox" Property="behaviours:TextBoxBehaviour.Focus" Value="True" />
+                            <Setter TargetName="TextBox" Property="behaviours:TextBoxBaseBehaviour.Focus" Value="True" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
