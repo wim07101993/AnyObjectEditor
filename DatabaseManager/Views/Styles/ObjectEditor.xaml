@@ -1,12 +1,55 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="clr-namespace:DatabaseManager.Views.Controls">
-    <Style TargetType="{x:Type controls:ObjectEditor}">
+    xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:databaseManager="clr-namespace:DatabaseManager"
+    xmlns:myControls="clr-namespace:DatabaseManager.Views.Controls">
+    <Style TargetType="{x:Type myControls:ObjectEditor}">
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type controls:ObjectEditor}">
-                    <Grid />
+                <ControlTemplate TargetType="{x:Type myControls:ObjectEditor}">
+                    <Border
+                        Margin="5"
+                        BorderBrush="{DynamicResource GrayBrush}"
+                        BorderThickness="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Row="0">
+                                <myControls:EditableTextBlock
+                                    ClearTextButton="True"
+                                    FontSize="26"
+                                    PropertyName="{Binding Title.Name, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                                    Text="{Binding Title.Value, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <myControls:EditableTextBlock
+                                    ClearTextButton="True"
+                                    FontSize="18"
+                                    PropertyName="{Binding Subtitle.Name, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                                    Text="{Binding Subtitle.Value, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <myControls:EditableTextBlock
+                                    FontSize="14"
+                                    PropertyName="{Binding Description.Name, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                                    Text="{Binding Description.Value, RelativeSource={RelativeSource TemplatedParent}}"
+                                    TextWrapping="True" />
+                            </StackPanel>
+
+                            <Grid Grid.Row="1">
+                                <ItemsControl ItemsSource="{TemplateBinding NativeProperties}" />
+
+                                <!--<controls:MetroAnimatedSingleRowTabControl ItemsSource="{TemplateBinding Properties}">
+                                    <controls:MetroAnimatedSingleRowTabControl.ItemTemplate>
+                                        <DataTemplate DataType="{x:Type databaseManager:Property}">
+                                            <TextBlock Text="{Binding Name}" />
+                                        </DataTemplate>
+                                    </controls:MetroAnimatedSingleRowTabControl.ItemTemplate>
+                                </controls:MetroAnimatedSingleRowTabControl>-->
+                            </Grid>
+                        </Grid>
+                    </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
