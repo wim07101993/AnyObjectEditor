@@ -23,7 +23,7 @@ namespace DatabaseManager
 
         #region PROPERTIES
 
-        public string Name { get; }
+        public virtual string Name { get; }
 
         public object Value
         {
@@ -37,10 +37,10 @@ namespace DatabaseManager
             }
         }
 
-        public Type Type => Value?.GetType();
+        public virtual Type Type => Value?.GetType();
 
-        public bool IsEnumerable => Value is IEnumerable;
-        public bool IsNativeType => Value.HasNativeType();
+        public virtual bool IsEnumerable => Value is IEnumerable;
+        public virtual bool IsNativeType => Value.HasNativeType();
 
         public bool IsBrowsable { get; }
         public bool IsTitle { get; }
@@ -51,6 +51,10 @@ namespace DatabaseManager
         #endregion PROPERTIES
 
         #region CONSTRUCTORS
+
+        protected Property()
+        {
+        }
 
         public Property(PropertyInfo propertyInfo, object parent)
         {
