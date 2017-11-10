@@ -15,6 +15,7 @@
                     <StackPanel>
                         <TextBlock
                             Margin="7,2,0,0"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                             Background="{DynamicResource ControlBackgroundBrush}"
                             FontFamily="{TemplateBinding FontFamily}"
                             FontSize="10"
@@ -28,6 +29,8 @@
                         <Grid>
                             <TextBox
                                 Name="TextBox"
+                                Margin="0,5,0,1"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 controls:TextBoxHelper.ClearTextButton="True"
                                 Background="{DynamicResource ControlBackgroundBrush}"
                                 CaretBrush="{DynamicResource AccentBaseColorBrush}"
@@ -44,7 +47,8 @@
 
                             <controls:NumericUpDown
                                 Name="NumericUpDown"
-                                HorizontalContentAlignment="Left"
+                                Margin="0,5,0,1"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 Background="{DynamicResource ControlBackgroundBrush}"
                                 FontFamily="{TemplateBinding FontFamily}"
                                 FontSize="{TemplateBinding FontSize}"
@@ -59,7 +63,7 @@
 
                             <controls:ToggleSwitch
                                 Name="ToggleSwitch"
-                                HorizontalAlignment="Left"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Mode=TwoWay}"
                                 OffLabel=""
                                 OnLabel=""
