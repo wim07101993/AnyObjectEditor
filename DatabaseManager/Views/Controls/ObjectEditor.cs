@@ -23,16 +23,12 @@ namespace DatabaseManager.Views.Controls
         public static readonly DependencyProperty DescriptionProperty = DependencyProperty.Register(
             nameof(Description), typeof(Property), typeof(ObjectEditor), new PropertyMetadata(default(Property)));
 
-        public static readonly DependencyProperty PropertiesProperty = DependencyProperty.Register(
-            nameof(Properties), typeof(IEnumerable<Property>), typeof(ObjectEditor),
-            new PropertyMetadata(default(IEnumerable<Property>)));
+        public static readonly DependencyProperty NativePropertiesProperty = DependencyProperty.Register(
+            nameof(NativeProperties), typeof(IEnumerable), typeof(ObjectEditor), new PropertyMetadata(default(IEnumerable)));
 
         public static readonly DependencyProperty TabsProperty = DependencyProperty.Register(
             "Tabs", typeof(IEnumerable), typeof(ObjectEditor), new PropertyMetadata(default(IEnumerable)));
 
-        public static readonly DependencyProperty NativePropertiesProperty = DependencyProperty.Register(
-            nameof(NativeProperties), typeof(IEnumerable), typeof(ObjectEditor), new PropertyMetadata(default(IEnumerable)));
-        
         #endregion DEPENDENCY PROPERTIES
 
         #region PROPERTIES
@@ -61,16 +57,16 @@ namespace DatabaseManager.Views.Controls
             set => SetValue(DescriptionProperty, value);
         }
 
-        public IEnumerable<Property> Properties
-        {
-            get => (IEnumerable<Property>) GetValue(PropertiesProperty);
-            set => SetValue(PropertiesProperty, value);
-        }
-        
-        public PropertyList NativeProperties
+        private PropertyList NativeProperties
         {
             get => (PropertyList)GetValue(NativePropertiesProperty);
             set => SetValue(NativePropertiesProperty, value); 
+        }
+
+        private IEnumerable Tabs
+        {
+            get => (IEnumerable)GetValue(TabsProperty);
+            set => SetValue(TabsProperty, value);
         }
 
         #endregion PROPERTIES
@@ -97,11 +93,13 @@ namespace DatabaseManager.Views.Controls
             var headerProperties = GetAndSetHeaderProperties(obj, properties);
             properties -= headerProperties;
 
-            var nativeProperties = properties.Where(x => x.IsNativeType).ToList();
+            var nativeProperties = new PropertyList(properties.Where(x => x.IsNativeType));
             obj.SetValue(NativePropertiesProperty, nativeProperties);
-            properties -= nativeProperties;
+            properties.RemoveRange(nativeProperties);
             
-            obj.SetValue(PropertiesProperty, properties);
+            var tabs = new List<object> {nativeProperties};
+            tabs.AddRange(properties);
+            obj.SetValue(TabsProperty, tabs);
         }
 
         private static IEnumerable<Property> GetAndSetHeaderProperties(DependencyObject obj,

@@ -46,32 +46,50 @@
                                 Padding="5"
                                 BorderBrush="{DynamicResource GrayBrush8}"
                                 BorderThickness="1">
-                                <StackPanel>
-                                    <ItemsControl ItemsSource="{TemplateBinding NativeProperties}">
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate DataType="{x:Type databaseManager:Property}">
-                                                <myControls:NativeTypeEditor
-                                                    PropertyName="{Binding Name}"
-                                                    Type="{Binding Type, Converter={StaticResource TypeToENativeTypeConverter}}"
-                                                    Value="{Binding Value}" />
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
+                                <controls:MetroAnimatedSingleRowTabControl ItemsSource="{TemplateBinding Tabs}">
+                                    <controls:MetroAnimatedSingleRowTabControl.ItemTemplate>
+                                        <DataTemplate DataType="{x:Type databaseManager:Property}">
+                                            <TextBlock Name="NameTextBlock" Text="{Binding Name}" />
+                                        </DataTemplate>
+                                    </controls:MetroAnimatedSingleRowTabControl.ItemTemplate>
 
-                                    <controls:MetroAnimatedSingleRowTabControl ItemsSource="{TemplateBinding Properties}">
-                                        <controls:MetroAnimatedSingleRowTabControl.ItemTemplate>
-                                            <DataTemplate DataType="{x:Type databaseManager:Property}">
-                                                <TextBlock Text="{Binding Name}" />
-                                            </DataTemplate>
-                                        </controls:MetroAnimatedSingleRowTabControl.ItemTemplate>
+                                    <controls:MetroAnimatedSingleRowTabControl.ContentTemplate>
+                                        <DataTemplate DataType="{x:Type databaseManager:Property}">
+                                            <StackPanel>
+                                                <TextBlock x:Name="TextBlock" Text="{Binding Value}" />
 
-                                        <controls:MetroAnimatedSingleRowTabControl.ContentTemplate>
-                                            <DataTemplate DataType="{x:Type databaseManager:Property}">
-                                                <Label Content="{Binding Value}" />
-                                            </DataTemplate>
-                                        </controls:MetroAnimatedSingleRowTabControl.ContentTemplate>
-                                    </controls:MetroAnimatedSingleRowTabControl>
-                                </StackPanel>
+                                                <ItemsControl
+                                                    x:Name="ItemsControl"
+                                                    ItemsSource="{Binding Value}"
+                                                    Visibility="Collapsed">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate DataType="{x:Type databaseManager:Property}">
+                                                            <myControls:NativeTypeEditor
+                                                                Margin="4,0,4,0"
+                                                                HorizontalContentAlignment="Right"
+                                                                PropertyName="{Binding Name}"
+                                                                Type="{Binding Type, Converter={StaticResource TypeToENativeTypeConverter}}"
+                                                                Value="{Binding Value}" />
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+
+                                                    <ItemsControl.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <WrapPanel />
+                                                        </ItemsPanelTemplate>
+                                                    </ItemsControl.ItemsPanel>
+                                                </ItemsControl>
+                                            </StackPanel>
+
+                                            <DataTemplate.Triggers>
+                                                <DataTrigger Binding="{Binding Type}" Value="{x:Type databaseManager:PropertyList}">
+                                                    <Setter TargetName="ItemsControl" Property="Visibility" Value="Visible" />
+                                                    <Setter TargetName="TextBlock" Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                            </DataTemplate.Triggers>
+                                        </DataTemplate>
+                                    </controls:MetroAnimatedSingleRowTabControl.ContentTemplate>
+                                </controls:MetroAnimatedSingleRowTabControl>
                             </Border>
                         </Grid>
                     </Border>
