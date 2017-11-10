@@ -3,5 +3,6 @@
         <ResourceDictionary Source="EditableTextBlock.xaml" />
         <ResourceDictionary Source="NativeTypeEditor.xaml" />
         <ResourceDictionary Source="ObjectEditor.xaml" />
+        <ResourceDictionary Source="ToggleSwitch.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

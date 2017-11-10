@@ -4,6 +4,9 @@
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:converters="clr-namespace:DatabaseManager.Views.Converters"
     xmlns:myControls="clr-namespace:DatabaseManager.Views.Controls">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ToggleSwitch.xaml" />
+    </ResourceDictionary.MergedDictionaries>
 
     <converters:ObjectToDoubleConverter x:Key="ObjectToDoubleConverter" />
     <converters:ObjectToCharConverter x:Key="ObjectToCharConverter" />
@@ -12,10 +15,11 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type myControls:NativeTypeEditor}">
-                    <StackPanel>
+                    <StackPanel x:Name="StackPanel">
                         <TextBlock
-                            Margin="7,2,0,0"
+                            x:Name="NameTextBlock"
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="Center"
                             Background="{DynamicResource ControlBackgroundBrush}"
                             FontFamily="{TemplateBinding FontFamily}"
                             FontSize="10"
@@ -29,7 +33,6 @@
                         <Grid>
                             <TextBox
                                 Name="TextBox"
-                                Margin="0,5,0,1"
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 controls:TextBoxHelper.ClearTextButton="True"
                                 Background="{DynamicResource ControlBackgroundBrush}"
@@ -47,7 +50,6 @@
 
                             <controls:NumericUpDown
                                 Name="NumericUpDown"
-                                Margin="0,5,0,1"
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 Background="{DynamicResource ControlBackgroundBrush}"
                                 FontFamily="{TemplateBinding FontFamily}"
@@ -67,11 +69,18 @@
                                 IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Mode=TwoWay}"
                                 OffLabel=""
                                 OnLabel=""
+                                Style="{StaticResource ToggleSwitchStyle}"
                                 Visibility="Collapsed" />
                         </Grid>
                     </StackPanel>
 
                     <ControlTemplate.Triggers>
+                        <Trigger Property="UseBigName" Value="True">
+                            <Setter TargetName="StackPanel" Property="Orientation" Value="Horizontal" />
+                            <Setter TargetName="NameTextBlock" Property="FontSize" Value="15" />
+                            <Setter TargetName="NameTextBlock" Property="Margin" Value="0,0,5,0" />
+                        </Trigger>
+
                         <Trigger Property="Type" Value="Bool">
                             <Setter TargetName="ToggleSwitch" Property="Visibility" Value="Visible" />
                         </Trigger>

@@ -65,17 +65,18 @@
                                                     <ItemsControl.ItemTemplate>
                                                         <DataTemplate DataType="{x:Type databaseManager:Property}">
                                                             <myControls:NativeTypeEditor
-                                                                Margin="4,0,4,0"
+                                                                Margin="5,10,5,10"
                                                                 HorizontalContentAlignment="Right"
                                                                 PropertyName="{Binding Name}"
                                                                 Type="{Binding Type, Converter={StaticResource TypeToENativeTypeConverter}}"
+                                                                UseBigName="True"
                                                                 Value="{Binding Value}" />
                                                         </DataTemplate>
                                                     </ItemsControl.ItemTemplate>
 
                                                     <ItemsControl.ItemsPanel>
                                                         <ItemsPanelTemplate>
-                                                            <WrapPanel />
+                                                            <WrapPanel Orientation="Vertical" />
                                                         </ItemsPanelTemplate>
                                                     </ItemsControl.ItemsPanel>
                                                 </ItemsControl>

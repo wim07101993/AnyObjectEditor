@@ -11,47 +11,31 @@ namespace DatabaseManager.Views.Controls
         #region DEPENDENCY PROPERTIES
 
         public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
-            nameof(Value),
-            typeof(object),
-            typeof(NativeTypeEditor),
+            nameof(Value), typeof(object), typeof(NativeTypeEditor),
             new PropertyMetadata(default(object), OnValueChanged));
 
         public static readonly DependencyProperty PropertyNameProperty = DependencyProperty.Register(
-            nameof(PropertyName),
-            typeof(string),
-            typeof(NativeTypeEditor),
-            new PropertyMetadata(default(string)));
+            nameof(PropertyName), typeof(string), typeof(NativeTypeEditor), new PropertyMetadata(default(string)));
 
         public static readonly DependencyProperty TypeProperty = DependencyProperty.Register(
-            nameof(Type),
-            typeof(ENativeType),
-            typeof(NativeTypeEditor),
+            nameof(Type), typeof(ENativeType), typeof(NativeTypeEditor),
             new PropertyMetadata(ENativeType.String, OnTypeChanged));
 
         public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(
-            nameof(Command),
-            typeof(ICommand),
-            typeof(NativeTypeEditor),
-            new PropertyMetadata(default(ICommand)));
+            nameof(Command), typeof(ICommand), typeof(NativeTypeEditor), new PropertyMetadata(default(ICommand)));
 
         public static readonly DependencyProperty MaxTextLengthProperty = DependencyProperty.Register(
-            nameof(MaxTextLength),
-            typeof(int),
-            typeof(NativeTypeEditor),
-            new PropertyMetadata(int.MaxValue));
+            nameof(MaxTextLength), typeof(int), typeof(NativeTypeEditor), new PropertyMetadata(int.MaxValue));
 
         public static readonly DependencyProperty MinValueProperty = DependencyProperty.Register(
-            nameof(MinValue),
-            typeof(double),
-            typeof(NativeTypeEditor),
-            new PropertyMetadata(double.MinValue));
+            nameof(MinValue), typeof(double), typeof(NativeTypeEditor), new PropertyMetadata(double.MinValue));
 
         public static readonly DependencyProperty MaxValueProperty = DependencyProperty.Register(
-            nameof(MaxValue),
-            typeof(double),
-            typeof(NativeTypeEditor),
-            new PropertyMetadata(double.MaxValue));
+            nameof(MaxValue), typeof(double), typeof(NativeTypeEditor), new PropertyMetadata(double.MaxValue));
 
+        public static readonly DependencyProperty UseBigNameProperty = DependencyProperty.Register(
+            nameof(UseBigName), typeof(bool), typeof(NativeTypeEditor), new PropertyMetadata(default(bool)));
+        
         #endregion DEPENDENCY PROPERTIES
 
         #region PROPERTIES
@@ -96,6 +80,12 @@ namespace DatabaseManager.Views.Controls
         {
             get => (double) GetValue(MaxValueProperty);
             set => SetValue(MaxValueProperty, value);
+        }
+
+        public bool UseBigName
+        {
+            get => (bool)GetValue(UseBigNameProperty);
+            set => SetValue(UseBigNameProperty, value);
         }
 
         #endregion PROPERTIES

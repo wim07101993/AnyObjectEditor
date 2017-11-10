@@ -40,7 +40,6 @@
                                 controls:TextBoxHelper.ButtonWidth="{TemplateBinding ButtonWidth}"
                                 controls:TextBoxHelper.ClearTextButton="{TemplateBinding ClearTextButton}"
                                 controls:TextBoxHelper.HasText="{Binding HasText, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
-                                controls:TextBoxHelper.IsClearTextButtonBehaviorEnabled="{TemplateBinding IsClearTextButtonBehaviorEnabled}"
                                 controls:TextBoxHelper.IsMonitoring="{TemplateBinding IsMonitoring}"
                                 controls:TextBoxHelper.IsSpellCheckContextMenuEnabled="{TemplateBinding IsSpellCheckContextMenuEnabled}"
                                 controls:TextBoxHelper.IsWaitingForData="{TemplateBinding IsWaitingForData}"
