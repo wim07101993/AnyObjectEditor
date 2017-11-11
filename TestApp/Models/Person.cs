@@ -6,11 +6,11 @@ using Prism.Mvvm;
 
 namespace TestApp.Models
 {
-    public class SomeModel : BindableBase
+    public class Person : BindableBase
     {
-        private string _title = "This is the title";
-        private string _subtitle = "This is the subtitle";
-        private string _str = "Boe";
+        private string _firstName = "Jan";
+        private string _lastName = "Janssens";
+        private string _summary = "Dit is een verzonnen persoon voor testdoeleinden";
         private double _d = 9.3098;
         private int _i = 5;
         private bool _b = true;
@@ -28,25 +28,29 @@ namespace TestApp.Models
 
         private List<string> _someSecondList = new List<string>
         {
-            "hello", "world", "to", "you"
+            "hello",
+            "world",
+            "to",
+            "you"
         };
 
         [Title]
-        [Browsable(false)]
         [DisplayName("First name")]
-        public string Title
+        public string FirstName
         {
-            get => _title;
-            set => SetProperty(ref _title, value);
+            get => _firstName;
+            set => SetProperty(ref _firstName, value);
         }
 
         [Subtitle]
-        public string Subtitle
+        [DisplayName("Last name")]
+        public string LastName
         {
-            get => _subtitle;
-            set => SetProperty(ref _subtitle, value);
+            get => _lastName;
+            set => SetProperty(ref _lastName, value);
         }
 
+        [Browsable(false)]
         public int Int
         {
             get => _i;
@@ -54,10 +58,10 @@ namespace TestApp.Models
         }
 
         [DatabaseManager.Attributes.Description]
-        public string Str
+        public string Summary
         {
-            get => _str;
-            set => SetProperty(ref _str, value);
+            get => _summary;
+            set => SetProperty(ref _summary, value);
         }
 
         public double Double

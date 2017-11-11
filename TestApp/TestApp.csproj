@@ -91,7 +91,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="Models\SomeModel.cs" />
+    <Compile Include="Models\Person.cs" />
     <Compile Include="Models\SomeNestedModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">

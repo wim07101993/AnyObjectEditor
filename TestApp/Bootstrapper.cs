@@ -5,7 +5,7 @@ using System.Windows;
 
 namespace TestApp
 {
-    class Bootstrapper : UnityBootstrapper
+    internal class Bootstrapper : UnityBootstrapper
     {
         protected override DependencyObject CreateShell()
         {
@@ -14,7 +14,7 @@ namespace TestApp
 
         protected override void InitializeShell()
         {
-            Application.Current.MainWindow.Show();
+            Application.Current.MainWindow?.Show();
         }
     }
 }
