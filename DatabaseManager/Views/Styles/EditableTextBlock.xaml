@@ -30,6 +30,7 @@
                         <Grid>
                             <TextBox
                                 Name="TextBox"
+                                Margin="0,0,0,2"
                                 controls:TextBoxHelper.ButtonCommand="{TemplateBinding ButtonCommand}"
                                 controls:TextBoxHelper.ButtonCommandParameter="{TemplateBinding ButtonCommandParameter}"
                                 controls:TextBoxHelper.ButtonContent="{TemplateBinding ButtonContent}"
@@ -40,12 +41,8 @@
                                 controls:TextBoxHelper.ButtonWidth="{TemplateBinding ButtonWidth}"
                                 controls:TextBoxHelper.ClearTextButton="{TemplateBinding ClearTextButton}"
                                 controls:TextBoxHelper.HasText="{Binding HasText, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
-                                controls:TextBoxHelper.IsMonitoring="{TemplateBinding IsMonitoring}"
-                                controls:TextBoxHelper.IsSpellCheckContextMenuEnabled="{TemplateBinding IsSpellCheckContextMenuEnabled}"
-                                controls:TextBoxHelper.IsWaitingForData="{TemplateBinding IsWaitingForData}"
-                                controls:TextBoxHelper.SelectAllOnFocus="{TemplateBinding SelectAllOnFocus}"
                                 controls:TextBoxHelper.TextButton="{TemplateBinding TextButton}"
-                                Background="{TemplateBinding Background}"
+                                Background="Transparent"
                                 CaretBrush="{TemplateBinding CaretBrush}"
                                 CharacterCasing="{TemplateBinding CharacterCasing}"
                                 FontFamily="{TemplateBinding FontFamily}"
@@ -67,7 +64,7 @@
                             <TextBlock
                                 Name="TextBlock"
                                 Margin="6,4,4,6"
-                                Background="{TemplateBinding Background}"
+                                Background="Transparent"
                                 FontFamily="{TemplateBinding FontFamily}"
                                 FontSize="{TemplateBinding FontSize}"
                                 FontStretch="{TemplateBinding FontStretch}"
@@ -84,9 +81,6 @@
                         <Trigger Property="IsInEditingMode" Value="True">
                             <Setter TargetName="TextBox" Property="Visibility" Value="Visible" />
                             <Setter TargetName="TextBlock" Property="Visibility" Value="Collapsed" />
-                        </Trigger>
-
-                        <Trigger SourceName="TextBox" Property="Visibility" Value="Visible">
                             <Setter TargetName="TextBox" Property="behaviours:TextBoxBaseBehaviour.Focus" Value="True" />
                         </Trigger>
                     </ControlTemplate.Triggers>

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -16,7 +17,15 @@ namespace DatabaseManager.Views.Controls
 
         public static readonly DependencyProperty IsInEditingModeProperty =
             DependencyProperty.Register(nameof(IsInEditingMode), typeof(bool), typeof(EditableTextBlock),
-                new PropertyMetadata(default(bool)));
+                new PropertyMetadata(default(bool), PropertyChangedCallback));
+
+        private static void PropertyChangedCallback(DependencyObject dependencyObject,
+            DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
+        {
+            var b = false;
+            if (b)
+                throw new NotImplementedException();
+        }
 
         public static readonly DependencyProperty HasTextProperty = DependencyProperty.Register(
             nameof(HasText), typeof(bool), typeof(EditableTextBlock), new PropertyMetadata(default(bool)));
@@ -28,21 +37,9 @@ namespace DatabaseManager.Views.Controls
             DependencyProperty.Register(nameof(TextWrapping), typeof(bool), typeof(EditableTextBlock),
                 new PropertyMetadata(default(bool)));
 
-        public static readonly DependencyProperty IsMonitoringProperty = DependencyProperty.Register(
-            nameof(IsMonitoring), typeof(bool), typeof(EditableTextBlock), new PropertyMetadata(default(bool)));
-
-        public static readonly DependencyProperty IsSpellCheckContextMenuEnabledProperty = DependencyProperty.Register(
-            nameof(IsSpellCheckContextMenuEnabled), typeof(bool), typeof(EditableTextBlock),
-            new PropertyMetadata(default(bool)));
-
-        public static readonly DependencyProperty IsWaitingForDataProperty = DependencyProperty.Register(
-            nameof(IsWaitingForData), typeof(bool), typeof(EditableTextBlock), new PropertyMetadata(default(bool)));
-
-        public static readonly DependencyProperty SelectAllOnFocusProperty = DependencyProperty.Register(
-            nameof(SelectAllOnFocus), typeof(bool), typeof(EditableTextBlock), new PropertyMetadata(default(bool)));
-
         public static readonly DependencyProperty CaretBrushProperty = DependencyProperty.Register(
-            nameof(CaretBrush), typeof(Brush), typeof(EditableTextBlock), new PropertyMetadata(default(Brush)));
+            nameof(CaretBrush), typeof(Brush), typeof(EditableTextBlock),
+            new PropertyMetadata(GetDefaultSelectionBrush()));
 
         public static readonly DependencyProperty CharacterCasingProperty = DependencyProperty.Register(
             nameof(CharacterCasing), typeof(CharacterCasing), typeof(EditableTextBlock),
@@ -69,7 +66,8 @@ namespace DatabaseManager.Views.Controls
             nameof(TextButton), typeof(bool), typeof(EditableTextBlock), new PropertyMetadata(default(bool)));
 
         public static readonly DependencyProperty SelectionBrushProperty = DependencyProperty.Register(
-            nameof(SelectionBrush), typeof(Brush), typeof(EditableTextBlock), new PropertyMetadata(default(Brush)));
+            nameof(SelectionBrush), typeof(Brush), typeof(EditableTextBlock),
+            new PropertyMetadata(GetDefaultSelectionBrush()));
 
         #region button
 
@@ -93,7 +91,8 @@ namespace DatabaseManager.Views.Controls
             new PropertyMetadata(new FontFamilyConverter().ConvertFromString("Marlett")));
 
         public static readonly DependencyProperty ButtonFontSizeProperty = DependencyProperty.Register(
-            nameof(ButtonFontSize), typeof(double), typeof(EditableTextBlock), new PropertyMetadata(SystemFonts.MessageFontSize));
+            nameof(ButtonFontSize), typeof(double), typeof(EditableTextBlock),
+            new PropertyMetadata(SystemFonts.MessageFontSize));
 
         public static readonly DependencyProperty ButtonTemplateProperty = DependencyProperty.Register(
             nameof(ButtonTemplate), typeof(ControlTemplate), typeof(EditableTextBlock),
@@ -105,12 +104,7 @@ namespace DatabaseManager.Views.Controls
         public static readonly DependencyProperty ButtonsAlignmentProperty = DependencyProperty.Register(
             nameof(ButtonsAlignment), typeof(ButtonsAlignment), typeof(EditableTextBlock),
             new PropertyMetadata(ButtonsAlignment.Right));
-
-        public static readonly DependencyProperty IsClearTextButtonBehaviorEnabledProperty =
-            DependencyProperty.Register(
-                nameof(IsClearTextButtonBehaviorEnabled), typeof(bool), typeof(EditableTextBlock),
-                new PropertyMetadata(default(bool)));
-
+        
         public static readonly DependencyProperty ClearTextButtonProperty = DependencyProperty.Register(
             nameof(ClearTextButton), typeof(bool), typeof(EditableTextBlock), new PropertyMetadata(default(bool)));
 
@@ -197,37 +191,7 @@ namespace DatabaseManager.Views.Controls
             get => (Brush) GetValue(CaretBrushProperty);
             set => SetValue(CaretBrushProperty, value);
         }
-
-        public bool SelectAllOnFocus
-        {
-            get => (bool) GetValue(SelectAllOnFocusProperty);
-            set => SetValue(SelectAllOnFocusProperty, value);
-        }
-
-        public bool IsWaitingForData
-        {
-            get => (bool) GetValue(IsWaitingForDataProperty);
-            set => SetValue(IsWaitingForDataProperty, value);
-        }
-
-        public bool IsSpellCheckContextMenuEnabled
-        {
-            get => (bool) GetValue(IsSpellCheckContextMenuEnabledProperty);
-            set => SetValue(IsSpellCheckContextMenuEnabledProperty, value);
-        }
-
-        public bool IsMonitoring
-        {
-            get => (bool) GetValue(IsMonitoringProperty);
-            set => SetValue(IsMonitoringProperty, value);
-        }
-
-        public bool IsClearTextButtonBehaviorEnabled
-        {
-            get => (bool) GetValue(IsClearTextButtonBehaviorEnabledProperty);
-            set => SetValue(IsClearTextButtonBehaviorEnabledProperty, value);
-        }
-
+        
         public bool HasText
         {
             get => (bool) GetValue(HasTextProperty);
@@ -310,10 +274,27 @@ namespace DatabaseManager.Views.Controls
 
         public EditableTextBlock()
         {
-            MouseDown += (sender, args) => IsInEditingMode = true;
-            LostFocus += (sender, args) => IsInEditingMode = false;
+            MouseDown += (sender, args) =>
+            {
+                IsInEditingMode = true;
+            };
+            LostFocus += (sender, args) =>
+            {
+                IsInEditingMode = false;
+            };
         }
 
         #endregion CONSTRUCTOR
+
+        #region METHODS
+
+        private static Brush GetDefaultSelectionBrush()
+        {
+            var brush = new SolidColorBrush(SystemColors.HighlightColor);
+            brush.Freeze();
+            return brush;
+        }
+
+        #endregion METHODS
     }
 }

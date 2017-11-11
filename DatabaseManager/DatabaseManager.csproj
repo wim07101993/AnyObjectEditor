@@ -79,6 +79,7 @@
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Property.cs" />
     <Compile Include="PropertyList.cs" />
+    <Compile Include="Views\Controls\NativeTypeEditorList.cs" />
     <Compile Include="Views\Converters\TypeToENativeTypeConverter.cs" />
     <Compile Include="Views\Behaviours\TextBoxBaseBehaviour.cs" />
     <Compile Include="Views\Controls\EditableTextBlock.cs" />
@@ -95,6 +96,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Styles\NativeTypeEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Styles\NativeTypeEditorList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

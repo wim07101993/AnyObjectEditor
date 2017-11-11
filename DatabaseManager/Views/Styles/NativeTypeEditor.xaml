@@ -33,6 +33,10 @@
                         <Grid>
                             <TextBox
                                 Name="TextBox"
+                                Width="{TemplateBinding Width}"
+                                Height="{TemplateBinding Height}"
+                                MinWidth="{TemplateBinding MinWidth}"
+                                MaxWidth="{TemplateBinding MaxWidth}"
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 controls:TextBoxHelper.ClearTextButton="True"
                                 Background="{DynamicResource ControlBackgroundBrush}"
@@ -50,6 +54,10 @@
 
                             <controls:NumericUpDown
                                 Name="NumericUpDown"
+                                Width="{TemplateBinding Width}"
+                                Height="{TemplateBinding Height}"
+                                MinWidth="{TemplateBinding MinWidth}"
+                                MaxWidth="{TemplateBinding MaxWidth}"
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 Background="{DynamicResource ControlBackgroundBrush}"
                                 FontFamily="{TemplateBinding FontFamily}"
@@ -65,6 +73,10 @@
 
                             <controls:ToggleSwitch
                                 Name="ToggleSwitch"
+                                Width="{TemplateBinding Width}"
+                                Height="{TemplateBinding Height}"
+                                MinWidth="{TemplateBinding MinWidth}"
+                                MaxWidth="{TemplateBinding MaxWidth}"
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Mode=TwoWay}"
                                 OffLabel=""
@@ -75,6 +87,10 @@
                     </StackPanel>
 
                     <ControlTemplate.Triggers>
+                        <Trigger Property="Name" Value="">
+                            <Setter TargetName="NameTextBlock" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+
                         <Trigger Property="UseBigName" Value="True">
                             <Setter TargetName="StackPanel" Property="Orientation" Value="Horizontal" />
                             <Setter TargetName="NameTextBlock" Property="FontSize" Value="15" />

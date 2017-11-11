@@ -15,7 +15,7 @@ namespace DatabaseManager.Views.Controls
             new PropertyMetadata(default(object), OnValueChanged));
 
         public static readonly DependencyProperty PropertyNameProperty = DependencyProperty.Register(
-            nameof(PropertyName), typeof(string), typeof(NativeTypeEditor), new PropertyMetadata(default(string)));
+            nameof(PropertyName), typeof(string), typeof(NativeTypeEditor), new PropertyMetadata(""));
 
         public static readonly DependencyProperty TypeProperty = DependencyProperty.Register(
             nameof(Type), typeof(ENativeType), typeof(NativeTypeEditor),

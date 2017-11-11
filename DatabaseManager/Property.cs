@@ -38,9 +38,25 @@ namespace DatabaseManager
         }
 
         public virtual Type Type => Value?.GetType();
-
         public virtual bool IsEnumerable => Value is IEnumerable;
         public virtual bool IsNativeType => Value.HasNativeType();
+
+        public virtual Type ElementType
+        {
+            get
+            {
+                if (!IsEnumerable)
+                    return null;
+
+                var genericTypeArguments = Type.GenericTypeArguments;
+                return EnumerableExtensions.IsNullOrEmpty(genericTypeArguments)
+                    ? null
+                    : genericTypeArguments[0];
+            }
+        }
+
+        public virtual bool IsElementEnumerable => typeof(IEnumerable).IsAssignableFrom(ElementType);
+        public virtual bool IsElementNativeType => ElementType.IsNativType();
 
         public bool IsBrowsable { get; }
         public bool IsTitle { get; }

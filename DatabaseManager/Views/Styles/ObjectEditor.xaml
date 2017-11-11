@@ -5,16 +5,14 @@
     xmlns:converters="clr-namespace:DatabaseManager.Views.Converters"
     xmlns:databaseManager="clr-namespace:DatabaseManager"
     xmlns:myControls="clr-namespace:DatabaseManager.Views.Controls">
+
     <converters:TypeToENativeTypeConverter x:Key="TypeToENativeTypeConverter" />
 
     <Style TargetType="{x:Type myControls:ObjectEditor}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type myControls:ObjectEditor}">
-                    <Border
-                        Margin="1"
-                        BorderBrush="{DynamicResource GrayBrush}"
-                        BorderThickness="1">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -40,60 +38,72 @@
                                     TextWrapping="True" />
                             </StackPanel>
 
-                            <Border
-                                Grid.Row="1"
-                                Margin="3"
-                                Padding="5"
-                                BorderBrush="{DynamicResource GrayBrush8}"
-                                BorderThickness="1">
-                                <controls:MetroAnimatedSingleRowTabControl ItemsSource="{TemplateBinding Tabs}">
-                                    <controls:MetroAnimatedSingleRowTabControl.ItemTemplate>
-                                        <DataTemplate DataType="{x:Type databaseManager:Property}">
-                                            <TextBlock Name="NameTextBlock" Text="{Binding Name}" />
-                                        </DataTemplate>
-                                    </controls:MetroAnimatedSingleRowTabControl.ItemTemplate>
+                            <Grid Grid.Row="1" Margin="3">
+                                <Border
+                                    Padding="5"
+                                    BorderBrush="{DynamicResource GrayBrush8}"
+                                    BorderThickness="1">
+                                    <controls:MetroAnimatedSingleRowTabControl ItemsSource="{TemplateBinding Tabs}">
+                                        <controls:MetroAnimatedSingleRowTabControl.ItemTemplate>
+                                            <DataTemplate DataType="{x:Type databaseManager:Property}">
+                                                <TextBlock Name="NameTextBlock" Text="{Binding Name}" />
+                                            </DataTemplate>
+                                        </controls:MetroAnimatedSingleRowTabControl.ItemTemplate>
 
-                                    <controls:MetroAnimatedSingleRowTabControl.ContentTemplate>
-                                        <DataTemplate DataType="{x:Type databaseManager:Property}">
-                                            <StackPanel>
-                                                <TextBlock x:Name="TextBlock" Text="{Binding Value}" />
+                                        <controls:MetroAnimatedSingleRowTabControl.ContentTemplate>
+                                            <DataTemplate DataType="{x:Type databaseManager:Property}">
+                                                <StackPanel>
+                                                    <TextBlock x:Name="TextBlock" Text="{Binding Value}" />
 
-                                                <ItemsControl
-                                                    x:Name="ItemsControl"
-                                                    ItemsSource="{Binding Value}"
-                                                    Visibility="Collapsed">
-                                                    <ItemsControl.ItemTemplate>
-                                                        <DataTemplate DataType="{x:Type databaseManager:Property}">
-                                                            <myControls:NativeTypeEditor
-                                                                Margin="5,10,5,10"
-                                                                HorizontalContentAlignment="Right"
-                                                                PropertyName="{Binding Name}"
-                                                                Type="{Binding Type, Converter={StaticResource TypeToENativeTypeConverter}}"
-                                                                UseBigName="True"
-                                                                Value="{Binding Value}" />
-                                                        </DataTemplate>
-                                                    </ItemsControl.ItemTemplate>
+                                                    <ItemsControl
+                                                        x:Name="ItemsControl"
+                                                        ItemsSource="{Binding Value}"
+                                                        Visibility="Collapsed">
+                                                        <ItemsControl.ItemTemplate>
+                                                            <DataTemplate DataType="{x:Type databaseManager:Property}">
+                                                                <myControls:NativeTypeEditor
+                                                                    Margin="5,10,5,10"
+                                                                    HorizontalContentAlignment="Right"
+                                                                    PropertyName="{Binding Name}"
+                                                                    Type="{Binding Type, Converter={StaticResource TypeToENativeTypeConverter}}"
+                                                                    UseBigName="True"
+                                                                    Value="{Binding Value}" />
+                                                            </DataTemplate>
+                                                        </ItemsControl.ItemTemplate>
 
-                                                    <ItemsControl.ItemsPanel>
-                                                        <ItemsPanelTemplate>
-                                                            <WrapPanel Orientation="Vertical" />
-                                                        </ItemsPanelTemplate>
-                                                    </ItemsControl.ItemsPanel>
-                                                </ItemsControl>
-                                            </StackPanel>
+                                                        <ItemsControl.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <WrapPanel Orientation="Vertical" />
+                                                            </ItemsPanelTemplate>
+                                                        </ItemsControl.ItemsPanel>
+                                                    </ItemsControl>
 
-                                            <DataTemplate.Triggers>
-                                                <DataTrigger Binding="{Binding Type}" Value="{x:Type databaseManager:PropertyList}">
-                                                    <Setter TargetName="ItemsControl" Property="Visibility" Value="Visible" />
-                                                    <Setter TargetName="TextBlock" Property="Visibility" Value="Collapsed" />
-                                                </DataTrigger>
-                                            </DataTemplate.Triggers>
-                                        </DataTemplate>
-                                    </controls:MetroAnimatedSingleRowTabControl.ContentTemplate>
-                                </controls:MetroAnimatedSingleRowTabControl>
-                            </Border>
+                                                    <myControls:NativeTypeEditorList
+                                                        x:Name="NativeTypeEditorList"
+                                                        ItemMargin="5"
+                                                        ItemsSource="{Binding Value}"
+                                                        Orientation="Vertical"
+                                                        Visibility="Collapsed" />
+                                                </StackPanel>
+
+                                                <DataTemplate.Triggers>
+                                                    <DataTrigger Binding="{Binding Type}" Value="{x:Type databaseManager:PropertyList}">
+                                                        <Setter TargetName="ItemsControl" Property="Visibility" Value="Visible" />
+                                                        <Setter TargetName="TextBlock" Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+
+                                                    <DataTrigger Binding="{Binding IsElementNativeType}" Value="True">
+                                                        <Setter TargetName="NativeTypeEditorList" Property="Visibility" Value="Visible" />
+                                                        <Setter TargetName="TextBlock" Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                </DataTemplate.Triggers>
+                                            </DataTemplate>
+                                        </controls:MetroAnimatedSingleRowTabControl.ContentTemplate>
+                                    </controls:MetroAnimatedSingleRowTabControl>
+                                </Border>
+                            </Grid>
                         </Grid>
-                    </Border>
+                    </ScrollViewer>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
