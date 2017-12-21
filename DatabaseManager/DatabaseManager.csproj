@@ -128,12 +128,20 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Converters\ObjectConverters.cs" />
+    <Compile Include="Helpers\Attributes\PictureAttribute.cs" />
+    <Compile Include="Helpers\Attributes\DescriptionAttribute.cs" />
+    <Compile Include="Helpers\Attributes\SubtitleAttribute.cs" />
+    <Compile Include="Helpers\Attributes\TitleAttribute.cs" />
+    <Compile Include="Helpers\Converters\ObjectConverters.cs" />
+    <Compile Include="Helpers\Extensions\ObjectExtensions.cs" />
+    <Compile Include="Helpers\Extensions\PropertyInfoExtensions.cs" />
+    <Compile Include="ViewModel\PropertyViewModel.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Services\IDataService.cs" />
     <Compile Include="Services\MongoDataService.cs" />
     <Compile Include="ViewModelInterfaces\IListViewModel.cs" />
     <Compile Include="ViewModelInterfaces\IMainWindowViewModel.cs" />
+    <Compile Include="ViewModelInterfaces\IPropertyViewModel.cs" />
     <Compile Include="ViewModel\ListViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="Views\Controls\Header.xaml.cs">
