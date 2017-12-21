@@ -66,10 +66,7 @@ namespace DatabaseManager.ViewModel
 
         public static IEnumerable<IPropertyViewModel> GetPropertiesFromObject(object parent)
             => ConvertToProperties(parent.GetType().GetProperties(), parent);
-
-        protected override bool SetProperty<T>(ref T storage, T value, string propertyName = null)
-            => base.SetProperty(ref storage, value, Name);
-
+        
         #endregion METHODS
     }
 }

@@ -120,6 +120,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Controls\ObjectEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -133,8 +137,9 @@
     <Compile Include="Helpers\Attributes\SubtitleAttribute.cs" />
     <Compile Include="Helpers\Attributes\TitleAttribute.cs" />
     <Compile Include="Helpers\Converters\ObjectConverters.cs" />
-    <Compile Include="Helpers\Extensions\ObjectExtensions.cs" />
     <Compile Include="Helpers\Extensions\PropertyInfoExtensions.cs" />
+    <Compile Include="ViewModelInterfaces\IObjectEditorViewModel.cs" />
+    <Compile Include="ViewModel\ObjectEditorViewModel.cs" />
     <Compile Include="ViewModel\PropertyViewModel.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Services\IDataService.cs" />
@@ -149,6 +154,9 @@
     </Compile>
     <Compile Include="Views\Controls\List.xaml.cs">
       <DependentUpon>List.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\ObjectEditor.xaml.cs">
+      <DependentUpon>ObjectEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
