@@ -12,13 +12,15 @@
     d:DesignWidth="300"
     mc:Ignorable="d">
     <Grid>
-        <ListBox ItemsSource="{Binding ItemsSource}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <local:Header HorizontalAlignment="Stretch" DataContext="{Binding .}" />
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <ListBox HorizontalContentAlignment="Stretch" ItemsSource="{Binding ItemsSource}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <local:Header HorizontalAlignment="Stretch" DataContext="{Binding .}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
 
         <Button
             Margin="0,0,30,30"
