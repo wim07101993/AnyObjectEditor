@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace DatabaseManager.Converters
+namespace DatabaseManager.Helpers.Converters
 {
     public class ObjectToVisibilityConverter : IValueConverter
     {
