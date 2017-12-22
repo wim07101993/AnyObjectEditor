@@ -140,6 +140,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Helpers\Attributes\IdAttribute.cs" />
     <Compile Include="Helpers\Attributes\PictureAttribute.cs" />
     <Compile Include="Helpers\Attributes\DescriptionAttribute.cs" />
     <Compile Include="Helpers\Attributes\SubtitleAttribute.cs" />
@@ -155,13 +156,19 @@
     <Compile Include="Helpers\Extensions\PropertyInfoExtensions.cs" />
     <Compile Include="MeterialDesignTheme\Flipper.cs" />
     <Compile Include="MeterialDesignTheme\Plane3D.cs" />
+    <Compile Include="Models\Bases\IMongoModel.cs" />
+    <Compile Include="Services\IDataService.cs" />
     <Compile Include="ViewModelInterfaces\IHeaderViewModel.cs" />
+    <Compile Include="ViewModelInterfaces\IListViewModel[T].cs" />
+    <Compile Include="ViewModelInterfaces\IObjectEditorViewModel[T].cs" />
     <Compile Include="ViewModelInterfaces\IObjectEditorViewModel.cs" />
     <Compile Include="ViewModel\HeaderViewModel.cs" />
+    <Compile Include="ViewModel\ListViewModel[T].cs" />
+    <Compile Include="ViewModel\ObjectEditorViewModel[T].cs" />
     <Compile Include="ViewModel\ObjectEditorViewModel.cs" />
     <Compile Include="ViewModel\PropertyViewModel.cs" />
     <Compile Include="Models\Person.cs" />
-    <Compile Include="Services\IDataService.cs" />
+    <Compile Include="Services\IDataService[T].cs" />
     <Compile Include="Services\MongoDataService.cs" />
     <Compile Include="ViewModelInterfaces\IListViewModel.cs" />
     <Compile Include="ViewModelInterfaces\IMainWindowViewModel.cs" />

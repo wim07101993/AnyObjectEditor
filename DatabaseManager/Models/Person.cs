@@ -1,14 +1,15 @@
-﻿using System.Windows.Media.Imaging;
+﻿using System.ComponentModel;
+using System.Windows.Media.Imaging;
 using DatabaseManager.Helpers.Attributes;
+using DatabaseManager.Models.Bases;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using Prism.Mvvm;
 
 namespace DatabaseManager.Models
 {
-    public class Person : BindableBase
+    public class Person : BindableBase, IMongoModel
     {
-        private ObjectId _id;
         private string _firstName;
         private string _lastName;
         private int _age;
@@ -16,11 +17,9 @@ namespace DatabaseManager.Models
         private string _summary;
 
         [BsonId]
-        public ObjectId ID
-        {
-            get => _id;
-            set => SetProperty(ref _id, value);
-        }
+        [Id]
+        [Browsable(false)]
+        public ObjectId ObjectId { get; }
 
         [BsonElement("firstName")]
         [Title]
@@ -54,11 +53,17 @@ namespace DatabaseManager.Models
         }
 
         [BsonElement("summary")]
-        [Description]
+        [Helpers.Attributes.Description]
         public string Summary
         {
             get => _summary;
             set => SetProperty(ref _summary, value);
+        }
+
+
+        public Person()
+        {
+            ObjectId = ObjectId.GenerateNewId();
         }
     }
 }

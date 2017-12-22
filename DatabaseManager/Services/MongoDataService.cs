@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using DatabaseManager.Models.Bases;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Newtonsoft.Json;
@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 
 namespace DatabaseManager.Services
 {
-    public class MongoDataService : IDataService
+    public class MongoDataService<T> : IDataService, IDataService<T> where T : IMongoModel
     {
         private readonly IMongoDatabase _database;
         private readonly string _collectionName;
@@ -20,7 +20,7 @@ namespace DatabaseManager.Services
         }
 
 
-        public async Task<IEnumerable<JObject>> GetAllDocuments()
+        async Task<IEnumerable<JObject>> IDataService.GetAllAsync()
         {
             var ret = new List<JObject>();
 
@@ -34,7 +34,7 @@ namespace DatabaseManager.Services
             return ret;
         }
 
-        public async Task<IEnumerable<T>> GetAll<T>()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
             var ret = new List<T>();
 
@@ -43,6 +43,54 @@ namespace DatabaseManager.Services
                 .ForEachAsync(x => ret.Add(x));
 
             return ret;
+        }
+
+        async Task IDataService.InsertAsync(object item)
+        {
+            await _database
+                .GetCollection<BsonDocument>(_collectionName)
+                .InsertOneAsync(item.ToBsonDocument());
+        }
+
+        public async Task InsertAsync(T item)
+        {
+            //foreach (var propertyInfo in item.GetType().GetProperties())
+            //    if (propertyInfo.HasAttribute<BsonIdAttribute>())
+            //    {
+            //        propertyInfo.SetValue(item, new ObjectId());
+            //        break;
+            //    }
+
+            await _database.GetCollection<T>(_collectionName)
+                .InsertOneAsync(item);
+        }
+
+        async Task IDataService.UpdateAsync(object item)
+        {
+            //var filter = Builders<BsonDocument>.Filter.Where(x => x)
+            //await _database
+            //    .GetCollection<BsonDocument>(_collectionName)
+            //    .UpdateOneAsync()
+        }
+
+        public async Task UpdateAsync(T item)
+        {
+            var filter = Builders<T>.Filter
+                .Eq(filterItem => filterItem.ObjectId, item.ObjectId);
+
+            await _database
+                .GetCollection<T>(_collectionName)
+                .ReplaceOneAsync(filter, item);
+        }
+
+        async Task IDataService.RemoveAsync(object item)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task RemoveAsync(T item)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using DatabaseManager.Helpers.Extensions;
-using DatabaseManager.Models.Bases;
 using DatabaseManager.Services;
 using DatabaseManager.ViewModelInterfaces;
 using MaterialDesignThemes.Wpf.Transitions;
@@ -14,26 +13,27 @@ using Prism.Mvvm;
 
 namespace DatabaseManager.ViewModel
 {
-    public class ListViewModel : BindableBase, IListViewModel
+    public class ListViewModel<T> : BindableBase, IListViewModel<T>, IListViewModel
     {
         #region FIELDS
 
-        private readonly Func<Task<IEnumerable>> _getItemsFunc;
-        private readonly Func<object, Task> _insertItemFunc;
-        private readonly Func<object, Task> _updateItemFunc;
-        private readonly Func<object, Task> _removeItemFunc;
+        private readonly Func<Task<IEnumerable<T>>> _getItemsFunc;
+        private readonly Func<T, Task> _insertItemFunc;
+        private readonly Func<T, Task> _updateItemFunc;
+        private readonly Func<T, Task> _removeItemFunc;
 
-        private IEnumerable _itemsSource;
-        private IEnumerable<IObjectEditorViewModel> _convertedItemsSource;
-        private IObjectEditorViewModel _emptyElement;
-        private IObjectEditorViewModel _selectedItem;
+        private IEnumerable<T> _itemsSource;
+        private IEnumerable<IObjectEditorViewModel<T>> _convertedItemsSource;
+        private IObjectEditorViewModel<T> _emptyElement;
+        private IObjectEditorViewModel<T> _selectedItem;
 
         #endregion FIELDS
 
 
         #region PROPERTIES
+        
 
-        public IEnumerable ItemsSource
+        public IEnumerable<T> ItemsSource
         {
             get => _itemsSource;
             set
@@ -42,29 +42,34 @@ namespace DatabaseManager.ViewModel
                     return;
 
                 ConvertedItemsSource = _itemsSource
-                    .Cast<object>()
-                    .Select(x => new ObjectEditorViewModel(x));
+                    .Select(x => new ObjectEditorViewModel<T>(x));
 
                 RaisePropertyChanged(nameof(IsListEditable));
 
                 if (!EnumerableExtensions.IsNullOrEmpty(ItemsSource))
-                    EmptyElement = new ObjectEditorViewModel(CreateNewItem());
+                    EmptyElement = new ObjectEditorViewModel<T>(CreateNewItem());
             }
         }
 
-        public IEnumerable<IObjectEditorViewModel> ConvertedItemsSource
+        IEnumerable IListViewModel.ItemsSource
+        {
+            get => ItemsSource;
+            set => ItemsSource = value.Cast<T>();
+        }
+
+        public IEnumerable<IObjectEditorViewModel<T>> ConvertedItemsSource
         {
             get => _convertedItemsSource;
             private set => SetProperty(ref _convertedItemsSource, value);
         }
 
-        public IObjectEditorViewModel SelectedItem
+        public IObjectEditorViewModel<T> SelectedItem
         {
             get => _selectedItem;
             set => SetProperty(ref _selectedItem, value);
         }
 
-        public IObjectEditorViewModel EmptyElement
+        public IObjectEditorViewModel<T> EmptyElement
         {
             get => _emptyElement;
             set => SetProperty(ref _emptyElement, value);
@@ -76,6 +81,11 @@ namespace DatabaseManager.ViewModel
         public ICommand SaveCommand { get; private set; }
         public ICommand DeleteCommand { get; private set; }
 
+        IEnumerable<IObjectEditorViewModel> IListViewModel.ConvertedItemsSource => throw new NotImplementedException();
+
+        IObjectEditorViewModel IListViewModel.SelectedItem { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        IObjectEditorViewModel IListViewModel.EmptyElement { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         #endregion PROPERTIES
 
 
@@ -86,8 +96,8 @@ namespace DatabaseManager.ViewModel
             Init();
         }
 
-        public ListViewModel(Func<Task<IEnumerable>> getItemsFunc, Func<object, Task> insertItemFunc,
-            Func<object, Task> updateItemFunc, Func<object, Task> removeItemFunc)
+        public ListViewModel(Func<Task<IEnumerable<T>>> getItemsFunc, Func<T, Task> insertItemFunc,
+            Func<T, Task> updateItemFunc, Func<T, Task> removeItemFunc)
         {
             Init();
 
@@ -99,7 +109,7 @@ namespace DatabaseManager.ViewModel
             _removeItemFunc = removeItemFunc;
         }
 
-        public ListViewModel(IDataService dataService)
+        public ListViewModel(IDataService<T> dataService)
         {
             Init();
             _getItemsFunc = async () => await dataService.GetAllAsync();
@@ -121,11 +131,8 @@ namespace DatabaseManager.ViewModel
 
         #region METHODS
 
-        public object CreateNewItem()
-            => Activator.CreateInstance(ItemsSource
-                .Cast<object>()
-                .First()
-                .GetType());
+        private T CreateNewItem()
+            => Activator.CreateInstance<T>();
 
         public void Delete()
         {

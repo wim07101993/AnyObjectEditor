@@ -1,11 +1,16 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Reflection;
 
 namespace DatabaseManager.ViewModelInterfaces
 {
     public interface IPropertyViewModel : INotifyPropertyChanged
     {
+        PropertyInfo PropertyInfo { get; }
+
+        string DisplayName { get; }
         string Name { get; }
+
         object Value { get; set; }
         Type Type { get; }
 

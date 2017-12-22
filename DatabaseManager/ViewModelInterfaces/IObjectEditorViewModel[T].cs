@@ -2,9 +2,9 @@
 
 namespace DatabaseManager.ViewModelInterfaces
 {
-    public interface IObjectEditorViewModel
+    public interface IObjectEditorViewModel<out T>
     {
-        object Value { get; }
+        T Value { get; }
 
         IHeaderViewModel HeaderViewModel { get; }
 

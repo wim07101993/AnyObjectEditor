@@ -18,7 +18,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition />
@@ -56,12 +56,6 @@
                     Width="24"
                     Height="24"
                     Kind="ContentSave" />
-
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Click">
-                        <i:InvokeCommandAction Command="{x:Static materialDesign:Transitioner.MoveFirstCommand}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
             </Button>
 
         </Grid>

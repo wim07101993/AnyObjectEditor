@@ -22,39 +22,44 @@
             </materialDesign:TransitionerSlide.ForwardWipe>
 
             <Grid>
-                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-                    <ListBox
-                        x:Name="ListBox"
-                        HorizontalContentAlignment="Stretch"
-                        ItemsSource="{Binding ConvertedItemsSource}"
-                        SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
-                        SelectionChanged="OnListBoxSelectionChanged">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Background="Transparent">
-                                    <local:Header
-                                        HorizontalAlignment="Stretch"
-                                        Background="Transparent"
-                                        DataContext="{Binding HeaderViewModel}" />
+                <ListBox
+                    x:Name="ListBox"
+                    HorizontalContentAlignment="Stretch"
+                    ItemsSource="{Binding ConvertedItemsSource}"
+                    SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                    SelectionChanged="OnListBoxSelectionChanged">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Background="Transparent">
+                                <local:Header
+                                    HorizontalAlignment="Stretch"
+                                    Background="Transparent"
+                                    DataContext="{Binding HeaderViewModel}" />
 
-                                    <Button
-                                        Margin="10"
-                                        HorizontalAlignment="Right"
-                                        VerticalAlignment="Top"
-                                        Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:List}}}"
-                                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
-                                        ToolTip="Delete">
-                                        <materialDesign:PackIcon
-                                            Width="24"
-                                            Height="24"
-                                            Kind="Delete" />
-                                    </Button>
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
+                                <Button
+                                    Margin="10"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top"
+                                    Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:List}}}"
+                                    Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                                    ToolTip="Delete">
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="Delete" />
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
 
-                    </ListBox>
-                </ScrollViewer>
+                    <ListBox.Template>
+                        <ControlTemplate>
+                            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                                <ItemsPresenter />
+                            </ScrollViewer>
+                        </ControlTemplate>
+                    </ListBox.Template>
+                </ListBox>
 
                 <Button
                     Margin="0,0,30,30"
@@ -62,7 +67,8 @@
                     VerticalAlignment="Bottom"
                     Command="{x:Static materialDesign:Transitioner.MoveLastCommand}"
                     Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
-                    ToolTip="Add item">
+                    ToolTip="Add item"
+                    Visibility="{Binding IsListEditable, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <materialDesign:PackIcon
                         Width="24"
                         Height="24"

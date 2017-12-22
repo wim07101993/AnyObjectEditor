@@ -13,7 +13,9 @@ namespace DatabaseManager.ViewModelInterfaces
         IObjectEditorViewModel SelectedItem { get; set; }
 
         IObjectEditorViewModel EmptyElement { get; set; }
-        
+
+        bool IsListEditable { get; }
+
         ICommand SaveCommand { get; }
         ICommand DeleteCommand { get; }
     }

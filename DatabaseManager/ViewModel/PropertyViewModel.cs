@@ -16,8 +16,12 @@ namespace DatabaseManager.ViewModel
 
         #endregion FIELDS
 
+
         #region PROPERTIES
 
+        public PropertyInfo PropertyInfo { get; }
+
+        public string DisplayName { get; }
         public string Name { get; }
 
         public object Value
@@ -36,6 +40,7 @@ namespace DatabaseManager.ViewModel
 
         #endregion PROPERTIES
 
+
         #region CONSTRUCTORS
 
         public PropertyViewModel()
@@ -44,7 +49,10 @@ namespace DatabaseManager.ViewModel
 
         public PropertyViewModel(PropertyInfo propertyInfo, object parent) : this()
         {
-            Name = propertyInfo.GetDisplayName();
+            PropertyInfo = propertyInfo;
+
+            Name = propertyInfo.Name;
+            DisplayName = propertyInfo.GetDisplayName();
             Value = propertyInfo.GetValue(parent);
             Type = propertyInfo.PropertyType;
 
@@ -57,6 +65,7 @@ namespace DatabaseManager.ViewModel
         }
 
         #endregion CONSTRUCTORS
+
 
         #region METHODS
 

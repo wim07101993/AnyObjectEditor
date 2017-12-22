@@ -12,6 +12,9 @@ namespace DatabaseManager.Helpers.Extensions
         public static bool HasAttribute<T>(this PropertyInfo This)
             => This.GetCustomAttributes().Any(x => x is T);
 
+        public static bool IsId(this PropertyInfo This)
+            => This.HasAttribute<IdAttribute>() || IdAttribute.Default.Id;
+
         public static bool IsTitle(this PropertyInfo This)
             => This.HasAttribute<TitleAttribute>() || TitleAttribute.Default.Title;
 

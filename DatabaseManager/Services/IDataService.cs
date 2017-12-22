@@ -6,7 +6,9 @@ namespace DatabaseManager.Services
 {
     public interface IDataService
     {
-        Task<IEnumerable<JObject>> GetAllDocuments();
-        Task<IEnumerable<T>> GetAll<T>();
+        Task<IEnumerable<JObject>> GetAllAsync();
+        Task InsertAsync(object item);
+        Task UpdateAsync(object item);
+        Task RemoveAsync(object item);
     }
 }

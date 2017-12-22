@@ -5,9 +5,9 @@ using DatabaseManager.ViewModelInterfaces;
 
 namespace DatabaseManager.ViewModel
 {
-    public class ObjectEditorViewModel : IObjectEditorViewModel
+    public class ObjectEditorViewModel<T> : IObjectEditorViewModel<T>, IObjectEditorViewModel
     {
-        private object _value;
+        private T _value;
 
         public IHeaderViewModel HeaderViewModel { get; private set; }
 
@@ -17,7 +17,10 @@ namespace DatabaseManager.ViewModel
         public IPropertyViewModel Picture { get; private set; }
         public IEnumerable<IPropertyViewModel> NativeProperties { get; private set; }
 
-        public object Value
+        object IObjectEditorViewModel.Value
+            => Value;
+
+        public T Value
         {
             get => _value;
             set
@@ -60,7 +63,7 @@ namespace DatabaseManager.ViewModel
         {
         }
 
-        public ObjectEditorViewModel(object value)
+        public ObjectEditorViewModel(T value)
         {
             Value = value;
         }
