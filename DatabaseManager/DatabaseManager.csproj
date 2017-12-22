@@ -132,6 +132,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Icons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -154,12 +158,14 @@
     <Compile Include="Helpers\Converters\ObjectToBooleanConverter.cs" />
     <Compile Include="Helpers\Converters\ObjectToVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\StringToBooleanConverter.cs" />
+    <Compile Include="Helpers\Extensions\BitmapImageExtensions.cs" />
     <Compile Include="Helpers\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Helpers\Extensions\PropertyInfoExtensions.cs" />
     <Compile Include="MeterialDesignTheme\Flipper.cs" />
     <Compile Include="MeterialDesignTheme\Plane3D.cs" />
     <Compile Include="Models\Bases\IMongoModel.cs" />
     <Compile Include="Services\IDataService.cs" />
+    <Compile Include="Services\Mongo\BitmapImageSerializer.cs" />
     <Compile Include="ViewModelInterfaces\IHeaderViewModel.cs" />
     <Compile Include="ViewModelInterfaces\IListViewModel[T].cs" />
     <Compile Include="ViewModelInterfaces\IObjectEditorViewModel[T].cs" />
@@ -171,7 +177,7 @@
     <Compile Include="ViewModel\PropertyViewModel.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Services\IDataService[T].cs" />
-    <Compile Include="Services\MongoDataService.cs" />
+    <Compile Include="Services\Mongo\MongoDataService.cs" />
     <Compile Include="ViewModelInterfaces\IListViewModel.cs" />
     <Compile Include="ViewModelInterfaces\IMainWindowViewModel.cs" />
     <Compile Include="ViewModelInterfaces\IPropertyViewModel.cs" />

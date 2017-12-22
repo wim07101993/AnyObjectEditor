@@ -23,33 +23,49 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <Image
+        <Ellipse
             Grid.Column="0"
-            Width="150"
-            Height="150"
-            VerticalAlignment="Center"
-            Source="{Binding Picture.Value}">
-            <Image.Visibility>
+            Width="100"
+            Height="100"
+            VerticalAlignment="Center">
+            <Ellipse.Visibility>
                 <MultiBinding Converter="{StaticResource MultiObjectAndToVisibilityConverter}">
                     <Binding Path="Picture.Value" />
                     <Binding Path="Picture" />
                 </MultiBinding>
-            </Image.Visibility>
-        </Image>
+            </Ellipse.Visibility>
 
-        <Rectangle
+            <Ellipse.Fill>
+                <ImageBrush ImageSource="{Binding Picture.Value}" Stretch="UniformToFill" />
+            </Ellipse.Fill>
+        </Ellipse>
+
+        <Border
             Grid.Column="0"
-            Width="150"
-            Height="150"
-            VerticalAlignment="Center"
-            Fill="LightGray">
-            <Rectangle.Visibility>
-                <MultiBinding Converter="{StaticResource MultiBooleanAndToVisibilityConverter}">
-                    <Binding Converter="{StaticResource InvertedObjectToBooleanConverter}" Path="Picture.Value" />
-                    <Binding Converter="{StaticResource ObjectToBooleanConverter}" Path="Picture" />
-                </MultiBinding>
-            </Rectangle.Visibility>
-        </Rectangle>
+            Width="100"
+            Height="100"
+            Margin="10"
+            BorderBrush="{DynamicResource MaterialDesignFlatButtonRipple}"
+            BorderThickness="1"
+            CornerRadius="50">
+            <Rectangle
+                Width="50"
+                Height="50"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Fill="{DynamicResource MaterialDesignFlatButtonRipple}">
+                <Rectangle.Visibility>
+                    <MultiBinding Converter="{StaticResource MultiBooleanAndToVisibilityConverter}">
+                        <Binding Converter="{StaticResource InvertedObjectToBooleanConverter}" Path="Picture.Value" />
+                        <Binding Converter="{StaticResource ObjectToBooleanConverter}" Path="Picture" />
+                    </MultiBinding>
+                </Rectangle.Visibility>
+
+                <Rectangle.OpacityMask>
+                    <VisualBrush Stretch="Uniform" Visual="{StaticResource IconCamera}" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+        </Border>
 
         <Grid
             Grid.Column="1"

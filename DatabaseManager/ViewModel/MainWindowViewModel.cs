@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using DatabaseManager.Models;
 using DatabaseManager.Services;
+using DatabaseManager.Services.Mongo;
 using DatabaseManager.ViewModelInterfaces;
 
 namespace DatabaseManager.ViewModel

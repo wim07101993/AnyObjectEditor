@@ -2,6 +2,7 @@
 using System.Windows.Media.Imaging;
 using DatabaseManager.Helpers.Attributes;
 using DatabaseManager.Models.Bases;
+using DatabaseManager.Services.Mongo;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using Prism.Mvvm;
@@ -13,7 +14,7 @@ namespace DatabaseManager.Models
         private string _firstName;
         private string _lastName;
         private int _age;
-        private BitmapSource _picture;
+        private BitmapImage _picture;
         private string _summary;
 
         [BsonId]
@@ -22,7 +23,7 @@ namespace DatabaseManager.Models
         public ObjectId ObjectId { get; set; }
 
         [BsonElement("firstName")]
-      //  [Title]
+        [Title]
         public string FirstName
         {
             get => _firstName;
@@ -44,9 +45,10 @@ namespace DatabaseManager.Models
             set => SetProperty(ref _age, value);
         }
 
+        [BsonSerializer(typeof(BitmapImageSerializer))]
         [BsonElement("picture")]
         [Picture]
-        public BitmapSource Picture
+        public BitmapImage Picture
         {
             get => _picture;
             set => SetProperty(ref _picture, value);
