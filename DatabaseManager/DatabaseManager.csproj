@@ -116,6 +116,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Controls\EditableHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Controls\Header.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -140,7 +144,14 @@
     <Compile Include="Helpers\Attributes\DescriptionAttribute.cs" />
     <Compile Include="Helpers\Attributes\SubtitleAttribute.cs" />
     <Compile Include="Helpers\Attributes\TitleAttribute.cs" />
-    <Compile Include="Helpers\Converters\ObjectConverters.cs" />
+    <Compile Include="Helpers\Converters\InvertedObjectToBooleanConverter.cs" />
+    <Compile Include="Helpers\Converters\InvertedObjectToVisibilityConverter.cs" />
+    <Compile Include="Helpers\Converters\MultiBooleanAndToVisibilityConverter.cs" />
+    <Compile Include="Helpers\Converters\MultiCommandConverter.cs" />
+    <Compile Include="Helpers\Converters\MultiObjectAndToVisibilityConverter.cs" />
+    <Compile Include="Helpers\Converters\ObjectToBooleanConverter.cs" />
+    <Compile Include="Helpers\Converters\ObjectToVisibilityConverter.cs" />
+    <Compile Include="Helpers\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Helpers\Extensions\PropertyInfoExtensions.cs" />
     <Compile Include="MeterialDesignTheme\Flipper.cs" />
     <Compile Include="MeterialDesignTheme\Plane3D.cs" />
@@ -157,6 +168,9 @@
     <Compile Include="ViewModelInterfaces\IPropertyViewModel.cs" />
     <Compile Include="ViewModel\ListViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="Views\Controls\EditableHeader.xaml.cs">
+      <DependentUpon>EditableHeader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Controls\Header.xaml.cs">
       <DependentUpon>Header.xaml</DependentUpon>
     </Compile>

@@ -10,6 +10,11 @@ namespace DatabaseManager.ViewModelInterfaces
         IEnumerable ItemsSource { get; set; }
         IEnumerable<IObjectEditorViewModel> ConvertedItemsSource { get; }
 
-        ICommand AddCommand { get; }
+        IObjectEditorViewModel SelectedItem { get; set; }
+
+        IObjectEditorViewModel EmptyElement { get; set; }
+        
+        ICommand SaveCommand { get; }
+        ICommand DeleteCommand { get; }
     }
 }

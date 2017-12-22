@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
+﻿using System;
+using System.Collections.Generic;
 using DatabaseManager.Helpers.Extensions;
 using DatabaseManager.ViewModelInterfaces;
 
@@ -10,13 +9,13 @@ namespace DatabaseManager.ViewModel
     {
         private object _value;
 
+        public IHeaderViewModel HeaderViewModel { get; private set; }
+
         public IPropertyViewModel Title { get; private set; }
         public IPropertyViewModel Subtitle { get; private set; }
         public IPropertyViewModel Description { get; private set; }
         public IPropertyViewModel Picture { get; private set; }
         public IEnumerable<IPropertyViewModel> NativeProperties { get; private set; }
-
-        public IHeaderViewModel HeaderViewModel { get; private set; }
 
         public object Value
         {
@@ -48,10 +47,10 @@ namespace DatabaseManager.ViewModel
 
                 HeaderViewModel = new HeaderViewModel
                 {
-                    Title = Title?.Value?.ToString(),
-                    Subtitle = Subtitle?.Value?.ToString(),
-                    Description = Description?.Value?.ToString(),
-                    Picture = Picture?.Value is BitmapSource img ? img : null
+                    Title = Title,
+                    Subtitle = Subtitle,
+                    Description = Description,
+                    Picture = Picture
                 };
             }
         }
@@ -65,5 +64,8 @@ namespace DatabaseManager.ViewModel
         {
             Value = value;
         }
+
+        public static ObjectEditorViewModel CreateEmpty(object value) 
+            => new ObjectEditorViewModel(Activator.CreateInstance(value.GetType()));
     }
 }

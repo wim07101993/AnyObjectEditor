@@ -2,6 +2,7 @@
     x:Class="DatabaseManager.Views.Controls.List"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:DatabaseManager.Helpers.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:local="clr-namespace:DatabaseManager.Views.Controls"
@@ -11,29 +12,49 @@
     d:DataContext="{d:DesignInstance viewModelInterfaces:IListViewModel}"
     mc:Ignorable="d">
 
-    <materialDesign:Transitioner AutoApplyTransitionOrigins="True" SelectedIndex="0">
+    <materialDesign:Transitioner
+        x:Name="Transitioner"
+        AutoApplyTransitionOrigins="True"
+        SelectedIndex="0"
+        SelectionChanged="OnTransitionerSelectionChanged">
 
         <materialDesign:TransitionerSlide>
             <materialDesign:TransitionerSlide.ForwardWipe>
                 <materialDesign:SlideOutWipe />
             </materialDesign:TransitionerSlide.ForwardWipe>
+
             <Grid>
                 <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-                    <ListBox HorizontalContentAlignment="Stretch" ItemsSource="{Binding ConvertedItemsSource}">
+                    <ListBox
+                        x:Name="ListBox"
+                        HorizontalContentAlignment="Stretch"
+                        ItemsSource="{Binding ConvertedItemsSource}"
+                        SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                        SelectionChanged="OnListBoxSelectionChanged">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <local:Header
-                                    HorizontalAlignment="Stretch"
-                                    Background="Transparent"
-                                    DataContext="{Binding HeaderViewModel}" />
+                                <Grid Background="Transparent">
+                                    <local:Header
+                                        HorizontalAlignment="Stretch"
+                                        Background="Transparent"
+                                        DataContext="{Binding HeaderViewModel}" />
+
+                                    <Button
+                                        Margin="10"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Top"
+                                        Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:List}}}"
+                                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                                        ToolTip="Delete">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            Kind="Delete" />
+                                    </Button>
+                                </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
 
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="SelectionChanged">
-                                <i:InvokeCommandAction Command="{x:Static materialDesign:Transitioner.MoveNextCommand}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
                     </ListBox>
                 </ScrollViewer>
 
@@ -53,36 +74,11 @@
         </materialDesign:TransitionerSlide>
 
         <materialDesign:TransitionerSlide>
-            <materialDesign:TransitionerSlide.BackwardWipe>
-                <materialDesign:CircleWipe />
-            </materialDesign:TransitionerSlide.BackwardWipe>
-            <Grid>
-                <Button
-                    HorizontalAlignment="Center"
-                    Command="{x:Static materialDesign:Transitioner.MovePreviousCommand}"
-                    Content="CircleWipe" />
-            </Grid>
+            <local:ObjectEditor DataContext="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </materialDesign:TransitionerSlide>
 
         <materialDesign:TransitionerSlide>
-            <materialDesign:TransitionerSlide.BackwardWipe>
-                <materialDesign:SlideOutWipe />
-            </materialDesign:TransitionerSlide.BackwardWipe>
-            <Grid>
-
-                <Button
-                    Margin="0,0,30,30"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Top"
-                    Command="{x:Static materialDesign:Transitioner.MoveFirstCommand}"
-                    Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                    ToolTip="Add item">
-                    <materialDesign:PackIcon
-                        Width="24"
-                        Height="24"
-                        Kind="ContentSave" />
-                </Button>
-            </Grid>
+            <local:ObjectEditor DataContext="{Binding EmptyElement}" />
         </materialDesign:TransitionerSlide>
 
     </materialDesign:Transitioner>

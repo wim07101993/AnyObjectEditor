@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using DatabaseManager.Helpers.Extensions;
 using DatabaseManager.ViewModelInterfaces;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -14,6 +15,8 @@ namespace DatabaseManager.ViewModel
     {
         private IEnumerable _itemsSource;
         private IEnumerable<IObjectEditorViewModel> _convertedItemsSource;
+        private IObjectEditorViewModel _emptyElement;
+        private IObjectEditorViewModel _selectedItem;
 
         public IEnumerable ItemsSource
         {
@@ -26,6 +29,9 @@ namespace DatabaseManager.ViewModel
                 ConvertedItemsSource = _itemsSource
                     .Cast<object>()
                     .Select(x => new ObjectEditorViewModel(x));
+
+                if (!EnumerableExtensions.IsNullOrEmpty(ItemsSource))
+                    EmptyElement = ObjectEditorViewModel.CreateEmpty(ItemsSource.Cast<object>().First());
             }
         }
 
@@ -35,7 +41,20 @@ namespace DatabaseManager.ViewModel
             private set => SetProperty(ref _convertedItemsSource, value);
         }
 
-        public ICommand AddCommand { get; private set; }
+        public IObjectEditorViewModel SelectedItem
+        {
+            get => _selectedItem;
+            set => SetProperty(ref _selectedItem, value);
+        }
+
+        public IObjectEditorViewModel EmptyElement
+        {
+            get => _emptyElement;
+            set => SetProperty(ref _emptyElement, value);
+        }
+
+        public ICommand SaveCommand { get; private set; }
+        public ICommand DeleteCommand { get; private set; }
 
 
         public ListViewModel()
@@ -51,12 +70,17 @@ namespace DatabaseManager.ViewModel
 
         private void Init()
         {
-            AddCommand = new DelegateCommand(Add);
+            SaveCommand = new DelegateCommand<IObjectEditorViewModel>(Save);
+            DeleteCommand = new DelegateCommand<IObjectEditorViewModel>(Delete);
         }
 
-        public void Add()
+        public void Delete(IObjectEditorViewModel element)
         {
-            
+
+        }
+
+        public void Save(IObjectEditorViewModel element)
+        {
         }
     }
 }

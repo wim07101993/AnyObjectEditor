@@ -1,28 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows.Controls;
 
 namespace DatabaseManager.Views.Controls
 {
-    /// <summary>
-    /// Interaction logic for List.xaml
-    /// </summary>
-    public partial class List : UserControl
+    public partial class List
     {
         public List()
         {
             InitializeComponent();
+        }
+
+        private void OnListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (Transitioner.SelectedIndex == 0 && ListBox.SelectedItem != null)
+                Transitioner.SelectedIndex = 1;
+        }
+
+        private void OnTransitionerSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (Transitioner.SelectedIndex != 0)
+                return;
+
+            ListBox.SelectedItem = null;
         }
     }
 }

@@ -8,10 +8,10 @@ namespace DatabaseManager.ViewModel
 {
     public class HeaderViewModel : BindableBase, IHeaderViewModel
     {
-        private string _title;
-        private string _subtitle;
-        private string _description;
-        private BitmapSource _picture;
+        private IPropertyViewModel _title;
+        private IPropertyViewModel _subtitle;
+        private IPropertyViewModel _description;
+        private IPropertyViewModel _picture;
         private string _id;
 
         public string ID
@@ -20,47 +20,28 @@ namespace DatabaseManager.ViewModel
             set => SetProperty(ref _id, value);
         }
 
-        public string Title
+        public IPropertyViewModel Title
         {
             get => _title;
             set => SetProperty(ref _title, value);
         }
 
-        public string Subtitle
+        public IPropertyViewModel Subtitle
         {
             get => _subtitle;
             set => SetProperty(ref _subtitle, value);
         }
 
-        public string Description
+        public IPropertyViewModel Description
         {
             get => _description;
             set => SetProperty(ref _description, value);
         }
 
-        public BitmapSource Picture
+        public IPropertyViewModel Picture
         {
             get => _picture;
             set => SetProperty(ref _picture, value);
-        }
-
-        public ICommand DeleteCommand { get; }
-        public ICommand SaveCommand { get; }
-
-
-        public HeaderViewModel()
-        {
-            DeleteCommand = new DelegateCommand(Delete);
-            SaveCommand = new DelegateCommand(Save);
-        }
-
-
-        private void Delete()
-        {
-        }
-
-        private void Save()
-        {
         }
     }
 }
