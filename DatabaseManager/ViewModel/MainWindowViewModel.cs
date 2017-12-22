@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using DatabaseManager.Models;
+﻿using DatabaseManager.Models;
 using DatabaseManager.Services;
 using DatabaseManager.ViewModelInterfaces;
 

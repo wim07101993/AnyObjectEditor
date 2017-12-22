@@ -31,7 +31,6 @@ namespace DatabaseManager.ViewModel
 
 
         #region PROPERTIES
-        
 
         public IEnumerable<T> ItemsSource
         {
@@ -63,10 +62,19 @@ namespace DatabaseManager.ViewModel
             private set => SetProperty(ref _convertedItemsSource, value);
         }
 
+        IEnumerable<IObjectEditorViewModel> IListViewModel.ConvertedItemsSource
+            => ConvertedItemsSource.Cast<IObjectEditorViewModel>();
+
         public IObjectEditorViewModel<T> SelectedItem
         {
             get => _selectedItem;
             set => SetProperty(ref _selectedItem, value);
+        }
+
+        IObjectEditorViewModel IListViewModel.SelectedItem
+        {
+            get => SelectedItem as IObjectEditorViewModel;
+            set => SelectedItem = (IObjectEditorViewModel<T>) value;
         }
 
         public IObjectEditorViewModel<T> EmptyElement
@@ -75,16 +83,17 @@ namespace DatabaseManager.ViewModel
             set => SetProperty(ref _emptyElement, value);
         }
 
+        IObjectEditorViewModel IListViewModel.EmptyElement
+        {
+            get => EmptyElement as IObjectEditorViewModel;
+            set => EmptyElement = (IObjectEditorViewModel<T>)value;
+        }
+
         public bool IsListEditable
             => ItemsSource is IList;
 
         public ICommand SaveCommand { get; private set; }
         public ICommand DeleteCommand { get; private set; }
-
-        IEnumerable<IObjectEditorViewModel> IListViewModel.ConvertedItemsSource => throw new NotImplementedException();
-
-        IObjectEditorViewModel IListViewModel.SelectedItem { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        IObjectEditorViewModel IListViewModel.EmptyElement { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         #endregion PROPERTIES
 
