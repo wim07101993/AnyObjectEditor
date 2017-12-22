@@ -19,7 +19,7 @@ namespace DatabaseManager.Models
         [BsonId]
         [Id]
         [Browsable(false)]
-        public ObjectId ObjectId { get; }
+        public ObjectId ObjectId { get; set; }
 
         [BsonElement("firstName")]
         [Title]
@@ -63,7 +63,7 @@ namespace DatabaseManager.Models
 
         public Person()
         {
-            ObjectId = ObjectId.GenerateNewId();
+            //ObjectId = ObjectId.GenerateNewId();
         }
     }
 }

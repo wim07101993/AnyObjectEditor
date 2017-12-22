@@ -1,13 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using DatabaseManager.Helpers.Extensions;
 using DatabaseManager.ViewModelInterfaces;
+using Prism.Mvvm;
 
 namespace DatabaseManager.ViewModel
 {
-    public class ObjectEditorViewModel<T> : IObjectEditorViewModel<T>, IObjectEditorViewModel
+    public class ObjectEditorViewModel<T> : BindableBase, IObjectEditorViewModel<T>, IObjectEditorViewModel
     {
+        #region FIELDS
+
         private T _value;
+
+        #endregion FIELDS
+
+
+        #region PROPERTIES
 
         public IHeaderViewModel HeaderViewModel { get; private set; }
 
@@ -17,18 +27,18 @@ namespace DatabaseManager.ViewModel
         public IPropertyViewModel Picture { get; private set; }
         public IEnumerable<IPropertyViewModel> NativeProperties { get; private set; }
 
-        object IObjectEditorViewModel.Value
-            => Value;
+        object IObjectEditorViewModel.Value => Value;
 
         public T Value
         {
             get => _value;
             set
             {
-                if (Equals(_value, value))
-                    return;
+                if (_value != null)
+                    UnRegisterOnPropertyChanges();
 
-                _value = value;
+                if (!SetProperty(ref _value, value) || value == null)
+                    return;
 
                 var properties = _value.GetType().GetProperties();
                 var nativeProperties = new List<IPropertyViewModel>();
@@ -48,6 +58,8 @@ namespace DatabaseManager.ViewModel
 
                 NativeProperties = nativeProperties;
 
+                RegisterOnPropertyChanges();
+
                 HeaderViewModel = new HeaderViewModel
                 {
                     Title = Title,
@@ -58,6 +70,10 @@ namespace DatabaseManager.ViewModel
             }
         }
 
+        #endregion PROPERTIES
+
+
+        #region CONSTRUCTOR
 
         public ObjectEditorViewModel()
         {
@@ -67,5 +83,41 @@ namespace DatabaseManager.ViewModel
         {
             Value = value;
         }
+
+        #endregion CONSTRUCTOR
+
+
+        #region METHODS
+
+        private void RegisterOnPropertyChanges()
+        {
+            Title.PropertyChanged += OnPropertyChanged;
+            Subtitle.PropertyChanged += OnPropertyChanged;
+            Description.PropertyChanged += OnPropertyChanged;
+            Picture.PropertyChanged += OnPropertyChanged;
+
+            foreach (var property in NativeProperties)
+                property.PropertyChanged += OnPropertyChanged;
+        }
+
+      
+        public void UnRegisterOnPropertyChanges()
+        {
+            Title.PropertyChanged -= OnPropertyChanged;
+            Subtitle.PropertyChanged -= OnPropertyChanged;
+            Description.PropertyChanged -= OnPropertyChanged;
+            Picture.PropertyChanged -= OnPropertyChanged;
+
+            foreach (var property in NativeProperties)
+                property.PropertyChanged -= OnPropertyChanged;
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            var property = (IPropertyViewModel) sender;
+            property.PropertyInfo.SetValue(Value, property.Value);
+        }
+        
+        #endregion METHODS
     }
 }

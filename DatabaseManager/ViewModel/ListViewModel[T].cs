@@ -163,12 +163,11 @@ namespace DatabaseManager.ViewModel
                     foreach (var property in EmptyElement.NativeProperties)
                         property.PropertyInfo.SetValue(item, property.Value);
 
-                Transitioner.MoveFirstCommand?.Execute(null, null);
-
                 await _insertItemFunc(item);
             }
 
             ItemsSource = await _getItemsFunc();
+            Transitioner.MoveFirstCommand?.Execute(null, null);
         }
 
         #endregion METHODS
