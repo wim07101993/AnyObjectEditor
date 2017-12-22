@@ -17,27 +17,30 @@ namespace DatabaseManager.Models
         private BitmapImage _picture;
         private string _summary;
 
-        [BsonId]
         [Id]
+        [BsonId]
         [Browsable(false)]
         public ObjectId ObjectId { get; set; }
 
-        [BsonElement("firstName")]
         [Title]
+        [DisplayName("Voornaam")]
+        [BsonElement("firstName")]
         public string FirstName
         {
             get => _firstName;
             set => SetProperty(ref _firstName, value);
         }
 
-        [BsonElement("lastName")]
         [Subtitle]
+        [DisplayName("Achternaam")]
+        [BsonElement("lastName")]
         public string LastName
         {
             get => _lastName;
             set => SetProperty(ref _lastName, value);
         }
 
+        [DisplayName("Leeftijd")]
         [BsonElement("age")]
         public int Age
         {
@@ -45,27 +48,23 @@ namespace DatabaseManager.Models
             set => SetProperty(ref _age, value);
         }
 
-        [BsonSerializer(typeof(BitmapImageSerializer))]
-        [BsonElement("picture")]
         [Picture]
+        [DisplayName("Foto")]
+        [BsonElement("picture")]
+        [BsonSerializer(typeof(BitmapImageSerializer))]
         public BitmapImage Picture
         {
             get => _picture;
             set => SetProperty(ref _picture, value);
         }
 
-        [BsonElement("summary")]
         [Helpers.Attributes.Description]
+        [DisplayName("Korte beschrijving")]
+        [BsonElement("summary")]
         public string Summary
         {
             get => _summary;
             set => SetProperty(ref _summary, value);
-        }
-
-
-        public Person()
-        {
-            //ObjectId = ObjectId.GenerateNewId();
         }
     }
 }

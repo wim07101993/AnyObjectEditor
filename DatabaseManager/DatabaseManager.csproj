@@ -112,10 +112,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MeterialDesignTheme\Flipper.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Controls\EditableHeader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -153,6 +149,7 @@
     <Compile Include="Helpers\Converters\InvertedObjectToVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\InvertedStringToVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\MultiBooleanAndToVisibilityConverter.cs" />
+    <Compile Include="Helpers\Converters\MultiBooleanOrToVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\MultiCommandConverter.cs" />
     <Compile Include="Helpers\Converters\MultiObjectAndToVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\ObjectToBooleanConverter.cs" />
@@ -161,8 +158,6 @@
     <Compile Include="Helpers\Extensions\BitmapImageExtensions.cs" />
     <Compile Include="Helpers\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Helpers\Extensions\PropertyInfoExtensions.cs" />
-    <Compile Include="MeterialDesignTheme\Flipper.cs" />
-    <Compile Include="MeterialDesignTheme\Plane3D.cs" />
     <Compile Include="Models\Bases\IMongoModel.cs" />
     <Compile Include="Services\IDataService.cs" />
     <Compile Include="Services\Mongo\BitmapImageSerializer.cs" />
