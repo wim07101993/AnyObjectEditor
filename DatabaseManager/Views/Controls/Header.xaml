@@ -4,18 +4,17 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:DatabaseManager.Helpers.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mahAppsConverters="http://metro.mahapps.com/winfx/xaml/shared"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModelInterfaces="clr-namespace:DatabaseManager.ViewModelInterfaces"
     d:DataContext="{d:DesignInstance viewModelInterfaces:IHeaderViewModel}"
     mc:Ignorable="d">
 
     <UserControl.Resources>
-        <mahAppsConverters:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
         <converters:MultiObjectAndToVisibilityConverter x:Key="MultiObjectAndToVisibilityConverter" />
         <converters:MultiBooleanAndToVisibilityConverter x:Key="MultiBooleanAndToVisibilityConverter" />
         <converters:InvertedObjectToBooleanConverter x:Key="InvertedObjectToBooleanConverter" />
         <converters:ObjectToBooleanConverter x:Key="ObjectToBooleanConverter" />
+        <converters:StringToBooleanConverter x:Key="StringToBooleanConverter" />
     </UserControl.Resources>
 
     <Grid>
@@ -73,17 +72,33 @@
             <TextBlock
                 Grid.Row="0"
                 FontSize="26"
-                Text="{Binding Title.Value}"
-                Visibility="{Binding Title, Converter={StaticResource StringToVisibilityConverter}}" />
+                Text="{Binding Title.Value}">
+                <TextBlock.Visibility>
+                    <MultiBinding Converter="{StaticResource MultiBooleanAndToVisibilityConverter}">
+                        <Binding Converter="{StaticResource StringToBooleanConverter}" Path="Title.Value" />
+                        <Binding Converter="{StaticResource ObjectToBooleanConverter}" Path="Title" />
+                    </MultiBinding>
+                </TextBlock.Visibility>
+            </TextBlock>
             <TextBlock
                 Grid.Row="1"
                 FontSize="18"
-                Text="{Binding Subtitle.Value}"
-                Visibility="{Binding Subtitle, Converter={StaticResource StringToVisibilityConverter}}" />
-            <TextBlock
-                Grid.Row="2"
-                Text="{Binding Description.Value}"
-                Visibility="{Binding Description, Converter={StaticResource StringToVisibilityConverter}}" />
+                Text="{Binding Subtitle.Value}">
+                <TextBlock.Visibility>
+                    <MultiBinding Converter="{StaticResource MultiBooleanAndToVisibilityConverter}">
+                        <Binding Converter="{StaticResource StringToBooleanConverter}" Path="Subtitle.Value" />
+                        <Binding Converter="{StaticResource ObjectToBooleanConverter}" Path="Subtitle" />
+                    </MultiBinding>
+                </TextBlock.Visibility>
+            </TextBlock>
+            <TextBlock Grid.Row="2" Text="{Binding Description.Value}">
+                <TextBlock.Visibility>
+                    <MultiBinding Converter="{StaticResource MultiBooleanAndToVisibilityConverter}">
+                        <Binding Converter="{StaticResource StringToBooleanConverter}" Path="Description.Value" />
+                        <Binding Converter="{StaticResource ObjectToBooleanConverter}" Path="Description" />
+                    </MultiBinding>
+                </TextBlock.Visibility>
+            </TextBlock>
         </Grid>
     </Grid>
 </UserControl>

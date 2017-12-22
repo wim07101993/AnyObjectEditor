@@ -41,7 +41,10 @@ namespace DatabaseManager.ViewModel
                     return;
 
                 ConvertedItemsSource = _itemsSource
-                    .Select(x => new ObjectEditorViewModel<T>(x));
+                    .Select(x => new ObjectEditorViewModel<T>(x))
+                    .OrderBy(x => x.Title?.Value)
+                    .ThenBy(x => x.Subtitle?.Value)
+                    .ThenBy(x => x.Description?.Value);
 
                 RaisePropertyChanged(nameof(IsListEditable));
 
@@ -86,7 +89,7 @@ namespace DatabaseManager.ViewModel
         IObjectEditorViewModel IListViewModel.EmptyElement
         {
             get => EmptyElement as IObjectEditorViewModel;
-            set => EmptyElement = (IObjectEditorViewModel<T>)value;
+            set => EmptyElement = (IObjectEditorViewModel<T>) value;
         }
 
         public bool IsListEditable
@@ -143,10 +146,12 @@ namespace DatabaseManager.ViewModel
         private static T CreateNewItem()
             => Activator.CreateInstance<T>();
 
+        public async void Refresh() => ItemsSource = await _getItemsFunc();
+
         public async void Delete(T item)
         {
             await _removeItemFunc(item);
-            ItemsSource = await _getItemsFunc();
+            Refresh();
         }
 
         public async void Save()
@@ -168,7 +173,7 @@ namespace DatabaseManager.ViewModel
                 await _insertItemFunc(item);
             }
 
-            ItemsSource = await _getItemsFunc();
+            Refresh();
             Transitioner.MoveFirstCommand?.Execute(null, null);
         }
 

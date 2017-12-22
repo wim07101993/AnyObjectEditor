@@ -147,11 +147,13 @@
     <Compile Include="Helpers\Attributes\TitleAttribute.cs" />
     <Compile Include="Helpers\Converters\InvertedObjectToBooleanConverter.cs" />
     <Compile Include="Helpers\Converters\InvertedObjectToVisibilityConverter.cs" />
+    <Compile Include="Helpers\Converters\InvertedStringToVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\MultiBooleanAndToVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\MultiCommandConverter.cs" />
     <Compile Include="Helpers\Converters\MultiObjectAndToVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\ObjectToBooleanConverter.cs" />
     <Compile Include="Helpers\Converters\ObjectToVisibilityConverter.cs" />
+    <Compile Include="Helpers\Converters\StringToBooleanConverter.cs" />
     <Compile Include="Helpers\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Helpers\Extensions\PropertyInfoExtensions.cs" />
     <Compile Include="MeterialDesignTheme\Flipper.cs" />

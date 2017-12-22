@@ -97,15 +97,15 @@ namespace DatabaseManager.ViewModel
 
         private void RegisterOnPropertyChanges()
         {
-            Title.PropertyChanged += OnPropertyChanged;
-            Subtitle.PropertyChanged += OnPropertyChanged;
-            Description.PropertyChanged += OnPropertyChanged;
-            Picture.PropertyChanged += OnPropertyChanged;
+            if (Title != null) Title.PropertyChanged += OnPropertyChanged;
+            if (Subtitle != null) Subtitle.PropertyChanged += OnPropertyChanged;
+            if (Description != null) Description.PropertyChanged += OnPropertyChanged;
+            if (Picture != null) Picture.PropertyChanged += OnPropertyChanged;
 
             foreach (var property in NativeProperties)
                 property.PropertyChanged += OnPropertyChanged;
         }
-        
+
         public void UnRegisterOnPropertyChanges()
         {
             Title.PropertyChanged -= OnPropertyChanged;
@@ -122,7 +122,7 @@ namespace DatabaseManager.ViewModel
             var property = (IPropertyViewModel) sender;
             property.PropertyInfo.SetValue(Value, property.Value);
         }
-        
+
         #endregion METHODS
     }
 }
