@@ -41,6 +41,7 @@
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Top"
                                     Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:List}}}"
+                                    CommandParameter="{Binding Value}"
                                     Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                                     ToolTip="Delete">
                                     <materialDesign:PackIcon

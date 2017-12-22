@@ -132,7 +132,7 @@ namespace DatabaseManager.ViewModel
         private void Init()
         {
             SaveCommand = new DelegateCommand(Save);
-            DeleteCommand = new DelegateCommand(Delete);
+            DeleteCommand = new DelegateCommand<T>(Delete);
         }
 
         #endregion CONSTRUCTORS
@@ -140,11 +140,13 @@ namespace DatabaseManager.ViewModel
 
         #region METHODS
 
-        private T CreateNewItem()
+        private static T CreateNewItem()
             => Activator.CreateInstance<T>();
 
-        public void Delete()
+        public async void Delete(T item)
         {
+            await _removeItemFunc(item);
+            ItemsSource = await _getItemsFunc();
         }
 
         public async void Save()

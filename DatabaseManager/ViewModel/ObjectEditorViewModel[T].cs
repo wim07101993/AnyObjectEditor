@@ -67,6 +67,12 @@ namespace DatabaseManager.ViewModel
                     Description = Description,
                     Picture = Picture
                 };
+
+                RaisePropertyChanged(nameof(Title));
+                RaisePropertyChanged(nameof(Subtitle));
+                RaisePropertyChanged(nameof(Description));
+                RaisePropertyChanged(nameof(Picture));
+                RaisePropertyChanged(nameof(NativeProperties));
             }
         }
 
@@ -99,8 +105,7 @@ namespace DatabaseManager.ViewModel
             foreach (var property in NativeProperties)
                 property.PropertyChanged += OnPropertyChanged;
         }
-
-      
+        
         public void UnRegisterOnPropertyChanges()
         {
             Title.PropertyChanged -= OnPropertyChanged;

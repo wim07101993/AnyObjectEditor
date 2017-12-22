@@ -90,7 +90,12 @@ namespace DatabaseManager.Services
 
         public async Task RemoveAsync(T item)
         {
-            throw new System.NotImplementedException();
+            var filter = Builders<T>.Filter
+                .Eq(filterItem => filterItem.ObjectId, item.ObjectId);
+
+            await _database
+                .GetCollection<T>(_collectionName)
+                .DeleteOneAsync(filter);
         }
     }
 }
