@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using DatabaseManager.Helpers.Attributes;
@@ -25,6 +26,20 @@ namespace DatabaseManager.Helpers.Extensions
 
         public static bool IsBrowsable(this PropertyInfo This)
             => This.HasAttribute<BrowsableAttribute>() || BrowsableAttribute.Default.Browsable;
+
+        public static bool HasNativeType(this PropertyInfo This)
+        {
+            var type = This.PropertyType;
+            return type == typeof(string) || type == typeof(char) ||
+                   type == typeof(bool) ||
+                   type == typeof(sbyte) || type == typeof(byte) ||
+                   type == typeof(short) || type == typeof(ushort) ||
+                   type == typeof(int) || type == typeof(uint) ||
+                   type == typeof(long) || type == typeof(ulong) ||
+                   type == typeof(decimal) ||
+                   type == typeof(double) ||
+                   type == typeof(float);
+        }
 
         public static string GetDisplayName(this PropertyInfo This)
         {

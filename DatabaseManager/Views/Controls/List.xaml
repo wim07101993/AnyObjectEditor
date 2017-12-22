@@ -7,16 +7,20 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModelInterfaces="clr-namespace:DatabaseManager.ViewModelInterfaces"
+    xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes"
     d:DataContext="{d:DesignInstance viewModelInterfaces:IListViewModel}"
     d:DesignHeight="300"
     d:DesignWidth="300"
     mc:Ignorable="d">
     <Grid>
+
+
+
         <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-            <ListBox HorizontalContentAlignment="Stretch" ItemsSource="{Binding ItemsSource}">
+            <ListBox HorizontalContentAlignment="Stretch" ItemsSource="{Binding ConvertedItemsSource}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <local:Header HorizontalAlignment="Stretch" DataContext="{Binding .}" />
+                        <local:Header HorizontalAlignment="Stretch" DataContext="{Binding HeaderViewModel}" />
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
@@ -26,9 +30,10 @@
             Margin="0,0,30,30"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
+            Command="{Binding AddCommand}"
             Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
             ToolTip="Add item">
-            <materialDesign:PackIcon
+            <wpf:PackIcon
                 Width="24"
                 Height="24"
                 Kind="Plus" />

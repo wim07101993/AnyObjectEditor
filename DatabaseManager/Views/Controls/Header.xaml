@@ -8,8 +8,8 @@
     xmlns:mahAppsConverters="http://metro.mahapps.com/winfx/xaml/shared"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:models="clr-namespace:DatabaseManager.Models"
-    d:DataContext="{d:DesignInstance models:Person}"
+    xmlns:viewModelInterfaces="clr-namespace:DatabaseManager.ViewModelInterfaces"
+    d:DataContext="{d:DesignInstance viewModelInterfaces:IHeaderViewModel}"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -61,17 +61,17 @@
             <TextBlock
                 Grid.Row="0"
                 FontSize="26"
-                Text="{Binding FirstName}"
-                Visibility="{Binding FirstName, Converter={StaticResource StringToVisibilityConverter}}" />
+                Text="{Binding Title}"
+                Visibility="{Binding Title, Converter={StaticResource StringToVisibilityConverter}}" />
             <TextBlock
                 Grid.Row="1"
                 FontSize="18"
-                Text="{Binding LastName}"
-                Visibility="{Binding LastName, Converter={StaticResource StringToVisibilityConverter}}" />
+                Text="{Binding Subtitle}"
+                Visibility="{Binding Subtitle, Converter={StaticResource StringToVisibilityConverter}}" />
             <TextBlock
                 Grid.Row="2"
-                Text="{Binding Summary}"
-                Visibility="{Binding Summary, Converter={StaticResource StringToVisibilityConverter}}" />
+                Text="{Binding Description}"
+                Visibility="{Binding Description, Converter={StaticResource StringToVisibilityConverter}}" />
         </Grid>
 
         <Button
@@ -79,6 +79,7 @@
             Margin="0,10,10,0"
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
+            Command="{Binding DeleteCommand}"
             Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
             ToolTip="Delete">
             <materialDesign:PackIcon

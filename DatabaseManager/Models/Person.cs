@@ -1,4 +1,5 @@
 ﻿using System.Windows.Media.Imaging;
+using DatabaseManager.Helpers.Attributes;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using Prism.Mvvm;
@@ -22,6 +23,7 @@ namespace DatabaseManager.Models
         }
 
         [BsonElement("firstName")]
+        [Title]
         public string FirstName
         {
             get => _firstName;
@@ -29,6 +31,7 @@ namespace DatabaseManager.Models
         }
 
         [BsonElement("lastName")]
+        [Subtitle]
         public string LastName
         {
             get => _lastName;
@@ -43,6 +46,7 @@ namespace DatabaseManager.Models
         }
 
         [BsonElement("picture")]
+        [Picture]
         public BitmapSource Picture
         {
             get => _picture;
@@ -50,6 +54,7 @@ namespace DatabaseManager.Models
         }
 
         [BsonElement("summary")]
+        [Description]
         public string Summary
         {
             get => _summary;
