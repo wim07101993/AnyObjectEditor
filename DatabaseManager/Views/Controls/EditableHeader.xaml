@@ -5,7 +5,6 @@
     xmlns:converters="clr-namespace:DatabaseManager.Helpers.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mahAppsConverters="http://metro.mahapps.com/winfx/xaml/shared"
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModelInterfaces="clr-namespace:DatabaseManager.ViewModelInterfaces"
     d:DataContext="{d:DesignInstance viewModelInterfaces:IHeaderViewModel}"
