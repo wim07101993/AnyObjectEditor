@@ -15,7 +15,7 @@ namespace DatabaseManager.ViewModel
                 new MongoDataService<Person>("mongodb://localhost:27017", "people", "people");
 
             ListViewModel = new ListViewModel<Person>(
-                async () => (await dataService.GetAllAsync()).OrderBy(x => x.FirstName),
+                dataService.GetAllAsync,
                 dataService.InsertAsync,
                 dataService.UpdateAsync,
                 dataService.RemoveAsync);
