@@ -75,7 +75,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                            <local:NativeTypeEditor PropertyName="{Binding DisplayName}" Value="{Binding Value}" />
+                            <local:NativeTypeEditor PropertyName="{Binding DisplayName}" Value="{Binding Value, Mode=TwoWay}" />
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

@@ -27,6 +27,8 @@ namespace DatabaseManager.ViewModel
         private IEnumerable<IObjectEditorViewModel> _convertedItemsSource;
         private IObjectEditorViewModel _emptyElement;
         private IObjectEditorViewModel _selectedItem;
+        private IEnumerable<IObjectEditorViewModel> _filteredItemsSource;
+        private string _searchString;
 
         #endregion FIELDS
 
@@ -55,7 +57,18 @@ namespace DatabaseManager.ViewModel
         public IEnumerable<IObjectEditorViewModel> ConvertedItemsSource
         {
             get => _convertedItemsSource;
-            private set => SetProperty(ref _convertedItemsSource, value);
+            private set
+            {
+                if (!SetProperty(ref _convertedItemsSource, value))
+                    return;
+                FilterItemsSource();
+            }
+        }
+
+        public IEnumerable<IObjectEditorViewModel> FilteredItemsSource
+        {
+            get => _filteredItemsSource;
+            set => SetProperty(ref _filteredItemsSource, value);
         }
 
         public IObjectEditorViewModel SelectedItem
@@ -72,6 +85,17 @@ namespace DatabaseManager.ViewModel
 
         public bool IsListEditable
             => ItemsSource is IList;
+
+        public string SearchString
+        {
+            get => _searchString;
+            set
+            {
+                if (!SetProperty(ref _searchString, value))
+                    return;
+                FilterItemsSource();
+            }
+        }
 
         public ICommand SaveCommand { get; private set; }
         public ICommand DeleteCommand { get; private set; }
@@ -120,6 +144,59 @@ namespace DatabaseManager.ViewModel
 
 
         #region METHODS
+
+        private void FilterItemsSource()
+        {
+            if (string.IsNullOrWhiteSpace(SearchString))
+            {
+                FilteredItemsSource = ConvertedItemsSource;
+                return;
+            }
+
+            var split = SearchString.Split(':');
+            if (split.Length > 1)
+                switch (split[0])
+                {
+                    case nameof(ObjectEditorViewModel.Title):
+                        FilteredItemsSource = ConvertedItemsSource.Where(x => FilterOnTitle(x, split[1]));
+                        return;
+                    case nameof(ObjectEditorViewModel.Subtitle):
+                        FilteredItemsSource = ConvertedItemsSource.Where(x => FilterOnSubtitle(x, split[1]));
+                        return;
+                    case nameof(ObjectEditorViewModel.Description):
+                        FilteredItemsSource = ConvertedItemsSource.Where(x => FilterOnDescription(x, split[1]));
+                        return;
+                    case nameof(ObjectEditorViewModel.NativeProperties):
+                        FilteredItemsSource = ConvertedItemsSource.Where(x => FilterOnNativeProperties(x, split[1]));
+                        return;
+                }
+
+            var titleFiltered = ConvertedItemsSource.Where(x => FilterOnTitle(x, SearchString));
+            var subtitleFiltered = ConvertedItemsSource.Where(x => FilterOnSubtitle(x, SearchString));
+            var descriptionFiltered = ConvertedItemsSource.Where(x => FilterOnDescription(x, SearchString));
+            var nativePropertiesFiltered = ConvertedItemsSource.Where(x => FilterOnNativeProperties(x, SearchString));
+
+            var filteredItems = titleFiltered.ToList();
+            var allOtherItems = subtitleFiltered.ToList();
+            allOtherItems.AddRange(descriptionFiltered);
+            allOtherItems.AddRange(nativePropertiesFiltered);
+
+            foreach (var item in allOtherItems)
+                if (filteredItems.Any(x => x.Value.Equals(item.Value)))
+                    filteredItems.Add(item);
+        }
+
+        private static bool FilterOnTitle(IObjectEditorViewModel objectEditorViewModel, string filter)
+            => objectEditorViewModel.Title.Value.ToString().Contains(filter);
+
+        private static bool FilterOnSubtitle(IObjectEditorViewModel objectEditorViewModel, string filter)
+            => objectEditorViewModel.Subtitle.Value.ToString().Contains(filter);
+
+        private static bool FilterOnDescription(IObjectEditorViewModel objectEditorViewModel, string filter)
+            => objectEditorViewModel.Description.Value.ToString().Contains(filter);
+
+        private static bool FilterOnNativeProperties(IObjectEditorViewModel objectEditorViewModel, string filter)
+            => objectEditorViewModel.NativeProperties.Any(x => x.Value.ToString().Contains(filter));
 
         public object CreateNewItem()
             => Activator.CreateInstance(ItemsSource

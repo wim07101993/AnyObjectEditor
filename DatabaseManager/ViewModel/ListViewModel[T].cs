@@ -24,8 +24,11 @@ namespace DatabaseManager.ViewModel
 
         private IEnumerable<T> _itemsSource;
         private IEnumerable<IObjectEditorViewModel<T>> _convertedItemsSource;
+        private IEnumerable<IObjectEditorViewModel<T>> _filteredItemsSource;
+
         private IObjectEditorViewModel<T> _emptyElement;
         private IObjectEditorViewModel<T> _selectedItem;
+        private string _searchString;
 
         #endregion FIELDS
 
@@ -62,11 +65,30 @@ namespace DatabaseManager.ViewModel
         public IEnumerable<IObjectEditorViewModel<T>> ConvertedItemsSource
         {
             get => _convertedItemsSource;
-            private set => SetProperty(ref _convertedItemsSource, value);
+            private set
+            {
+                if (!SetProperty(ref _convertedItemsSource, value))
+                    return;
+                FilterItemsSource();
+            }
         }
 
         IEnumerable<IObjectEditorViewModel> IListViewModel.ConvertedItemsSource
             => ConvertedItemsSource.Cast<IObjectEditorViewModel>();
+
+        public IEnumerable<IObjectEditorViewModel<T>> FilteredItemsSource
+        {
+            get => _filteredItemsSource;
+            private set
+            {
+                if (!SetProperty(ref _filteredItemsSource, value))
+                    return;
+                RaisePropertyChanged(nameof(FilteredItemsSource));
+            }
+        }
+
+        IEnumerable<IObjectEditorViewModel> IListViewModel.FilteredItemsSource
+            => FilteredItemsSource.Cast<IObjectEditorViewModel>();
 
         public IObjectEditorViewModel<T> SelectedItem
         {
@@ -94,6 +116,17 @@ namespace DatabaseManager.ViewModel
 
         public bool IsListEditable
             => ItemsSource is IList;
+
+        public string SearchString
+        {
+            get => _searchString;
+            set
+            {
+                if (!SetProperty(ref _searchString, value))
+                    return;
+                FilterItemsSource();
+            }
+        }
 
         public ICommand SaveCommand { get; private set; }
         public ICommand DeleteCommand { get; private set; }
@@ -142,6 +175,61 @@ namespace DatabaseManager.ViewModel
 
 
         #region METHODS
+
+        private void FilterItemsSource()
+        {
+            if (string.IsNullOrWhiteSpace(SearchString))
+            {
+                FilteredItemsSource = ConvertedItemsSource;
+                return;
+            }
+
+            var split = SearchString.Split(':');
+            if (split.Length > 1)
+                switch (split[0])
+                {
+                    case nameof(ObjectEditorViewModel.Title):
+                        FilteredItemsSource = ConvertedItemsSource.Where(x => FilterOnTitle(x, split[1]));
+                        return;
+                    case nameof(ObjectEditorViewModel.Subtitle):
+                        FilteredItemsSource = ConvertedItemsSource.Where(x => FilterOnSubtitle(x, split[1]));
+                        return;
+                    case nameof(ObjectEditorViewModel.Description):
+                        FilteredItemsSource = ConvertedItemsSource.Where(x => FilterOnDescription(x, split[1]));
+                        return;
+                    case nameof(ObjectEditorViewModel.NativeProperties):
+                        FilteredItemsSource = ConvertedItemsSource.Where(x => FilterOnNativeProperties(x, split[1]));
+                        return;
+                }
+            
+            var titleFiltered = ConvertedItemsSource.Where(x => FilterOnTitle(x, SearchString));
+            var subtitleFiltered = ConvertedItemsSource.Where(x => FilterOnSubtitle(x, SearchString));
+            var descriptionFiltered = ConvertedItemsSource.Where(x => FilterOnDescription(x, SearchString));
+            var nativePropertiesFiltered = ConvertedItemsSource.Where(x => FilterOnNativeProperties(x, SearchString));
+
+            var filteredItems = titleFiltered.ToList();
+            var allOtherItems = subtitleFiltered.ToList();
+            allOtherItems.AddRange(descriptionFiltered);
+            allOtherItems.AddRange(nativePropertiesFiltered);
+
+            foreach (var item in allOtherItems)
+                if (filteredItems.Any(x => x.Value.Equals(item.Value)))
+                    filteredItems.Add(item);
+
+            FilteredItemsSource = filteredItems;
+        }
+
+        private static bool FilterOnTitle(IObjectEditorViewModel<T> objectEditorViewModel, string filter)
+            => objectEditorViewModel.Title.Value.ToString().Contains(filter);
+
+        private static bool FilterOnSubtitle(IObjectEditorViewModel<T> objectEditorViewModel, string filter)
+            => objectEditorViewModel.Subtitle.Value.ToString().Contains(filter);
+
+        private static bool FilterOnDescription(IObjectEditorViewModel<T> objectEditorViewModel, string filter)
+            => objectEditorViewModel.Description.Value.ToString().Contains(filter);
+
+        private static bool FilterOnNativeProperties(IObjectEditorViewModel<T> objectEditorViewModel, string filter)
+            => objectEditorViewModel.NativeProperties.Any(x => x.Value.ToString().Contains(filter));
 
         private static T CreateNewItem()
             => Activator.CreateInstance<T>();

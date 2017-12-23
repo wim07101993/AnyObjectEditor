@@ -9,12 +9,14 @@ namespace DatabaseManager.ViewModelInterfaces
     {
         IEnumerable<T> ItemsSource { get; set; }
         IEnumerable<IObjectEditorViewModel<T>> ConvertedItemsSource { get; }
+        IEnumerable<IObjectEditorViewModel<T>> FilteredItemsSource { get; }
 
         IObjectEditorViewModel<T> SelectedItem { get; set; }
 
         IObjectEditorViewModel<T> EmptyElement { get; set; }
 
         bool IsListEditable { get; }
+        string SearchString { get; set; }
 
         ICommand SaveCommand { get; }
         ICommand DeleteCommand { get; }
