@@ -70,5 +70,22 @@
             <local:EditableHeader VerticalAlignment="Top" DataContext="{Binding HeaderViewModel}" />
         </Grid>
 
+        <Grid Grid.Row="2">
+            <ItemsControl ItemsSource="{Binding NativeProperties}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <local:NativeTypeEditor PropertyName="{Binding DisplayName}" Value="{Binding Value}" />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </Grid>
+
     </Grid>
 </UserControl>

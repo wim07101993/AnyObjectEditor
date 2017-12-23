@@ -7,7 +7,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Views/Styles/MaterialDesignThemeStyles.xaml" />
-
+                <ResourceDictionary Source="Views/Styles/CustomSyles.xaml" />
                 <ResourceDictionary Source="Views/Icons.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

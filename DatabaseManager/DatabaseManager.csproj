@@ -153,11 +153,15 @@
     <Compile Include="Helpers\Converters\MultiCommandConverter.cs" />
     <Compile Include="Helpers\Converters\MultiObjectAndToVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\ObjectToBooleanConverter.cs" />
+    <Compile Include="Helpers\Converters\ObjectToDoubleConverter.cs" />
     <Compile Include="Helpers\Converters\ObjectToVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\StringToBooleanConverter.cs" />
+    <Compile Include="Helpers\ENativeTypes.cs" />
     <Compile Include="Helpers\Extensions\BitmapImageExtensions.cs" />
     <Compile Include="Helpers\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Helpers\Extensions\PropertyInfoExtensions.cs" />
+    <Compile Include="Helpers\Extensions\StringExtensions.cs" />
+    <Compile Include="Helpers\ValueChangedEventArgs.cs" />
     <Compile Include="Models\Bases\IMongoModel.cs" />
     <Compile Include="Services\IDataService.cs" />
     <Compile Include="Services\Mongo\BitmapImageSerializer.cs" />
@@ -187,6 +191,7 @@
     <Compile Include="Views\Controls\List.xaml.cs">
       <DependentUpon>List.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Controls\NativeTypeEditor.cs" />
     <Compile Include="Views\Controls\ObjectEditor.xaml.cs">
       <DependentUpon>ObjectEditor.xaml</DependentUpon>
     </Compile>
@@ -199,6 +204,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Styles\MaterialDesignThemeStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Styles\NativeTypeEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

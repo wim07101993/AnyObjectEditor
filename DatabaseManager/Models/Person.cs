@@ -16,6 +16,7 @@ namespace DatabaseManager.Models
         private int _age;
         private BitmapImage _picture;
         private string _summary;
+        private bool _male;
 
         [Id]
         [BsonId]
@@ -46,6 +47,14 @@ namespace DatabaseManager.Models
         {
             get => _age;
             set => SetProperty(ref _age, value);
+        }
+
+        [DisplayName("Man/Vrouw")]
+        [BsonElement("male")]
+        public bool Male
+        {
+            get => _male;
+            set => SetProperty(ref _male, value);
         }
 
         [Picture]
