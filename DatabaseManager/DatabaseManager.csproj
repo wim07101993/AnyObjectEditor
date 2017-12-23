@@ -192,6 +192,9 @@
       <DependentUpon>List.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\NativeTypeEditor.cs" />
+    <Compile Include="Views\Controls\NumericTextBox.cs" />
+    <Compile Include="Views\Controls\NumericTextBoxChangedRoutedEventArgs.cs" />
+    <Compile Include="Views\Controls\NumericTextBoxChangedRoutedEventHandler.cs" />
     <Compile Include="Views\Controls\ObjectEditor.xaml.cs">
       <DependentUpon>ObjectEditor.xaml</DependentUpon>
     </Compile>
@@ -208,6 +211,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Styles\NativeTypeEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Styles\NumericTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:DatabaseManager.Views.Controls"
     xmlns:converters="clr-namespace:DatabaseManager.Helpers.Converters"
-    xmlns:mahAppsControls="http://metro.mahapps.com/winfx/xaml/controls">
+    xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf">
 
     <converters:ObjectToDoubleConverter x:Key="ObjectToDoubleConverter" />
 
@@ -45,17 +45,16 @@
                                 Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Mode=TwoWay}"
                                 TextWrapping="Wrap"
                                 Visibility="Collapsed" />
-                            <mahAppsControls:NumericUpDown
-                                Name="NumericUpDown"
+                            <controls:NumericTextBox
+                                x:Name="NumericTextBox"
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalAlignment="Top"
                                 FontFamily="{TemplateBinding FontFamily}"
-                                FontSize="{TemplateBinding FontSize}"
+                                FontSize="{TemplateBinding FontSize}" HideUpDownButtons="True"
                                 FontStretch="{TemplateBinding FontStretch}"
                                 FontStyle="{TemplateBinding FontStyle}"
                                 FontWeight="{TemplateBinding FontWeight}"
                                 Foreground="{TemplateBinding Foreground}"
-                                HideUpDownButtons="True"
                                 Visibility="Collapsed"
                                 Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Mode=TwoWay, Converter={StaticResource ObjectToDoubleConverter}}" />
                             <ToggleButton
@@ -68,33 +67,75 @@
                     </StackPanel>
 
                     <ControlTemplate.Triggers>
-                        <Trigger Property="Type" Value="Double">
-                            <Setter TargetName="NumericUpDown" Property="Visibility" Value="Visible" />
-                        </Trigger>
-
-                        <Trigger Property="Type" Value="SByte">
-                            <Setter TargetName="NumericUpDown" Property="Visibility" Value="Visible" />
-                        </Trigger>
-
-                        <Trigger Property="Type" Value="Short">
-                            <Setter TargetName="NumericUpDown" Property="Visibility" Value="Visible" />
-                        </Trigger>
-
-                        <Trigger Property="Type" Value="Int">
-                            <Setter TargetName="NumericUpDown" Property="Visibility" Value="Visible" />
-                        </Trigger>
-
-                        <Trigger Property="Type" Value="Long">
-                            <Setter TargetName="NumericUpDown" Property="Visibility" Value="Visible" />
+                        <Trigger Property="Type" Value="Bool">
+                            <Setter TargetName="ToggleSwitch" Property="Visibility" Value="Visible" />
                         </Trigger>
 
                         <Trigger Property="Type" Value="String">
                             <Setter TargetName="TextBox" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="TextBox" Property="MaxLength" Value="0" />
                         </Trigger>
 
-                        <Trigger Property="Type" Value="Bool">
-                            <Setter TargetName="ToggleSwitch" Property="Visibility" Value="Visible" />
+                        <Trigger Property="Type" Value="Char">
+                            <Setter TargetName="TextBox" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="TextBox" Property="MaxLength" Value="1" />
                         </Trigger>
+
+                        <Trigger Property="Type" Value="Byte">
+                            <Setter TargetName="NumericTextBox" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="NumericTextBox" Property="HasDecimals" Value="false" />
+                        </Trigger>
+
+                        <Trigger Property="Type" Value="SByte">
+                            <Setter TargetName="NumericTextBox" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="NumericTextBox" Property="HasDecimals" Value="false" />
+                        </Trigger>
+
+                        <Trigger Property="Type" Value="Short">
+                            <Setter TargetName="NumericTextBox" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="NumericTextBox" Property="HasDecimals" Value="false" />
+                        </Trigger>
+
+                        <Trigger Property="Type" Value="UShort">
+                            <Setter TargetName="NumericTextBox" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="NumericTextBox" Property="HasDecimals" Value="false" />
+                        </Trigger>
+
+                        <Trigger Property="Type" Value="Int">
+                            <Setter TargetName="NumericTextBox" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="NumericTextBox" Property="HasDecimals" Value="false" />
+                        </Trigger>
+
+                        <Trigger Property="Type" Value="UInt">
+                            <Setter TargetName="NumericTextBox" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="NumericTextBox" Property="HasDecimals" Value="false" />
+                        </Trigger>
+
+                        <Trigger Property="Type" Value="Long">
+                            <Setter TargetName="NumericTextBox" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="NumericTextBox" Property="HasDecimals" Value="false" />
+                        </Trigger>
+
+                        <Trigger Property="Type" Value="ULong">
+                            <Setter TargetName="NumericTextBox" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="NumericTextBox" Property="HasDecimals" Value="false" />
+                        </Trigger>
+
+                        <Trigger Property="Type" Value="Float">
+                            <Setter TargetName="NumericTextBox" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="NumericTextBox" Property="HasDecimals" Value="true" />
+                        </Trigger>
+
+                        <Trigger Property="Type" Value="Decimal">
+                            <Setter TargetName="NumericTextBox" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="NumericTextBox" Property="HasDecimals" Value="true" />
+                        </Trigger>
+
+                        <Trigger Property="Type" Value="Double">
+                            <Setter TargetName="NumericTextBox" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="NumericTextBox" Property="HasDecimals" Value="true" />
+                        </Trigger>
+
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

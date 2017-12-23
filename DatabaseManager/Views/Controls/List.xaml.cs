@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace DatabaseManager.Views.Controls
 {
@@ -21,6 +22,11 @@ namespace DatabaseManager.Views.Controls
                 return;
 
             ListBox.SelectedItem = null;
+        }
+
+        private void BackButtonClick(object sender, RoutedEventArgs e)
+        {
+            Transitioner.SelectedIndex = 0;
         }
     }
 }
