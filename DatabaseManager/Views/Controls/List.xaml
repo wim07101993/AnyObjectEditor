@@ -103,7 +103,7 @@
             x:Name="Transitioner"
             Grid.Row="1"
             AutoApplyTransitionOrigins="True"
-            SelectedIndex="0"
+            SelectedIndex="{Binding CurrentPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             SelectionChanged="OnTransitionerSelectionChanged">
 
             <materialDesign:TransitionerSlide>

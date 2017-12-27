@@ -20,5 +20,7 @@ namespace DatabaseManager.ViewModelInterfaces
 
         ICommand SaveCommand { get; }
         ICommand DeleteCommand { get; }
+
+        int CurrentPage { get; set; }
     }
 }

@@ -17,10 +17,10 @@ namespace DatabaseManager.ViewModel
     {
         #region FIELDS
 
-        private readonly Func<Task<IEnumerable<T>>> _getItemsFunc;
-        private readonly Func<T, Task> _insertItemFunc;
-        private readonly Func<T, Task> _updateItemFunc;
-        private readonly Func<T, Task> _removeItemFunc;
+        protected Func<Task<IEnumerable<T>>> GetItemsFunc;
+        protected Func<T, Task> InsertItemFunc;
+        protected Func<T, Task> UpdateItemFunc;
+        protected Func<T, Task> RemoveItemFunc;
 
         private IEnumerable<T> _itemsSource;
         private IEnumerable<IObjectEditorViewModel<T>> _convertedItemsSource;
@@ -29,6 +29,7 @@ namespace DatabaseManager.ViewModel
         private IObjectEditorViewModel<T> _emptyElement;
         private IObjectEditorViewModel<T> _selectedItem;
         private string _searchString;
+        private int _currentPage;
 
         #endregion FIELDS
 
@@ -131,6 +132,12 @@ namespace DatabaseManager.ViewModel
         public ICommand SaveCommand { get; private set; }
         public ICommand DeleteCommand { get; private set; }
 
+        public int CurrentPage
+        {
+            get => _currentPage;
+            set => SetProperty(ref _currentPage, value);
+        }
+
         #endregion PROPERTIES
 
 
@@ -146,29 +153,29 @@ namespace DatabaseManager.ViewModel
         {
             Init();
 
-            _getItemsFunc = getItemsFunc;
-            Task.Factory.StartNew(async () => { return ItemsSource = await _getItemsFunc(); });
+            GetItemsFunc = getItemsFunc;
+            Task.Factory.StartNew(async () => { return ItemsSource = await GetItemsFunc(); });
 
-            _insertItemFunc = insertItemFunc;
-            _updateItemFunc = updateItemFunc;
-            _removeItemFunc = removeItemFunc;
+            InsertItemFunc = insertItemFunc;
+            UpdateItemFunc = updateItemFunc;
+            RemoveItemFunc = removeItemFunc;
         }
 
         public ListViewModel(IDataService<T> dataService)
         {
             Init();
-            _getItemsFunc = async () => await dataService.GetAllAsync();
-            Task.Factory.StartNew(async () => { return ItemsSource = await _getItemsFunc(); });
+            GetItemsFunc = async () => await dataService.GetAllAsync();
+            Task.Factory.StartNew(async () => { ItemsSource = await GetItemsFunc(); });
 
-            _insertItemFunc = dataService.InsertAsync;
-            _updateItemFunc = dataService.UpdateAsync;
-            _removeItemFunc = dataService.RemoveAsync;
+            InsertItemFunc = dataService.InsertAsync;
+            UpdateItemFunc = dataService.UpdateAsync;
+            RemoveItemFunc = dataService.RemoveAsync;
         }
 
-        private void Init()
+        protected void Init()
         {
-            SaveCommand = new DelegateCommand(Save);
-            DeleteCommand = new DelegateCommand<T>(Delete);
+            SaveCommand = new DelegateCommand(SaveAsync);
+            DeleteCommand = new DelegateCommand<T>(DeleteAsync);
         }
 
         #endregion CONSTRUCTORS
@@ -201,7 +208,7 @@ namespace DatabaseManager.ViewModel
                         FilteredItemsSource = ConvertedItemsSource.Where(x => FilterOnNativeProperties(x, split[1]));
                         return;
                 }
-            
+
             var titleFiltered = ConvertedItemsSource.Where(x => FilterOnTitle(x, SearchString));
             var subtitleFiltered = ConvertedItemsSource.Where(x => FilterOnSubtitle(x, SearchString));
             var descriptionFiltered = ConvertedItemsSource.Where(x => FilterOnDescription(x, SearchString));
@@ -231,21 +238,21 @@ namespace DatabaseManager.ViewModel
         private static bool FilterOnNativeProperties(IObjectEditorViewModel<T> objectEditorViewModel, string filter)
             => objectEditorViewModel.NativeProperties.Any(x => x.Value.ToString().Contains(filter));
 
-        private static T CreateNewItem()
+        protected virtual T CreateNewItem()
             => Activator.CreateInstance<T>();
 
-        public async void Refresh() => ItemsSource = await _getItemsFunc();
+        public virtual async void RefreshAsync() => ItemsSource = await GetItemsFunc();
 
-        public async void Delete(T item)
+        public virtual async void DeleteAsync(T item)
         {
-            await _removeItemFunc(item);
-            Refresh();
+            await RemoveItemFunc(item);
+            RefreshAsync();
         }
 
-        public async void Save()
+        public virtual async void SaveAsync()
         {
             if (SelectedItem != null)
-                await _updateItemFunc(SelectedItem.Value);
+                await UpdateItemFunc(SelectedItem.Value);
             else
             {
                 var item = CreateNewItem();
@@ -258,11 +265,12 @@ namespace DatabaseManager.ViewModel
                     foreach (var property in EmptyElement.NativeProperties)
                         property.PropertyInfo.SetValue(item, property.Value);
 
-                await _insertItemFunc(item);
+                await InsertItemFunc(item);
             }
 
-            Refresh();
-            Transitioner.MoveFirstCommand?.Execute(null, null);
+            RefreshAsync();
+
+            CurrentPage = 0;
         }
 
         #endregion METHODS
