@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DatabaseManager.Services
+namespace DatabaseManager.Services.DataService
 {
     public interface IDataService<T>
     {

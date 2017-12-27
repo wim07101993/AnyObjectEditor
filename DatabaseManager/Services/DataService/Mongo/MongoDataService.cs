@@ -6,7 +6,7 @@ using MongoDB.Driver;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace DatabaseManager.Services.Mongo
+namespace DatabaseManager.Services.DataService.Mongo
 {
     public class MongoDataService<T> : IDataService, IDataService<T> where T : IMongoModel
     {

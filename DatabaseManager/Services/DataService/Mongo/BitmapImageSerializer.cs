@@ -1,10 +1,10 @@
 ﻿using System.Windows.Media.Imaging;
-using DatabaseManager.Services.Converter;
+using DatabaseManager.Services.DataService.Converter;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 
-namespace DatabaseManager.Services.Mongo
+namespace DatabaseManager.Services.DataService.Mongo
 {
     public class BitmapImageSerializer : SerializerBase<BitmapImage>
     {

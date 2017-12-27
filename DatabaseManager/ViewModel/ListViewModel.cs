@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
 using DatabaseManager.Services;
+using DatabaseManager.Services.DataService;
 
 namespace DatabaseManager.ViewModel
 {

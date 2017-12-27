@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DatabaseManager.Services.Converter
+namespace DatabaseManager.Services.DataService.Converter
 {
     public class DatabaseConverterException : Exception
     {

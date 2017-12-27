@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
-namespace DatabaseManager.Services
+namespace DatabaseManager.Services.DataService
 {
     public interface IDataService
     {

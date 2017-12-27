@@ -2,7 +2,7 @@
 using System.Windows.Media.Imaging;
 using DatabaseManager.Helpers.Attributes;
 using DatabaseManager.Models.Bases;
-using DatabaseManager.Services.Mongo;
+using DatabaseManager.Services.DataService.Mongo;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using Prism.Mvvm;

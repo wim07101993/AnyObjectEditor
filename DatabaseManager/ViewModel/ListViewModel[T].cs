@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using DatabaseManager.Helpers.Extensions;
 using DatabaseManager.Services;
+using DatabaseManager.Services.DataService;
 using DatabaseManager.ViewModelInterfaces;
 using MaterialDesignThemes.Wpf.Transitions;
 using Prism.Commands;

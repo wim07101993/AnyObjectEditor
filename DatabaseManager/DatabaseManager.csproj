@@ -163,10 +163,10 @@
     <Compile Include="Helpers\Extensions\StringExtensions.cs" />
     <Compile Include="Helpers\ValueChangedEventArgs.cs" />
     <Compile Include="Models\Bases\IMongoModel.cs" />
-    <Compile Include="Services\Converter\DatabaseConverterException.cs" />
-    <Compile Include="Services\IDataService.cs" />
-    <Compile Include="Services\Converter\DatabaseValueConverter.cs" />
-    <Compile Include="Services\Mongo\BitmapImageSerializer.cs" />
+    <Compile Include="Services\DataService\Converter\DatabaseConverterException.cs" />
+    <Compile Include="Services\DataService\IDataService.cs" />
+    <Compile Include="Services\DataService\Converter\DatabaseValueConverter.cs" />
+    <Compile Include="Services\DataService\Mongo\BitmapImageSerializer.cs" />
     <Compile Include="ViewModelInterfaces\IHeaderViewModel.cs" />
     <Compile Include="ViewModelInterfaces\IListViewModel[T].cs" />
     <Compile Include="ViewModelInterfaces\IObjectEditorViewModel[T].cs" />
@@ -177,8 +177,8 @@
     <Compile Include="ViewModel\ObjectEditorViewModel.cs" />
     <Compile Include="ViewModel\PropertyViewModel.cs" />
     <Compile Include="Models\Person.cs" />
-    <Compile Include="Services\IDataService[T].cs" />
-    <Compile Include="Services\Mongo\MongoDataService.cs" />
+    <Compile Include="Services\DataService\IDataService[T].cs" />
+    <Compile Include="Services\DataService\Mongo\MongoDataService.cs" />
     <Compile Include="ViewModelInterfaces\IListViewModel.cs" />
     <Compile Include="ViewModelInterfaces\IMainWindowViewModel.cs" />
     <Compile Include="ViewModelInterfaces\IPropertyViewModel.cs" />
