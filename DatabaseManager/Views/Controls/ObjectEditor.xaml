@@ -25,7 +25,7 @@
             <ItemsControl ItemsSource="{Binding NativeProperties}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Grid>
+                        <Grid Margin="5">
                             <local:NativeTypeEditor PropertyName="{Binding DisplayName}" Value="{Binding Value, Mode=TwoWay}" />
                         </Grid>
                     </DataTemplate>
