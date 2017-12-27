@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Windows.Media.Imaging;
 using DatabaseManager.Helpers.Extensions;
 using DatabaseManager.ViewModelInterfaces;
 using Prism.Mvvm;
@@ -36,7 +37,10 @@ namespace DatabaseManager.ViewModel
         public bool IsTitle { get; }
         public bool IsSubTitle { get; }
         public bool IsDescription { get; }
+
         public bool IsReadOnly { get; }
+
+        public bool IsImage { get; }
 
         #endregion PROPERTIES
 
@@ -62,6 +66,8 @@ namespace DatabaseManager.ViewModel
             IsDescription = propertyInfo.IsDescription();
 
             IsReadOnly = propertyInfo.CanWrite;
+
+            IsImage = propertyInfo.PropertyType == typeof(BitmapImage);
         }
 
         #endregion CONSTRUCTORS

@@ -19,6 +19,7 @@ namespace DatabaseManager.ViewModelInterfaces
         bool IsSubTitle { get; }
         bool IsDescription { get; }
         bool IsReadOnly { get; }
-    }
 
+        bool IsImage { get; }
+    }
 }

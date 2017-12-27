@@ -17,6 +17,7 @@ namespace DatabaseManager.Models
         private BitmapImage _picture;
         private string _summary;
         private bool _male;
+        private BitmapImage _favoriteImage;
 
         [Id]
         [BsonId]
@@ -74,6 +75,15 @@ namespace DatabaseManager.Models
         {
             get => _summary;
             set => SetProperty(ref _summary, value);
+        }
+
+        [DisplayName("Favoriete afbeelding")]
+        [BsonElement("favoriteImage")]
+        [BsonSerializer(typeof(BitmapImageSerializer))]
+        public BitmapImage FavoriteImage
+        {
+            get => _favoriteImage;
+            set => SetProperty(ref _favoriteImage, value);
         }
     }
 }

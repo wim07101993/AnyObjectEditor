@@ -14,5 +14,6 @@ namespace DatabaseManager.ViewModelInterfaces
         IPropertyViewModel Picture { get; }
 
         IEnumerable<IPropertyViewModel> NativeProperties { get; }
+        IEnumerable<IPropertyViewModel> OtherProperties { get; }
     }
 }

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using DatabaseManager.Helpers.Extensions;
 using DatabaseManager.ViewModelInterfaces;
 using Prism.Mvvm;
@@ -25,7 +23,9 @@ namespace DatabaseManager.ViewModel
         public IPropertyViewModel Subtitle { get; private set; }
         public IPropertyViewModel Description { get; private set; }
         public IPropertyViewModel Picture { get; private set; }
+
         public IEnumerable<IPropertyViewModel> NativeProperties { get; private set; }
+        public IEnumerable<IPropertyViewModel> OtherProperties { get; private set; }
 
         object IObjectEditorViewModel.Value => Value;
 
@@ -42,6 +42,7 @@ namespace DatabaseManager.ViewModel
 
                 var properties = _value.GetType().GetProperties();
                 var nativeProperties = new List<IPropertyViewModel>();
+                var otherProperties = new List<IPropertyViewModel>();
                 foreach (var property in properties)
                 {
                     if (property.IsTitle())
@@ -54,9 +55,12 @@ namespace DatabaseManager.ViewModel
                         Picture = new PropertyViewModel(property, _value);
                     else if (property.HasNativeType())
                         nativeProperties.Add(new PropertyViewModel(property, _value));
+                    else
+                        otherProperties.Add(new PropertyViewModel(property, _value));
                 }
 
                 NativeProperties = nativeProperties;
+                OtherProperties = otherProperties;
 
                 RegisterOnPropertyChanges();
 
