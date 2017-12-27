@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
@@ -26,7 +27,7 @@ namespace DatabaseManager.Helpers.Extensions
             {
                 var image = new BitmapImage();
 
-                using (var ms = new MemoryStream(This)) 
+                using (var ms = new MemoryStream(This))
                 {
                     image.BeginInit();
                     image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;

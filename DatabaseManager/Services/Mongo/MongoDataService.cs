@@ -1,11 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
-using DatabaseManager.Helpers.Extensions;
 using DatabaseManager.Models.Bases;
 using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;

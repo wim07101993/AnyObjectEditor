@@ -1,5 +1,5 @@
 ﻿using System.Windows.Media.Imaging;
-using DatabaseManager.Helpers.Extensions;
+using DatabaseManager.Services.Converter;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
@@ -14,7 +14,7 @@ namespace DatabaseManager.Services.Mongo
             if (value == null)
                 context.Writer.WriteNull();
             else
-                context.Writer.WriteBytes(value.ToBytes());
+                context.Writer.WriteBytes(DatabaseValueConverter.ConvertImage(value));
         }
 
         public override BitmapImage Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)
@@ -22,8 +22,7 @@ namespace DatabaseManager.Services.Mongo
             if (context.Reader.CurrentBsonType == BsonType.Binary)
             {
                 var bytes = context.Reader.ReadBytes();
-                var img = bytes.ToBitmapImage();
-                return img;
+                return DatabaseValueConverter.ConvertToImage(bytes);
             }
 
             context.Reader.SkipValue();

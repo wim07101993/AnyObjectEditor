@@ -163,7 +163,9 @@
     <Compile Include="Helpers\Extensions\StringExtensions.cs" />
     <Compile Include="Helpers\ValueChangedEventArgs.cs" />
     <Compile Include="Models\Bases\IMongoModel.cs" />
+    <Compile Include="Services\Converter\DatabaseConverterException.cs" />
     <Compile Include="Services\IDataService.cs" />
+    <Compile Include="Services\Converter\DatabaseValueConverter.cs" />
     <Compile Include="Services\Mongo\BitmapImageSerializer.cs" />
     <Compile Include="ViewModelInterfaces\IHeaderViewModel.cs" />
     <Compile Include="ViewModelInterfaces\IListViewModel[T].cs" />
