@@ -166,6 +166,7 @@
     <Compile Include="Helpers\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Helpers\Extensions\PropertyInfoExtensions.cs" />
     <Compile Include="Helpers\Extensions\StringExtensions.cs" />
+    <Compile Include="Helpers\Extensions\TypeExtenstions.cs" />
     <Compile Include="Helpers\ValueChangedEventArgs.cs" />
     <Compile Include="Models\Bases\IMongoModel.cs" />
     <Compile Include="Services\DataService\Converter\DatabaseConverterException.cs" />

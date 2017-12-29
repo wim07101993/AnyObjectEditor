@@ -12,6 +12,8 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+
+        <Setter Property="Cursor" Value="Hand" />
     </Style>
 
     <Style TargetType="{x:Type controls:ImagePicker}">

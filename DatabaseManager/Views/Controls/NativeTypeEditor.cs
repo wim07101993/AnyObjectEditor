@@ -100,6 +100,9 @@ namespace DatabaseManager.Views.Controls
 
         private static void OnValueChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
         {
+            if (!args.NewValue.GetType().IsNativeType())
+                return;
+
             if (args.OldValue?.GetType() != args.NewValue?.GetType())
                 obj.SetValue(TypeProperty, args.NewValue?.GetType().Name.ConvertToENativeType());
 
