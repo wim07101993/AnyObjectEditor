@@ -20,10 +20,7 @@ namespace DatabaseManager.Services.DataService.Mongo
         public override BitmapImage Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)
         {
             if (context.Reader.CurrentBsonType == BsonType.Binary)
-            {
-                var bytes = context.Reader.ReadBytes();
-                return DatabaseValueConverter.ConvertToImage(bytes);
-            }
+                return DatabaseValueConverter.ConvertToImage(context.Reader.ReadBytes());
 
             context.Reader.SkipValue();
             return null;

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using DatabaseManager.Helpers.Attributes;
 using DatabaseManager.Models.Bases;
@@ -18,6 +19,7 @@ namespace DatabaseManager.Models
         private string _summary;
         private bool _male;
         private BitmapImage _favoriteImage;
+        private Color _favoriteColor;
 
         [Id]
         [BsonId]
@@ -84,6 +86,15 @@ namespace DatabaseManager.Models
         {
             get => _favoriteImage;
             set => SetProperty(ref _favoriteImage, value);
+        }
+
+        [DisplayName("Favoriete kleur")]
+        [BsonElement("favoriteColor")]
+        [BsonSerializer(typeof(ColorSerializer))]
+        public Color FavoriteColor
+        {
+            get => _favoriteColor;
+            set => SetProperty(ref _favoriteColor, value);
         }
     }
 }
