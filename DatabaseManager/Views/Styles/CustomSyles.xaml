@@ -2,5 +2,6 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="NativeTypeEditor.xaml" />
         <ResourceDictionary Source="NumericTextBox.xaml" />
+        <ResourceDictionary Source="ImagePicker.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

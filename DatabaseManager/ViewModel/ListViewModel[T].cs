@@ -205,15 +205,15 @@ namespace DatabaseManager.ViewModel
                     case nameof(ObjectEditorViewModel.Description):
                         FilteredItemsSource = ConvertedItemsSource.Where(x => FilterOnDescription(x, split[1]));
                         return;
-                    case nameof(ObjectEditorViewModel.NativeProperties):
-                        FilteredItemsSource = ConvertedItemsSource.Where(x => FilterOnNativeProperties(x, split[1]));
+                    case nameof(ObjectEditorViewModel.KnownTypeProperties):
+                        FilteredItemsSource = ConvertedItemsSource.Where(x => FilterOnKnownTypeProperties(x, split[1]));
                         return;
                 }
 
             var titleFiltered = ConvertedItemsSource.Where(x => FilterOnTitle(x, SearchString));
             var subtitleFiltered = ConvertedItemsSource.Where(x => FilterOnSubtitle(x, SearchString));
             var descriptionFiltered = ConvertedItemsSource.Where(x => FilterOnDescription(x, SearchString));
-            var nativePropertiesFiltered = ConvertedItemsSource.Where(x => FilterOnNativeProperties(x, SearchString));
+            var nativePropertiesFiltered = ConvertedItemsSource.Where(x => FilterOnKnownTypeProperties(x, SearchString));
 
             var filteredItems = titleFiltered.ToList();
             var allOtherItems = subtitleFiltered.ToList();
@@ -236,8 +236,8 @@ namespace DatabaseManager.ViewModel
         private static bool FilterOnDescription(IObjectEditorViewModel<T> objectEditorViewModel, string filter)
             => objectEditorViewModel.Description.Value.ToString().Contains(filter);
 
-        private static bool FilterOnNativeProperties(IObjectEditorViewModel<T> objectEditorViewModel, string filter)
-            => objectEditorViewModel.NativeProperties.Any(x => x.Value.ToString().Contains(filter));
+        private static bool FilterOnKnownTypeProperties(IObjectEditorViewModel<T> objectEditorViewModel, string filter)
+            => objectEditorViewModel.KnownTypeProperties.Any(x => x.Value.ToString().Contains(filter));
 
         protected virtual T CreateNewItem()
             => Activator.CreateInstance<T>();
@@ -262,8 +262,8 @@ namespace DatabaseManager.ViewModel
                 EmptyElement.Description?.PropertyInfo.SetValue(item, EmptyElement.Description.Value);
                 EmptyElement.Picture?.PropertyInfo.SetValue(item, EmptyElement.Picture.Value);
 
-                if (EnumerableExtensions.IsNullOrEmpty(EmptyElement.NativeProperties))
-                    foreach (var property in EmptyElement.NativeProperties)
+                if (EnumerableExtensions.IsNullOrEmpty(EmptyElement.KnownTypeProperties))
+                    foreach (var property in EmptyElement.KnownTypeProperties)
                         property.PropertyInfo.SetValue(item, property.Value);
 
                 await InsertItemFunc(item);

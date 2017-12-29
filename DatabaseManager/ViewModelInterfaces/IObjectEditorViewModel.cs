@@ -13,7 +13,7 @@ namespace DatabaseManager.ViewModelInterfaces
         IPropertyViewModel Description { get; }
         IPropertyViewModel Picture { get; }
 
-        IEnumerable<IPropertyViewModel> NativeProperties { get; }
+        IEnumerable<IPropertyViewModel> KnownTypeProperties { get; }
         IEnumerable<IPropertyViewModel> OtherProperties { get; }
     }
 }

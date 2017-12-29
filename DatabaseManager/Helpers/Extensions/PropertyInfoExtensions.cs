@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Windows.Media.Imaging;
 using DatabaseManager.Helpers.Attributes;
 using DescriptionAttribute = DatabaseManager.Helpers.Attributes.DescriptionAttribute;
 
@@ -43,6 +44,9 @@ namespace DatabaseManager.Helpers.Extensions
                    type == typeof(double) ||
                    type == typeof(float);
         }
+
+        public static bool HasImageType(this PropertyInfo This)
+            => typeof(BitmapImage).IsAssignableFrom(This.PropertyType);
 
         public static string GetDisplayName(this PropertyInfo This)
         {

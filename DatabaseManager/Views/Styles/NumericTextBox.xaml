@@ -24,7 +24,7 @@
         <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
         <Setter Property="HorizontalContentAlignment" Value="Right" />
         <Setter Property="MinHeight" Value="26" />
-        <Setter Property="MinWidth" Value="62" />
+        <Setter Property="MinWidth" Value="20" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="SnapsToDevicePixels" Value="true" />
@@ -38,41 +38,36 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition x:Name="PART_TextBoxColumn" Width="*" />
-                                <ColumnDefinition x:Name="PART_NumericUpColumn" Width="Auto" />
-                                <ColumnDefinition x:Name="PART_NumericDownColumn" Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <TextBox
-                                x:Name="PART_TextBox"
-                                Grid.Column="0"
-                                MinWidth="20"
-                                MinHeight="{TemplateBinding MinHeight}"
-                                Margin="0,0,-2,0"
-                                HorizontalAlignment="Stretch"
-                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                controls:ControlsHelper.DisabledVisualElementVisibility="Collapsed"
-                                controls:TextBoxHelper.ClearTextButton="{TemplateBinding controls:TextBoxHelper.ClearTextButton}"
-                                controls:TextBoxHelper.HasText="{TemplateBinding controls:TextBoxHelper.HasText}"
-                                controls:TextBoxHelper.SelectAllOnFocus="{TemplateBinding controls:TextBoxHelper.SelectAllOnFocus}"
-                                controls:TextBoxHelper.UseFloatingWatermark="{TemplateBinding controls:TextBoxHelper.UseFloatingWatermark}"
-                                controls:TextBoxHelper.Watermark="{TemplateBinding controls:TextBoxHelper.Watermark}"
-                                Background="{x:Null}"
-                                BorderThickness="0"
-                                FocusVisualStyle="{x:Null}"
-                                Focusable="{TemplateBinding Focusable}"
-                                FontFamily="{TemplateBinding FontFamily}"
-                                FontSize="{TemplateBinding FontSize}"
-                                Foreground="{TemplateBinding Foreground}"
-                                HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
-                                IsReadOnly="{TemplateBinding IsReadOnly}"
-                                IsTabStop="{TemplateBinding IsTabStop}"
-                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                TabIndex="{TemplateBinding TabIndex}"
-                                VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" />
-                        </Grid>
+
+                        <TextBox
+                            x:Name="PART_TextBox"
+                            Grid.Column="0"
+                            MinWidth="20"
+                            MinHeight="{TemplateBinding MinHeight}"
+                            Margin="0,0,-2,0"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                            controls:ControlsHelper.DisabledVisualElementVisibility="Collapsed"
+                            controls:TextBoxHelper.ClearTextButton="{TemplateBinding controls:TextBoxHelper.ClearTextButton}"
+                            controls:TextBoxHelper.HasText="{TemplateBinding controls:TextBoxHelper.HasText}"
+                            controls:TextBoxHelper.SelectAllOnFocus="{TemplateBinding controls:TextBoxHelper.SelectAllOnFocus}"
+                            controls:TextBoxHelper.UseFloatingWatermark="{TemplateBinding controls:TextBoxHelper.UseFloatingWatermark}"
+                            controls:TextBoxHelper.Watermark="{TemplateBinding controls:TextBoxHelper.Watermark}"
+                            Background="{x:Null}"
+                            BorderThickness="0"
+                            FocusVisualStyle="{x:Null}"
+                            Focusable="{TemplateBinding Focusable}"
+                            FontFamily="{TemplateBinding FontFamily}"
+                            FontSize="{TemplateBinding FontSize}"
+                            Foreground="{TemplateBinding Foreground}"
+                            HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                            IsReadOnly="{TemplateBinding IsReadOnly}"
+                            IsTabStop="{TemplateBinding IsTabStop}"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                            TabIndex="{TemplateBinding TabIndex}"
+                            VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" />
+
                         <Border
                             x:Name="DisabledVisualElement"
                             Background="{DynamicResource ControlsDisabledBrush}"

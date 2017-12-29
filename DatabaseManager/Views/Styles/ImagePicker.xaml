@@ -1,0 +1,94 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:DatabaseManager.Views.Controls"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+
+    <Style x:Key="RectangularImageButton" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <ContentPresenter x:Name="PART_ContentPresenter" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type controls:ImagePicker}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:ImagePicker}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <Button
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Width="{TemplateBinding ActualWidth}"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Command="{TemplateBinding ImageCommand}"
+                            Style="{StaticResource RectangularImageButton}"
+                            Visibility="{TemplateBinding Image,
+                                                         Converter={StaticResource ObjectToVisibilityConverter}}">
+                            <Image
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Source="{TemplateBinding Image}"
+                                Stretch="UniformToFill" />
+                        </Button>
+
+                        <Button
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Width="150"
+                            Height="150"
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            Visibility="{TemplateBinding Image,
+                                                         Converter={StaticResource InvertedObjectToVisibilityConverter}}">
+
+                            <Rectangle
+                                Width="100"
+                                Height="100"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Fill="{DynamicResource MaterialDesignFlatButtonRipple}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Uniform" Visual="{StaticResource IconCamera}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+
+                        <Button
+                            x:Name="EditButton"
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Command="{TemplateBinding EditCommand}"
+                            Content="Edit"
+                            Style="{StaticResource MaterialDesignFlatButton}" />
+
+                        <Button
+                            x:Name="ClearButton"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Command="{TemplateBinding ClearCommand}"
+                            Content="Clear"
+                            Style="{StaticResource MaterialDesignFlatButton}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

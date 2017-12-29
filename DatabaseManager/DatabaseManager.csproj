@@ -112,6 +112,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Helpers\Converters\Converters.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Controls\EditableHeader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -156,6 +160,7 @@
     <Compile Include="Helpers\Converters\ObjectToDoubleConverter.cs" />
     <Compile Include="Helpers\Converters\ObjectToVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\StringToBooleanConverter.cs" />
+    <Compile Include="Helpers\DialogHelper.cs" />
     <Compile Include="Helpers\ENativeTypes.cs" />
     <Compile Include="Helpers\Extensions\BitmapImageExtensions.cs" />
     <Compile Include="Helpers\Extensions\EnumerableExtensions.cs" />
@@ -190,6 +195,7 @@
     <Compile Include="Views\Controls\Header.xaml.cs">
       <DependentUpon>Header.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Controls\ImagePicker.cs" />
     <Compile Include="Views\Controls\List.xaml.cs">
       <DependentUpon>List.xaml</DependentUpon>
     </Compile>
@@ -205,6 +211,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\Styles\CustomSyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Styles\ImagePicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

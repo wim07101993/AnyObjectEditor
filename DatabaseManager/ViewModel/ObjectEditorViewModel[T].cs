@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows.Media.Imaging;
 using DatabaseManager.Helpers.Extensions;
 using DatabaseManager.ViewModelInterfaces;
 using Prism.Mvvm;
@@ -24,7 +25,7 @@ namespace DatabaseManager.ViewModel
         public IPropertyViewModel Description { get; private set; }
         public IPropertyViewModel Picture { get; private set; }
 
-        public IEnumerable<IPropertyViewModel> NativeProperties { get; private set; }
+        public IEnumerable<IPropertyViewModel> KnownTypeProperties { get; private set; }
         public IEnumerable<IPropertyViewModel> OtherProperties { get; private set; }
 
         object IObjectEditorViewModel.Value => Value;
@@ -41,25 +42,28 @@ namespace DatabaseManager.ViewModel
                     return;
 
                 var properties = _value.GetType().GetProperties();
-                var nativeProperties = new List<IPropertyViewModel>();
+                var knownTypeProperties = new List<IPropertyViewModel>();
                 var otherProperties = new List<IPropertyViewModel>();
                 foreach (var property in properties)
                 {
-                    if (property.IsTitle())
-                        Title = new PropertyViewModel(property, _value);
-                    else if (property.IsSubtitle())
-                        Subtitle = new PropertyViewModel(property, _value);
-                    else if (property.IsDescription())
-                        Description = new PropertyViewModel(property, _value);
-                    else if (property.IsPicture())
-                        Picture = new PropertyViewModel(property, _value);
-                    else if (property.HasNativeType())
-                        nativeProperties.Add(new PropertyViewModel(property, _value));
+                    var propertyVM = new PropertyViewModel(property, _value);
+                    if (propertyVM.IsTitle)
+                        Title = propertyVM;
+                    else if (propertyVM.IsSubTitle)
+                        Subtitle = propertyVM;
+                    else if (propertyVM.IsDescription)
+                        Description = propertyVM;
+                    else if (propertyVM.IsPicture)
+                        Picture = propertyVM;
+                    else if (propertyVM.HasNativeType)
+                        knownTypeProperties.Add(propertyVM);
+                    else if (propertyVM.IsImage)
+                        knownTypeProperties.Add(propertyVM);
                     else
-                        otherProperties.Add(new PropertyViewModel(property, _value));
+                        otherProperties.Add(propertyVM);
                 }
 
-                NativeProperties = nativeProperties;
+                KnownTypeProperties = knownTypeProperties;
                 OtherProperties = otherProperties;
 
                 RegisterOnPropertyChanges();
@@ -76,7 +80,8 @@ namespace DatabaseManager.ViewModel
                 RaisePropertyChanged(nameof(Subtitle));
                 RaisePropertyChanged(nameof(Description));
                 RaisePropertyChanged(nameof(Picture));
-                RaisePropertyChanged(nameof(NativeProperties));
+                RaisePropertyChanged(nameof(KnownTypeProperties));
+                RaisePropertyChanged(nameof(OtherProperties));
             }
         }
 
@@ -106,7 +111,7 @@ namespace DatabaseManager.ViewModel
             if (Description != null) Description.PropertyChanged += OnPropertyChanged;
             if (Picture != null) Picture.PropertyChanged += OnPropertyChanged;
 
-            foreach (var property in NativeProperties)
+            foreach (var property in KnownTypeProperties)
                 property.PropertyChanged += OnPropertyChanged;
         }
 
@@ -117,7 +122,7 @@ namespace DatabaseManager.ViewModel
             Description.PropertyChanged -= OnPropertyChanged;
             Picture.PropertyChanged -= OnPropertyChanged;
 
-            foreach (var property in NativeProperties)
+            foreach (var property in KnownTypeProperties)
                 property.PropertyChanged -= OnPropertyChanged;
         }
 

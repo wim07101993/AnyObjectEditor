@@ -32,15 +32,16 @@ namespace DatabaseManager.ViewModel
         }
 
         public Type Type { get; }
+        public bool HasNativeType { get; }
+        public bool IsImage { get; }
 
         public bool IsBrowsable { get; } = true;
         public bool IsTitle { get; }
         public bool IsSubTitle { get; }
         public bool IsDescription { get; }
+        public bool IsPicture { get; }
 
         public bool IsReadOnly { get; }
-
-        public bool IsImage { get; }
 
         #endregion PROPERTIES
 
@@ -55,19 +56,22 @@ namespace DatabaseManager.ViewModel
         {
             PropertyInfo = propertyInfo;
 
-            Name = propertyInfo.Name;
             DisplayName = propertyInfo.GetDisplayName();
+            Name = propertyInfo.Name;
+            
             Value = propertyInfo.GetValue(parent);
+            
             Type = propertyInfo.PropertyType;
+            HasNativeType = propertyInfo.HasNativeType();
+            IsImage = propertyInfo.HasImageType();
 
             IsBrowsable = propertyInfo.IsBrowsable();
             IsTitle = propertyInfo.IsTitle();
             IsSubTitle = propertyInfo.IsSubtitle();
             IsDescription = propertyInfo.IsDescription();
+            IsPicture = propertyInfo.IsPicture();
 
             IsReadOnly = propertyInfo.CanWrite;
-
-            IsImage = propertyInfo.PropertyType == typeof(BitmapImage);
         }
 
         #endregion CONSTRUCTORS

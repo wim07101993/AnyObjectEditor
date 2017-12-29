@@ -7,9 +7,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModelInterfaces="clr-namespace:DatabaseManager.ViewModelInterfaces"
     Title="Database manager"
+    MinWidth="800"
+    MinHeight="600"
     d:DataContext="{d:DesignInstance viewModelInterfaces:IMainWindowViewModel}"
     mc:Ignorable="d">
-    <Grid>
-        <controls:List DataContext="{Binding ListViewModel}" />
-    </Grid>
+    <controls:List DataContext="{Binding ListViewModel}" />
 </Window>
