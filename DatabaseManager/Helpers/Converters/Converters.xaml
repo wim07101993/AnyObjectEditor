@@ -2,6 +2,9 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:DatabaseManager.Helpers.Converters">
+
+    <local:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter" />
+
     <local:InvertedObjectToBooleanConverter x:Key="InvertedObjectToBooleanConverter" />
     <local:InvertedObjectToVisibilityConverter x:Key="InvertedObjectToVisibilityConverter" />
     <local:InvertedStringToVisibilityConverter x:Key="InvertedStringToVisibilityConverter" />
