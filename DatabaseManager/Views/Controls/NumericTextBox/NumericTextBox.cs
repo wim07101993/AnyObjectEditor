@@ -10,7 +10,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using MahApps.Metro.Controls;
 
-namespace DatabaseManager.Views.Controls
+namespace DatabaseManager.Views.Controls.NumericTextBox
 {
     /// <summary>
     ///     Represents a Windows spin box (also known as an up-down control) that displays numeric values.

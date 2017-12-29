@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace DatabaseManager.Views.Controls
+namespace DatabaseManager.Views.Controls.NumericTextBox
 {
     public class NumericTextBoxChangedRoutedEventArgs : RoutedEventArgs
     {

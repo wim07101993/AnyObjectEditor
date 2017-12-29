@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="clr-namespace:DatabaseManager.Views.Controls">
+    xmlns:controls="clr-namespace:DatabaseManager.Views.Controls"
+    xmlns:numericTextBox="clr-namespace:DatabaseManager.Views.Controls.NumericTextBox">
 
     <Style TargetType="{x:Type controls:NativeTypeEditor}">
         <Setter Property="Template">
@@ -44,7 +45,7 @@
                                 TextWrapping="Wrap"
                                 Visibility="Collapsed" />
 
-                            <controls:NumericTextBox
+                            <numericTextBox:NumericTextBox
                                 x:Name="NumericTextBox"
                                 Margin="1"
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"

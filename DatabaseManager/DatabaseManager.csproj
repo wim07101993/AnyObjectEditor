@@ -191,6 +191,7 @@
     <Compile Include="ViewModelInterfaces\IPropertyViewModel.cs" />
     <Compile Include="ViewModel\ListViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="Views\Controls\ColorPicker\ColorPicker.cs" />
     <Compile Include="Views\Controls\EditableHeader.xaml.cs">
       <DependentUpon>EditableHeader.xaml</DependentUpon>
     </Compile>
@@ -202,9 +203,9 @@
       <DependentUpon>List.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\NativeTypeEditor.cs" />
-    <Compile Include="Views\Controls\NumericTextBox.cs" />
-    <Compile Include="Views\Controls\NumericTextBoxChangedRoutedEventArgs.cs" />
-    <Compile Include="Views\Controls\NumericTextBoxChangedRoutedEventHandler.cs" />
+    <Compile Include="Views\Controls\NumericTextBox\NumericTextBox.cs" />
+    <Compile Include="Views\Controls\NumericTextBox\NumericTextBoxChangedRoutedEventArgs.cs" />
+    <Compile Include="Views\Controls\NumericTextBox\NumericTextBoxChangedRoutedEventHandler.cs" />
     <Compile Include="Views\Controls\ObjectEditor.xaml.cs">
       <DependentUpon>ObjectEditor.xaml</DependentUpon>
     </Compile>
