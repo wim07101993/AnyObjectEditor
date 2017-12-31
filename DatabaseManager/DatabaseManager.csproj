@@ -150,7 +150,6 @@
     <Compile Include="Helpers\Attributes\DescriptionAttribute.cs" />
     <Compile Include="Helpers\Attributes\SubtitleAttribute.cs" />
     <Compile Include="Helpers\Attributes\TitleAttribute.cs" />
-    <Compile Include="Helpers\ColorHelper.cs" />
     <Compile Include="Helpers\ColorUtilities.cs" />
     <Compile Include="Helpers\Converters\ColorToSolidColorBrushConverter.cs" />
     <Compile Include="Helpers\Converters\InvertedObjectToBooleanConverter.cs" />
@@ -168,6 +167,7 @@
     <Compile Include="Helpers\DialogHelper.cs" />
     <Compile Include="Helpers\ENativeTypes.cs" />
     <Compile Include="Helpers\Extensions\BitmapImageExtensions.cs" />
+    <Compile Include="Helpers\Extensions\ColorExtensions.cs" />
     <Compile Include="Helpers\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Helpers\Extensions\PropertyInfoExtensions.cs" />
     <Compile Include="Helpers\Extensions\StringExtensions.cs" />
