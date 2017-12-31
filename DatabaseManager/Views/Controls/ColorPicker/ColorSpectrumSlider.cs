@@ -13,7 +13,7 @@ namespace DatabaseManager.Views.Controls.ColorPicker
 
         private const string ElementSpectrumDisplay = "PART_SpectrumDisplay";
 
-        private Rectangle _spectrumDisplay;
+        private Border _spectrumDisplay;
         private LinearGradientBrush _pickerBrush;
 
         #endregion FIELDS
@@ -21,7 +21,8 @@ namespace DatabaseManager.Views.Controls.ColorPicker
 
         #region DEPENDENCY PROPERTIES
 
-        public static readonly DependencyProperty SelectedColorProperty = DependencyProperty.Register(nameof(SelectedColor),
+        public static readonly DependencyProperty SelectedColorProperty = DependencyProperty.Register(
+            nameof(SelectedColor),
             typeof(Color), typeof(ColorSpectrumSlider), new PropertyMetadata(Colors.Transparent));
 
         #endregion DEPENDENCY PROPERTIES
@@ -48,14 +49,14 @@ namespace DatabaseManager.Views.Controls.ColorPicker
 
         #endregion CONSTRUCTORS
 
-        
+
         #region METHODS
 
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
 
-            _spectrumDisplay = (Rectangle)GetTemplateChild(ElementSpectrumDisplay);
+            _spectrumDisplay = (Border) GetTemplateChild(ElementSpectrumDisplay);
             CreateSpectrum();
             OnValueChanged(double.NaN, Value);
         }
@@ -64,7 +65,7 @@ namespace DatabaseManager.Views.Controls.ColorPicker
         {
             base.OnValueChanged(oldValue, newValue);
 
-            var color = ColorUtilities.ConvertHsvToRgb(360-newValue, 1, 1);
+            var color = ColorUtilities.ConvertHsvToRgb(newValue, 1, 1);
             SelectedColor = color;
         }
 
@@ -87,7 +88,7 @@ namespace DatabaseManager.Views.Controls.ColorPicker
 
             _pickerBrush.GradientStops[i - 1].Offset = 1.0;
             if (_spectrumDisplay != null)
-                _spectrumDisplay.Fill = _pickerBrush;
+                _spectrumDisplay.Background = _pickerBrush;
         }
 
         #endregion METHODS

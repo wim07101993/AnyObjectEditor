@@ -158,7 +158,7 @@ namespace DatabaseManager.Views.Controls.ColorPicker
             if (_spectrumSlider == null)
                 return;
 
-            var hsv = new HsvColor(360 - _spectrumSlider.Value, 1, 1)
+            var hsv = new HsvColor(_spectrumSlider.Value, 1, 1)
             {
                 S = p.X,
                 V = 1 - p.Y

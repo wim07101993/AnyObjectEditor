@@ -224,6 +224,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Styles\ColorSpectrumSlider.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Styles\CustomSyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

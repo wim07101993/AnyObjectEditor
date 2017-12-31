@@ -38,6 +38,41 @@ namespace DatabaseManager.Helpers
             return colorProperties.ToDictionary(p => p.Name, p => (Color) p.GetValue(null, null));
         }
 
+        public static void ConvertRgbToHsv(int r, int b, int g, out double hue, out double saturation, out double value)
+        {
+            double h = 0, s;
+
+            double min = Math.Min(Math.Min(r, g), b);
+            double v = Math.Max(Math.Max(r, g), b);
+            var delta = v - min;
+
+            if (Math.Abs(v) < Tolerance)
+                s = 0;
+            else
+                s = delta / v;
+
+            if (Math.Abs(s) < Tolerance)
+                h = 0.0;
+
+            else
+            {
+                if (Math.Abs(r - v) < Tolerance)
+                    h = (g - b) / delta;
+                else if (Math.Abs(g - v) < Tolerance)
+                    h = 2 + (b - r) / delta;
+                else if (Math.Abs(b - v) < Tolerance)
+                    h = 4 + (r - g) / delta;
+                
+                h *= 60;
+                if (h < 0.0)
+                    h = h + 360;
+            }
+
+            hue = h;
+            saturation = s;
+            value = v;
+        }
+
         /// <summary>
         /// Converts an RGB color to an HSV color.
         /// </summary>

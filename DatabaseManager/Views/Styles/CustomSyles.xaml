@@ -3,6 +3,7 @@
         <ResourceDictionary Source="NativeTypeEditor.xaml" />
         <ResourceDictionary Source="NumericTextBox.xaml" />
         <ResourceDictionary Source="ImagePicker.xaml" />
+        <ResourceDictionary Source="ColorSpectrumSlider.xaml" />
         <ResourceDictionary Source="ColorPicker.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

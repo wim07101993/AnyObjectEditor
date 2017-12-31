@@ -49,7 +49,7 @@ namespace DatabaseManager.Services.DataService.Converter
 
             return bytes.Length == 4
                 ? new Color {R = bytes[1], G = bytes[2], B = bytes[3]}
-                : new Color {A = bytes[1], R = bytes[1], G = bytes[3], B = bytes[4]};
+                : new Color {A = bytes[1], R = bytes[2], G = bytes[3], B = bytes[4]};
         }
 
         public static byte[] ConvertColor(SolidColorBrush color)
