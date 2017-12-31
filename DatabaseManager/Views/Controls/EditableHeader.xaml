@@ -93,6 +93,7 @@
             <TextBox
                 Grid.Row="0"
                 Margin="0,8,0,0"
+                HorizontalAlignment="Left"
                 materialDesign:TextFieldAssist.Hint="{Binding Title.DisplayName}"
                 FontSize="26"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -107,6 +108,7 @@
             <TextBox
                 Grid.Row="1"
                 Margin="0,7,0,0"
+                HorizontalAlignment="Left"
                 materialDesign:TextFieldAssist.Hint="{Binding Subtitle.DisplayName}"
                 FontSize="18"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -121,6 +123,7 @@
             <TextBox
                 Grid.Row="2"
                 Margin="0,6,0,0"
+                HorizontalAlignment="Left"
                 materialDesign:TextFieldAssist.Hint="{Binding Description.DisplayName}"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                 Text="{Binding Description.Value, Mode=TwoWay}">

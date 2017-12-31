@@ -100,5 +100,10 @@ namespace DatabaseManager.Models
 
         [DisplayName("Eeen random object")]
         public List<int> SomeList { get; set; }
+
+        [DisplayName("Hond")]
+        [BsonElement("dog")]
+        [BsonSerializer(typeof(BitmapImageSerializer))]
+        public BitmapImage Dog { get; set; }
     }
 }
