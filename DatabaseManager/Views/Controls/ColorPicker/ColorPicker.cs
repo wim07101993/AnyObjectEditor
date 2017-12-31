@@ -11,21 +11,19 @@ namespace DatabaseManager.Views.Controls.ColorPicker
     [TemplatePart(Name = ElementColorShadingCanvas, Type = typeof(Canvas))]
     [TemplatePart(Name = ElementColorShadeSelector, Type = typeof(Canvas))]
     [TemplatePart(Name = ElementSpectrumSlider, Type = typeof(ColorSpectrumSlider))]
-   public class ColorPicker : Control
+    public class ColorPicker : Control
     {
         #region FIELDS
 
         private const string ElementColorShadingCanvas = "PART_ColorShadingCanvas";
         private const string ElementColorShadeSelector = "PART_ColorShadeSelector";
         private const string ElementSpectrumSlider = "PART_SpectrumSlider";
-     
+
         private readonly TranslateTransform _colorShadeSelectorTransform = new TranslateTransform();
         private Canvas _colorShadingCanvas;
         private Canvas _colorShadeSelector;
         private ColorSpectrumSlider _spectrumSlider;
-        private TextBox _hexadecimalTextBox;
         private Point? _currentColorPosition;
-        private bool _surpressPropertyChanged;
         private bool _updateSpectrumSliderValue = true;
 
         #endregion FIELDS
@@ -42,7 +40,7 @@ namespace DatabaseManager.Views.Controls.ColorPicker
             DependencyProperty.Register(nameof(SelectedColor), typeof(Color?), typeof(ColorPicker),
                 new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
                     OnSelectedColorChanged));
-        
+
         #endregion REGISTRATIONS
 
 
@@ -53,7 +51,7 @@ namespace DatabaseManager.Views.Controls.ColorPicker
             get => (Color?) GetValue(SelectedColorProperty);
             set => SetValue(SelectedColorProperty, value);
         }
-        
+
         #endregion PROPERTIES
 
 
@@ -104,9 +102,8 @@ namespace DatabaseManager.Views.Controls.ColorPicker
 
             if (_spectrumSlider != null)
                 _spectrumSlider.ValueChanged += SpectrumSlider_ValueChanged;
-            
+
             UpdateColorShadeSelectorPosition(SelectedColor);
-            
         }
 
         private void UpdateColorShadeSelectorPositionAndCalculateColor(Point p, bool calculateColor)
@@ -186,7 +183,7 @@ namespace DatabaseManager.Views.Controls.ColorPicker
             };
             RaiseEvent(args);
         }
-        
+
         private void ColorShadingCanvas_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (_currentColorPosition == null)
