@@ -77,7 +77,6 @@ namespace DatabaseManager.Views.Controls.ColorPicker
                 _colorShadingCanvas.MouseLeftButtonDown -= ColorShadingCanvas_MouseLeftButtonDown;
                 _colorShadingCanvas.MouseLeftButtonUp -= ColorShadingCanvas_MouseLeftButtonUp;
                 _colorShadingCanvas.MouseMove -= ColorShadingCanvas_MouseMove;
-                _colorShadingCanvas.SizeChanged -= ColorShadingCanvas_SizeChanged;
             }
 
             _colorShadingCanvas = GetTemplateChild(ElementColorShadingCanvas) as Canvas;
@@ -87,7 +86,6 @@ namespace DatabaseManager.Views.Controls.ColorPicker
                 _colorShadingCanvas.MouseLeftButtonDown += ColorShadingCanvas_MouseLeftButtonDown;
                 _colorShadingCanvas.MouseLeftButtonUp += ColorShadingCanvas_MouseLeftButtonUp;
                 _colorShadingCanvas.MouseMove += ColorShadingCanvas_MouseMove;
-                _colorShadingCanvas.SizeChanged += ColorShadingCanvas_SizeChanged;
             }
 
             _colorShadeSelector = GetTemplateChild(ElementColorShadeSelector) as Canvas;
@@ -172,32 +170,7 @@ namespace DatabaseManager.Views.Controls.ColorPicker
             SelectedColor = currentColor;
             _updateSpectrumSliderValue = true;
         }
-
-        protected virtual void OnSelectedColorChanged(Color? oldValue, Color? newValue)
-        {
-            UpdateColorShadeSelectorPosition(newValue);
-
-            var args = new RoutedPropertyChangedEventArgs<Color?>(oldValue, newValue)
-            {
-                RoutedEvent = SelectedColorChangedEvent
-            };
-            RaiseEvent(args);
-        }
-
-        private void ColorShadingCanvas_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            if (_currentColorPosition == null)
-                return;
-
-            var newPoint = new Point
-            {
-                X = ((Point) _currentColorPosition).X * e.NewSize.Width,
-                Y = ((Point) _currentColorPosition).Y * e.NewSize.Height
-            };
-
-            UpdateColorShadeSelectorPositionAndCalculateColor(newPoint, false);
-        }
-
+        
         private void SpectrumSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             if (_currentColorPosition != null && SelectedColor != null)
@@ -237,8 +210,19 @@ namespace DatabaseManager.Views.Controls.ColorPicker
 
         private static void OnSelectedColorChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
-            if (o is ColorPicker colorCanvas)
-                colorCanvas.OnSelectedColorChanged((Color?) e.OldValue, (Color?) e.NewValue);
+            if (!(o is ColorPicker This))
+                return;
+
+            var newValue = (Color?) e.NewValue;
+            var oldValue = (Color?) e.OldValue;
+
+            This.UpdateColorShadeSelectorPosition(newValue);
+
+            var args = new RoutedPropertyChangedEventArgs<Color?>(oldValue, newValue)
+            {
+                RoutedEvent = SelectedColorChangedEvent
+            };
+            This.RaiseEvent(args);
         }
 
         #endregion dependency property changes
