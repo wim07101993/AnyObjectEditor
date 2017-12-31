@@ -28,16 +28,19 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <materialDesign:Card Margin="5" Padding="-1,0,0,0">
-                            <StackPanel Orientation="Vertical">
-
+                            <StackPanel
+                                MinWidth="100"
+                                HorizontalAlignment="Stretch"
+                                Orientation="Vertical">
                                 <TextBlock
                                     Margin="10"
                                     FontWeight="Bold"
-                                    Text="{Binding DisplayName}" />
+                                    Text="{Binding DisplayName}"
+                                    TextWrapping="Wrap" />
 
                                 <local:NativeTypeEditor
                                     Margin="10,0,10,10"
-                                    HorizontalAlignment="Center"
+                                    HorizontalAlignment="Right"
                                     Visibility="{Binding HasNativeType, Converter={StaticResource BooleanToVisibilityConverter}}"
                                     Value="{Binding Value, Mode=TwoWay}" />
 
