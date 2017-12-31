@@ -28,8 +28,9 @@
                                 Width="{TemplateBinding Width}"
                                 Height="{TemplateBinding Height,
                                                          Converter={StaticResource MinusConverter},
-                                                         ConverterParameter=100}"
-                                HorizontalAlignment="Left">
+                                                         ConverterParameter=80}"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top">
                                 <Rectangle
                                     x:Name="ColorShadingRectangle"
                                     Width="{TemplateBinding Width}"

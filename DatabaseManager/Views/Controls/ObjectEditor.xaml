@@ -15,6 +15,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
@@ -27,30 +28,38 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <materialDesign:Card Margin="5" Padding="-1,0,0,0">
-                            <StackPanel
-                                MinWidth="100"
-                                HorizontalAlignment="Stretch"
-                                Orientation="Vertical">
+                            <Grid MinWidth="100" HorizontalAlignment="Stretch">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
                                 <TextBlock
+                                    Grid.Row="0"
                                     Margin="10"
                                     FontWeight="Bold"
                                     Text="{Binding DisplayName}"
                                     TextWrapping="Wrap" />
 
                                 <local:NativeTypeEditor
+                                    Grid.Row="1"
                                     Margin="10,0,10,10"
                                     HorizontalAlignment="Right"
                                     Visibility="{Binding HasNativeType, Converter={StaticResource BooleanToVisibilityConverter}}"
                                     Value="{Binding Value, Mode=TwoWay}" />
 
-                                <local:ImagePicker Image="{Binding Value, Mode=TwoWay}" Visibility="{Binding IsImage, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                <local:ImagePicker
+                                    Grid.Row="1"
+                                    Image="{Binding Value, Mode=TwoWay}"
+                                    Visibility="{Binding IsImage, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                                 <local:ColorPicker
+                                    Grid.Row="1"
                                     Width="250"
                                     Height="250"
                                     SelectedColor="{Binding Value}"
                                     Visibility="{Binding IsColor, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                            </StackPanel>
+                            </Grid>
                         </materialDesign:Card>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -62,5 +71,32 @@
             </ItemsControl>
         </Grid>
 
+        <Grid Grid.Row="2">
+            <ItemsControl ItemsSource="{Binding OtherProperties}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock
+                                Grid.Row="0"
+                                Margin="10"
+                                FontWeight="Bold"
+                                Text="{Binding DisplayName}"
+                                TextWrapping="Wrap" />
+
+                            <TextBlock
+                                Grid.Row="1"
+                                Margin="10,0,10,10"
+                                HorizontalAlignment="Right"
+                                Text="{Binding Value}" />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
     </Grid>
 </UserControl>

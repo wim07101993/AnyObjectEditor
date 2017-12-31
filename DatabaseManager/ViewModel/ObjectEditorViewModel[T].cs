@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Media.Imaging;
 using DatabaseManager.Helpers.Extensions;
 using DatabaseManager.ViewModelInterfaces;
@@ -46,6 +47,9 @@ namespace DatabaseManager.ViewModel
                 var otherProperties = new List<IPropertyViewModel>();
                 foreach (var property in properties)
                 {
+                    if (!property.IsBrowsable())
+                        continue;
+
                     var propertyVM = new PropertyViewModel(property, _value);
                     if (propertyVM.IsTitle)
                         Title = propertyVM;

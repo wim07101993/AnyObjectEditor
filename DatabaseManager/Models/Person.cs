@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using DatabaseManager.Helpers.Attributes;
@@ -96,5 +97,8 @@ namespace DatabaseManager.Models
             get => _favoriteColor;
             set => SetProperty(ref _favoriteColor, value);
         }
+
+        [DisplayName("Eeen random object")]
+        public List<int> SomeList { get; set; }
     }
 }
