@@ -4,7 +4,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using DatabaseManager.Helpers;
 
-namespace DatabaseManager.Views.Controls.ColorPicker
+namespace DatabaseManager.Views.Controls
 {
     [TemplatePart(Name = ElementSpectrumDisplay, Type = typeof(Rectangle))]
     public class ColorSpectrumSlider : Slider

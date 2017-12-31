@@ -4,10 +4,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using DatabaseManager.Helpers;
 
-namespace DatabaseManager.Views.Controls.ColorPicker
+namespace DatabaseManager.Views.Controls
 {
-    // TODO implement A of ARGB
-
     [TemplatePart(Name = ElementColorShadingCanvas, Type = typeof(Canvas))]
     [TemplatePart(Name = ElementColorShadeSelector, Type = typeof(Canvas))]
     [TemplatePart(Name = ElementSpectrumSlider, Type = typeof(ColorSpectrumSlider))]

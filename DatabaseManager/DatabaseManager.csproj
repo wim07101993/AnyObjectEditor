@@ -197,8 +197,8 @@
     <Compile Include="ViewModelInterfaces\IPropertyViewModel.cs" />
     <Compile Include="ViewModel\ListViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
-    <Compile Include="Views\Controls\ColorPicker\ColorPicker.cs" />
-    <Compile Include="Views\Controls\ColorPicker\ColorSpectrumSlider.cs" />
+    <Compile Include="Views\Controls\ColorPicker.cs" />
+    <Compile Include="Views\Controls\ColorSpectrumSlider.cs" />
     <Compile Include="Views\Controls\EditableHeader.xaml.cs">
       <DependentUpon>EditableHeader.xaml</DependentUpon>
     </Compile>
