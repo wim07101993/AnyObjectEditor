@@ -9,6 +9,8 @@
     <local:InvertedObjectToVisibilityConverter x:Key="InvertedObjectToVisibilityConverter" />
     <local:InvertedStringToVisibilityConverter x:Key="InvertedStringToVisibilityConverter" />
 
+    <local:MinusConverter x:Key="MinusConverter" />
+
     <local:MultiBooleanAndToVisibilityConverter x:Key="MultiBooleanAndToVisibilityConverter" />
     <local:MultiBooleanOrToVisibilityConverter x:Key="MultiBooleanOrToVisibilityConverter" />
     <local:MultiCommandConverter x:Key="MultiCommandConverter" />

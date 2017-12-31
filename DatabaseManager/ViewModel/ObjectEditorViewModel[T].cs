@@ -55,9 +55,7 @@ namespace DatabaseManager.ViewModel
                         Description = propertyVM;
                     else if (propertyVM.IsPicture)
                         Picture = propertyVM;
-                    else if (propertyVM.HasNativeType)
-                        knownTypeProperties.Add(propertyVM);
-                    else if (propertyVM.IsImage)
+                    else if (propertyVM.HasNativeType || propertyVM.IsImage || propertyVM.IsColor)
                         knownTypeProperties.Add(propertyVM);
                     else
                         otherProperties.Add(propertyVM);

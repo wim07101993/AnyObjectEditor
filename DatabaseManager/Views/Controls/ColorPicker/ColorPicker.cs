@@ -7,6 +7,8 @@ using DatabaseManager.Helpers;
 
 namespace DatabaseManager.Views.Controls.ColorPicker
 {
+    // TODO implement A of ARGB
+
     [TemplatePart(Name = ElementColorShadingCanvas, Type = typeof(Canvas))]
     [TemplatePart(Name = ElementColorShadeSelector, Type = typeof(Canvas))]
     [TemplatePart(Name = ElementSpectrumSlider, Type = typeof(ColorSpectrumSlider))]
@@ -78,7 +80,7 @@ namespace DatabaseManager.Views.Controls.ColorPicker
 
         public byte A
         {
-            get => (byte) GetValue(AProperty);
+            get => (byte)GetValue(AProperty);
             set => SetValue(AProperty, value);
         }
 
@@ -191,7 +193,9 @@ namespace DatabaseManager.Views.Controls.ColorPicker
         //        SetHexadecimalStringProperty(textBox.Text, true);
         //}
 
-        private void UpdateSelectedColor() => SelectedColor = Color.FromArgb(A, R, G, B);
+        private void UpdateSelectedColor()
+            => SelectedColor = Color.FromArgb(255, R, G, B);
+        //=> SelectedColor = Color.FromArgb(A, R, G, B);
 
         private void UpdateSelectedColor(Color? color)
             => SelectedColor = color != null
@@ -230,8 +234,8 @@ namespace DatabaseManager.Views.Controls.ColorPicker
             if (p.Y > _colorShadingCanvas.ActualHeight)
                 p.Y = _colorShadingCanvas.ActualHeight;
 
-            _colorShadeSelectorTransform.X = p.X - (_colorShadeSelector.Width / 2);
-            _colorShadeSelectorTransform.Y = p.Y - (_colorShadeSelector.Height / 2);
+            _colorShadeSelectorTransform.X = p.X - _colorShadeSelector.Width / 2;
+            _colorShadeSelectorTransform.Y = p.Y - _colorShadeSelector.Height / 2;
 
             p.X = p.X / _colorShadingCanvas.ActualWidth;
             p.Y = p.Y / _colorShadingCanvas.ActualHeight;
@@ -258,8 +262,8 @@ namespace DatabaseManager.Views.Controls.ColorPicker
 
             _currentColorPosition = p;
 
-            _colorShadeSelectorTransform.X = (p.X * _colorShadingCanvas.Width) - 5;
-            _colorShadeSelectorTransform.Y = (p.Y * _colorShadingCanvas.Height) - 5;
+            _colorShadeSelectorTransform.X = p.X * _colorShadingCanvas.Width - 5;
+            _colorShadeSelectorTransform.Y = p.Y * _colorShadingCanvas.Height - 5;
         }
 
         private void CalculateColor(Point p)
@@ -404,7 +408,7 @@ namespace DatabaseManager.Views.Controls.ColorPicker
         private static void OnSelectedColorChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
             if (o is ColorPicker colorCanvas)
-                colorCanvas.OnSelectedColorChanged((Color?)e.OldValue, (Color?)e.NewValue);
+                colorCanvas.OnSelectedColorChanged((Color?) e.OldValue, (Color?) e.NewValue);
         }
 
         private static void OnARGBChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
@@ -416,12 +420,12 @@ namespace DatabaseManager.Views.Controls.ColorPicker
         private static void OnHexadecimalStringChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
             if (o is ColorPicker colorCanvas)
-                colorCanvas.OnHexadecimalStringChanged((string)e.OldValue, (string)e.NewValue);
+                colorCanvas.OnHexadecimalStringChanged((string) e.OldValue, (string) e.NewValue);
         }
 
         private static object OnCoerceHexadecimalString(DependencyObject d, object basevalue)
         {
-            var colorCanvas = (ColorPicker)d;
+            var colorCanvas = (ColorPicker) d;
             if (colorCanvas == null)
                 return basevalue;
 

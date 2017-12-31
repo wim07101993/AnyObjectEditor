@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Windows.Media.Imaging;
+using System.Windows.Media;
 using DatabaseManager.Helpers.Extensions;
 using DatabaseManager.ViewModelInterfaces;
 using Prism.Mvvm;
@@ -34,6 +34,7 @@ namespace DatabaseManager.ViewModel
         public Type Type { get; }
         public bool HasNativeType { get; }
         public bool IsImage { get; }
+        public bool IsColor { get; }
 
         public bool IsBrowsable { get; } = true;
         public bool IsTitle { get; }
@@ -64,6 +65,7 @@ namespace DatabaseManager.ViewModel
             Type = propertyInfo.PropertyType;
             HasNativeType = propertyInfo.HasNativeType();
             IsImage = propertyInfo.HasImageType();
+            IsColor = typeof(Color).IsAssignableFrom(propertyInfo.PropertyType);
 
             IsBrowsable = propertyInfo.IsBrowsable();
             IsTitle = propertyInfo.IsTitle();

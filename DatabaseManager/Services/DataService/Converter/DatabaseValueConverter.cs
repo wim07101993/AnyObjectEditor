@@ -37,7 +37,7 @@ namespace DatabaseManager.Services.DataService.Converter
 
 
         public static byte[] ConvertColor(Color color)
-            => new List<byte> {color.A, color.R, color.G, color.B}.ToArray();
+            => new List<byte> {ColorByte, color.A, color.R, color.G, color.B}.ToArray();
 
         public static Color ConvertToColor(byte[] bytes)
         {

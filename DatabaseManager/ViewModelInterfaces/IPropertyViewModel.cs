@@ -16,6 +16,7 @@ namespace DatabaseManager.ViewModelInterfaces
         Type Type { get; }
         bool HasNativeType { get; }
         bool IsImage { get; }
+        bool IsColor { get; }
 
         bool IsBrowsable { get; }
         bool IsTitle { get; }

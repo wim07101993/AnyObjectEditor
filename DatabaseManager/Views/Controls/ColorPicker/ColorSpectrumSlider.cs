@@ -64,7 +64,7 @@ namespace DatabaseManager.Views.Controls.ColorPicker
         {
             base.OnValueChanged(oldValue, newValue);
 
-            var color = ColorUtilities.ConvertHsvToRgb(newValue, 1, 1);
+            var color = ColorUtilities.ConvertHsvToRgb(360-newValue, 1, 1);
             SelectedColor = color;
         }
 
