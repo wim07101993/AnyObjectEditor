@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using DatabaseManager.Models;
-using DatabaseManager.Services;
+﻿using DatabaseManager.Models;
 using DatabaseManager.Services.DataService;
 using DatabaseManager.Services.DataService.Mongo;
 using DatabaseManager.ViewModelInterfaces;

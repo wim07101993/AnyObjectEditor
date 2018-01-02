@@ -180,6 +180,7 @@
     <Compile Include="Services\DataService\Converter\DatabaseValueConverter.cs" />
     <Compile Include="Services\DataService\Mongo\BitmapImageSerializer.cs" />
     <Compile Include="Services\DataService\Mongo\ColorSerializer.cs" />
+    <Compile Include="Services\DataService\Mongo\MongoDataService[T].cs" />
     <Compile Include="ViewModelInterfaces\IHeaderViewModel.cs" />
     <Compile Include="ViewModelInterfaces\IListViewModel[T].cs" />
     <Compile Include="ViewModelInterfaces\IObjectEditorViewModel[T].cs" />

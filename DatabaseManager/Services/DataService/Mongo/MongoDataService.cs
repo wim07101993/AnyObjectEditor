@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using DatabaseManager.Models.Bases;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Newtonsoft.Json;
@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 
 namespace DatabaseManager.Services.DataService.Mongo
 {
-    public class MongoDataService<T> : IDataService, IDataService<T> where T : IMongoModel
+    public class MongoDataService : IDataService
     {
         #region FIELDS
 
@@ -31,52 +31,38 @@ namespace DatabaseManager.Services.DataService.Mongo
 
         #region METHODS
 
-        async Task<IEnumerable<JObject>> IDataService.GetAllAsync()
+        public async Task<IEnumerable<JObject>> GetAllAsync()
         {
             var ret = new List<JObject>();
 
             await _database.GetCollection<BsonDocument>(_collectionName)
                 .Find(FilterDefinition<BsonDocument>.Empty)
-                .ForEachAsync(x => ret.Add((JObject) JsonConvert.DeserializeObject(x.ToString()
-                    .Replace("ObjectId(", "")
-                    .Replace(")", "")
-                    .Replace("_", ""))));
+                .ForEachAsync(x =>
+                {
+                    // ReSharper disable once SpecifyACultureInStringConversionExplicitly
+                    var str = x.ToString();
+                    var totalMatch = new Regex(@"""_id"" : ObjectId\(""[a-z0-9]*""\)").Match(str);
+                    var idMatch = new Regex(@"""[a-z0-9]*""").Match(totalMatch.Value);
+
+                    var json = str.Substring(0, totalMatch.Index) +
+                               "\"id\" : " + idMatch.Value +
+                               str.Substring(totalMatch.Index + totalMatch.Length);
+
+                    ret.Add((JObject) JsonConvert.DeserializeObject(json));
+                });
 
             return ret;
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
-        {
-            var ret = new List<T>();
 
-            await _database.GetCollection<T>(_collectionName)
-                .Find(FilterDefinition<T>.Empty)
-                .ForEachAsync(x => ret.Add(x));
-
-            return ret;
-        }
-
-        async Task IDataService.InsertAsync(object item)
+        public async Task InsertAsync(object item)
         {
             await _database
                 .GetCollection<BsonDocument>(_collectionName)
                 .InsertOneAsync(item.ToBsonDocument());
         }
 
-        public async Task InsertAsync(T item)
-        {
-            //foreach (var propertyInfo in item.GetType().GetProperties())
-            //    if (propertyInfo.HasAttribute<BsonIdAttribute>())
-            //    {
-            //        propertyInfo.SetValue(item, new ObjectId());
-            //        break;
-            //    }
-
-            await _database.GetCollection<T>(_collectionName)
-                .InsertOneAsync(item);
-        }
-
-        async Task IDataService.UpdateAsync(object item)
+        public async Task UpdateAsync(object item)
         {
             //var filter = Builders<BsonDocument>.Filter.Where(x => x)
             //await _database
@@ -84,29 +70,9 @@ namespace DatabaseManager.Services.DataService.Mongo
             //    .UpdateOneAsync()
         }
 
-        public async Task UpdateAsync(T item)
-        {
-            var filter = Builders<T>.Filter
-                .Eq(filterItem => filterItem.ObjectId, item.ObjectId);
-
-            await _database
-                .GetCollection<T>(_collectionName)
-                .ReplaceOneAsync(filter, item);
-        }
-
-        async Task IDataService.RemoveAsync(object item)
+        public async Task RemoveAsync(object item)
         {
             throw new System.NotImplementedException();
-        }
-
-        public async Task RemoveAsync(T item)
-        {
-            var filter = Builders<T>.Filter
-                .Eq(filterItem => filterItem.ObjectId, item.ObjectId);
-
-            await _database
-                .GetCollection<T>(_collectionName)
-                .DeleteOneAsync(filter);
         }
 
         #endregion METHODS
