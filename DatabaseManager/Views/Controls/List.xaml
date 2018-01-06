@@ -84,7 +84,7 @@
                     <Button
                         Grid.Column="2"
                         VerticalAlignment="Center"
-                        Command="{Binding Path=DataContext.(viewModelInterfaces:IListViewModel.SaveCommand), RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:List}}}"
+                        Click="SaveButtonClick"
                         Style="{StaticResource MaterialDesignToolForegroundButton}"
                         ToolTip="Save">
                         <materialDesign:PackIcon

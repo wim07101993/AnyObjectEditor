@@ -7,7 +7,7 @@ namespace DatabaseManager.ViewModel
 {
     public class MainWindowViewModel : IMainWindowViewModel
     {
-        public IListViewModel ListViewModel { get; }
+        public IListViewModel<Person> ListViewModel { get; }
 
         public MainWindowViewModel()
         {

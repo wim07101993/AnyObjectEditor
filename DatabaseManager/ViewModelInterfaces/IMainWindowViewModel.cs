@@ -1,7 +1,9 @@
-﻿namespace DatabaseManager.ViewModelInterfaces
+﻿using DatabaseManager.Models;
+
+namespace DatabaseManager.ViewModelInterfaces
 {
     public interface IMainWindowViewModel
     {
-        IListViewModel ListViewModel { get; }
+        IListViewModel<Person> ListViewModel { get; }
     }
 }

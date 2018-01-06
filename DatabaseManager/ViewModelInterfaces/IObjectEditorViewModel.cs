@@ -1,19 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace DatabaseManager.ViewModelInterfaces
+﻿namespace DatabaseManager.ViewModelInterfaces
 {
-    public interface IObjectEditorViewModel
+    public interface IObjectEditorViewModel : IObjectEditorViewModel<object>
     {
-        object Value { get; }
-
-        IHeaderViewModel HeaderViewModel { get; }
-
-        IPropertyViewModel Title { get; }
-        IPropertyViewModel Subtitle { get; }
-        IPropertyViewModel Description { get; }
-        IPropertyViewModel Picture { get; }
-
-        IEnumerable<IPropertyViewModel> KnownTypeProperties { get; }
-        IEnumerable<IPropertyViewModel> OtherProperties { get; }
     }
 }

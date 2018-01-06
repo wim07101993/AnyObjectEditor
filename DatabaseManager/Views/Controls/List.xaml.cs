@@ -1,5 +1,8 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using DatabaseManager.ViewModelInterfaces;
 
 namespace DatabaseManager.Views.Controls
 {
@@ -27,6 +30,17 @@ namespace DatabaseManager.Views.Controls
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
             Transitioner.SelectedIndex = 0;
+        }
+
+        private void SaveButtonClick(object sender, RoutedEventArgs e)
+        {
+            ((ICommand) DataContext
+                    .GetType()
+                    .GetProperties()
+                    .SingleOrDefault(x => x.Name == nameof(IListViewModel<object>.SaveCommand) &&
+                                          typeof(ICommand).IsAssignableFrom(x.PropertyType))
+                    ?.GetValue(DataContext))
+                ?.Execute(null);
         }
     }
 }

@@ -1,26 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Input;
-
-namespace DatabaseManager.ViewModelInterfaces
+﻿namespace DatabaseManager.ViewModelInterfaces
 {
-    public interface IListViewModel : INotifyPropertyChanged
+    public interface IListViewModel : IListViewModel<object>
     {
-        IEnumerable ItemsSource { get; set; }
-        IEnumerable<IObjectEditorViewModel> ConvertedItemsSource { get; }
-        IEnumerable<IObjectEditorViewModel> FilteredItemsSource { get; }
-
-        IObjectEditorViewModel SelectedItem { get; set; }
-
-        IObjectEditorViewModel EmptyElement { get; set; }
-
-        bool IsListEditable { get; }
-        string SearchString { get; set; }
-
-        ICommand SaveCommand { get; }
-        ICommand DeleteCommand { get; }
-
-        int CurrentPage { get; set; }
     }
 }
