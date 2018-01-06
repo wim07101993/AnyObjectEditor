@@ -33,7 +33,7 @@
                     materialDesign:ShadowAssist.ShadowDepth="Depth1"
                     CornerRadius="2"
                     Mode="Standard"
-                    Visibility="{Binding SelectedItem, Converter={StaticResource InvertedObjectToVisibilityConverter}}">
+                    Visibility="{Binding ElementName=Transitioner, Path=SelectedIndex, Converter={StaticResource NumberEqualityToVisibilityConverter}, ConverterParameter=0}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -54,7 +54,7 @@
                     </Grid>
                 </materialDesign:ColorZone>
 
-                <Grid Row="1" Visibility="{Binding SelectedItem, Converter={StaticResource ObjectToVisibilityConverter}}">
+                <Grid Row="1" Visibility="{Binding ElementName=Transitioner, Path=SelectedIndex, Converter={StaticResource InvertedNumberEqualityToVisibilityConverter}, ConverterParameter=0}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition />

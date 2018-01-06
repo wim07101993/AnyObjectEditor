@@ -8,6 +8,7 @@
     <local:InvertedObjectToBooleanConverter x:Key="InvertedObjectToBooleanConverter" />
     <local:InvertedObjectToVisibilityConverter x:Key="InvertedObjectToVisibilityConverter" />
     <local:InvertedStringToVisibilityConverter x:Key="InvertedStringToVisibilityConverter" />
+    <local:InvertedNumberEqualityToVisibilityConverter x:Key="InvertedNumberEqualityToVisibilityConverter" />
 
     <local:MinusConverter x:Key="MinusConverter" />
 
@@ -15,6 +16,8 @@
     <local:MultiBooleanOrToVisibilityConverter x:Key="MultiBooleanOrToVisibilityConverter" />
     <local:MultiCommandConverter x:Key="MultiCommandConverter" />
     <local:MultiObjectAndToVisibilityConverter x:Key="MultiObjectAndToVisibilityConverter" />
+
+    <local:NumberEqualityToVisibilityConverter x:Key="NumberEqualityToVisibilityConverter" />
 
     <local:ObjectToBooleanConverter x:Key="ObjectToBooleanConverter" />
     <local:ObjectToDoubleConverter x:Key="ObjectToDoubleConverter" />

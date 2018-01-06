@@ -152,6 +152,7 @@
     <Compile Include="Helpers\Attributes\TitleAttribute.cs" />
     <Compile Include="Helpers\ColorUtilities.cs" />
     <Compile Include="Helpers\Converters\ColorToSolidColorBrushConverter.cs" />
+    <Compile Include="Helpers\Converters\InvertedNumberEqualityToVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\InvertedObjectToBooleanConverter.cs" />
     <Compile Include="Helpers\Converters\InvertedObjectToVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\InvertedStringToVisibilityConverter.cs" />
@@ -160,6 +161,7 @@
     <Compile Include="Helpers\Converters\MultiBooleanOrToVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\MultiCommandConverter.cs" />
     <Compile Include="Helpers\Converters\MultiObjectAndToVisibilityConverter.cs" />
+    <Compile Include="Helpers\Converters\NumberEqualityToVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\ObjectToBooleanConverter.cs" />
     <Compile Include="Helpers\Converters\ObjectToDoubleConverter.cs" />
     <Compile Include="Helpers\Converters\ObjectToVisibilityConverter.cs" />
