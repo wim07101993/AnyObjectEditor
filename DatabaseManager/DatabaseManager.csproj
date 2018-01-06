@@ -197,6 +197,7 @@
     <Compile Include="ViewModelInterfaces\IMainWindowViewModel.cs" />
     <Compile Include="ViewModelInterfaces\IPropertyViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="ViewModel\TypelessListViewModel.cs" />
     <Compile Include="ViewModel\TypelessObjectEditorViewModel.cs" />
     <Compile Include="Views\Controls\ColorPicker.cs" />
     <Compile Include="Views\Controls\ColorSpectrumSlider.cs" />
