@@ -6,9 +6,9 @@ using System.Reflection;
 using System.Windows.Media;
 using DatabaseManager.Helpers.Attributes;
 using DatabaseManager.Helpers.Extensions;
+using DatabaseManager.Services.DataService;
 using DatabaseManager.ViewModelInterfaces;
 using Prism.Mvvm;
-using TypelessDatabaseManager.Services.DataService;
 using DescriptionAttribute = DatabaseManager.Helpers.Attributes.DescriptionAttribute;
 
 namespace DatabaseManager.ViewModel
@@ -65,9 +65,9 @@ namespace DatabaseManager.ViewModel
 
             DisplayName = propertyInfo.GetDisplayName();
             Name = propertyInfo.Name;
-            
+
             Value = propertyInfo.GetValue(parent);
-            
+
             Type = propertyInfo.PropertyType;
             HasNativeType = propertyInfo.HasNativeType();
             IsImage = propertyInfo.HasImageType();
@@ -118,6 +118,10 @@ namespace DatabaseManager.ViewModel
             IsReadOnly = attributes.ContainsKey(DatabaseConstants.ReadOnlyAttributeName)
                 ? attributes[DatabaseConstants.ReadOnlyAttributeName] as bool? == true
                 : ReadOnlyAttribute.Default.IsReadOnly;
+
+            DisplayName = attributes.ContainsKey(DatabaseConstants.DisplayNameAttributeName)
+                ? attributes[DatabaseConstants.DisplayNameAttributeName] as string
+                : Name;
         }
 
         #endregion CONSTRUCTORS

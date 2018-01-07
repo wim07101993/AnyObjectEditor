@@ -19,8 +19,9 @@ namespace DatabaseManager.ViewModel
         protected Func<JObject, Task> InsertItemFunc;
         protected Func<JObject, Task> UpdateItemFunc;
         protected Func<JObject, Task> RemoveItemFunc;
+        protected Func<Task<Dictionary<string, Dictionary<string, object>>>> GetAttributesFunc;
 
-        private IDictionary<string, object> _attributes;
+        private Dictionary<string, Dictionary<string, object>> _attributes;
         private IEnumerable<JObject> _itemsSource;
         private IEnumerable<TypelessObjectEditorViewModel> _convertedItemsSource;
         private IEnumerable<TypelessObjectEditorViewModel> _filteredItemsSource;
@@ -35,7 +36,7 @@ namespace DatabaseManager.ViewModel
 
         #region PROPERTIES
 
-        public IDictionary<string, object> Attributes
+        public Dictionary<string, Dictionary<string, object>> AttributesDictionary
         {
             get => _attributes;
             set
@@ -124,14 +125,22 @@ namespace DatabaseManager.ViewModel
             Init();
         }
 
-        public TypelessListViewModel(Func<Task<IEnumerable<JObject>>> getItemsFunc, Func<JObject, Task> insertItemFunc,
-            Func<JObject, Task> updateItemFunc, Func<JObject, Task> removeItemFunc,
-            IDictionary<string, object> attributes)
+        public TypelessListViewModel(
+            Func<Task<IEnumerable<JObject>>> getItemsFunc,
+            Func<JObject, Task> insertItemFunc,
+            Func<JObject, Task> updateItemFunc,
+            Func<JObject, Task> removeItemFunc,
+            Func<Task<Dictionary<string, Dictionary<string, object>>>> getAttributesFunc)
         {
             Init();
-            Attributes = attributes;
+            GetAttributesFunc = getAttributesFunc;
             GetItemsFunc = getItemsFunc;
-            Task.Factory.StartNew(async () => { return ItemsSource = await GetItemsFunc(); });
+
+            Task.Factory.StartNew(async () =>
+            {
+                ItemsSource = await GetItemsFunc();
+                AttributesDictionary = await GetAttributesFunc();
+            });
 
             InsertItemFunc = insertItemFunc;
             UpdateItemFunc = updateItemFunc;
@@ -152,7 +161,7 @@ namespace DatabaseManager.ViewModel
         private void ConvertItemsSource()
         {
             ConvertedItemsSource = _itemsSource
-                .Select(x => new TypelessObjectEditorViewModel(x, Attributes))
+                .Select(x => new TypelessObjectEditorViewModel(x, AttributesDictionary))
                 .OrderBy(x => x.Title?.Value)
                 .ThenBy(x => x.Subtitle?.Value)
                 .ThenBy(x => x.Description?.Value);
@@ -160,7 +169,7 @@ namespace DatabaseManager.ViewModel
             RaisePropertyChanged(nameof(IsListEditable));
 
             if (!EnumerableExtensions.IsNullOrEmpty(ItemsSource))
-                EmptyElement = new TypelessObjectEditorViewModel(CreateNewItem(), Attributes);
+                EmptyElement = new TypelessObjectEditorViewModel(CreateNewItem(), AttributesDictionary);
         }
 
         private void FilterItemsSource()
@@ -220,8 +229,7 @@ namespace DatabaseManager.ViewModel
             string filter)
             => objectEditorViewModel.KnownTypeProperties.Any(x => x.Value.ToString().Contains(filter));
 
-        protected virtual JObject CreateNewItem()
-            => Activator.CreateInstance<JObject>();
+        protected virtual JObject CreateNewItem() => Activator.CreateInstance<JObject>();
 
         public virtual async void RefreshAsync() => ItemsSource = await GetItemsFunc();
 

@@ -9,7 +9,7 @@ namespace DatabaseManager.ViewModel
         #region FIELDS
 
         private JObject _value;
-        private readonly IDictionary<string, object> _attributes;
+        private readonly Dictionary<string, Dictionary<string, object>> _attributes;
 
         #endregion FIELDS
 
@@ -37,6 +37,21 @@ namespace DatabaseManager.ViewModel
 
         #region CONSTRUCTOR
 
+        public TypelessObjectEditorViewModel()
+        {
+        }
+
+        public TypelessObjectEditorViewModel(JObject value, Dictionary<string, Dictionary<string, object>> attributes)
+        {
+            _attributes = attributes;
+            Value = value;
+        }
+
+        #endregion CONSTRUCTOR
+
+
+        #region METHODS
+
         protected override void CreatePropertiesFromValue()
         {
             var knownTypeProperties = new List<PropertyViewModel>();
@@ -44,7 +59,7 @@ namespace DatabaseManager.ViewModel
 
             foreach (var propertyName in ((IDictionary<string, JToken>) _value).Keys)
             {
-                var propertyVM = new PropertyViewModel(propertyName, _value[propertyName], _attributes);
+                var propertyVM = new PropertyViewModel(propertyName, _value[propertyName], _attributes[propertyName]);
 
                 if (!propertyVM.IsBrowsable)
                     continue;
@@ -74,21 +89,6 @@ namespace DatabaseManager.ViewModel
                 Picture = Picture
             };
         }
-
-        public TypelessObjectEditorViewModel()
-        {
-        }
-
-        public TypelessObjectEditorViewModel(JObject value, IDictionary<string, object> attributes)
-        {
-            _attributes = attributes;
-            Value = value;
-        }
-
-        #endregion CONSTRUCTOR
-
-
-        #region METHODS
 
         protected override void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {

@@ -9,5 +9,6 @@ namespace DatabaseManager.Services.DataService
         Task InsertAsync(T item);
         Task UpdateAsync(T item);
         Task RemoveAsync(T item);
+        Task<Dictionary<string, Dictionary<string, object>>> GetAttributesDictionary();
     }
 }
