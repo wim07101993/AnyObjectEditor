@@ -4,30 +4,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Newtonsoft.Json.Linq;
+using DatabaseManager.Services.DataService;
 using Prism.Commands;
 using Prism.Mvvm;
 using Shared.Helpers.Extensions;
+using Shared.ViewModelInterfaces;
 
-namespace DatabaseManager.ViewModel
+namespace DatabaseManager.ViewModels
 {
-    public class TypelessListViewModel : BindableBase
+    public class ListViewModel<T> : BindableBase, IListViewModel<T>
     {
         #region FIELDS
 
-        protected Func<Task<IEnumerable<JObject>>> GetItemsFunc;
-        protected Func<JObject, Task> InsertItemFunc;
-        protected Func<JObject, Task> UpdateItemFunc;
-        protected Func<JObject, Task> RemoveItemFunc;
-        protected Func<Task<Dictionary<string, Dictionary<string, object>>>> GetAttributesFunc;
+        protected Func<Task<IEnumerable<T>>> GetItemsFunc;
+        protected Func<T, Task> InsertItemFunc;
+        protected Func<T, Task> UpdateItemFunc;
+        protected Func<T, Task> RemoveItemFunc;
 
-        private Dictionary<string, Dictionary<string, object>> _attributes;
-        private IEnumerable<JObject> _itemsSource;
-        private IEnumerable<TypelessObjectEditorViewModel> _convertedItemsSource;
-        private IEnumerable<TypelessObjectEditorViewModel> _filteredItemsSource;
+        private IEnumerable<T> _itemsSource;
+        private IEnumerable<IObjectEditorViewModel<T>> _convertedItemsSource;
+        private IEnumerable<IObjectEditorViewModel<T>> _filteredItemsSource;
 
-        private TypelessObjectEditorViewModel _emptyElement;
-        private TypelessObjectEditorViewModel _selectedItem;
+        private IObjectEditorViewModel<T> _emptyElement;
+        private IObjectEditorViewModel<T> _selectedItem;
         private string _searchString;
         private int _currentPage;
 
@@ -36,29 +35,28 @@ namespace DatabaseManager.ViewModel
 
         #region PROPERTIES
 
-        public Dictionary<string, Dictionary<string, object>> AttributesDictionary
-        {
-            get => _attributes;
-            set
-            {
-                if (!SetProperty(ref _attributes, value))
-                    return;
-                ConvertItemsSource();
-            }
-        }
-
-        public IEnumerable<JObject> ItemsSource
+        public IEnumerable<T> ItemsSource
         {
             get => _itemsSource;
             set
             {
                 if (!SetProperty(ref _itemsSource, value))
                     return;
-                ConvertItemsSource();
+
+                ConvertedItemsSource = _itemsSource
+                    .Select(x => new ObjectEditorViewModel<T>(x))
+                    .OrderBy(x => x.Title?.Value)
+                    .ThenBy(x => x.Subtitle?.Value)
+                    .ThenBy(x => x.Description?.Value);
+
+                RaisePropertyChanged(nameof(IsListEditable));
+
+                if (!EnumerableExtensions.IsNullOrEmpty(ItemsSource))
+                    EmptyElement = new ObjectEditorViewModel<T>(CreateNewItem());
             }
         }
 
-        public IEnumerable<TypelessObjectEditorViewModel> ConvertedItemsSource
+        public IEnumerable<IObjectEditorViewModel<T>> ConvertedItemsSource
         {
             get => _convertedItemsSource;
             private set
@@ -69,7 +67,7 @@ namespace DatabaseManager.ViewModel
             }
         }
 
-        public IEnumerable<TypelessObjectEditorViewModel> FilteredItemsSource
+        public IEnumerable<IObjectEditorViewModel<T>> FilteredItemsSource
         {
             get => _filteredItemsSource;
             private set
@@ -80,13 +78,13 @@ namespace DatabaseManager.ViewModel
             }
         }
 
-        public TypelessObjectEditorViewModel SelectedItem
+        public IObjectEditorViewModel<T> SelectedItem
         {
             get => _selectedItem;
             set => SetProperty(ref _selectedItem, value);
         }
 
-        public TypelessObjectEditorViewModel EmptyElement
+        public IObjectEditorViewModel<T> EmptyElement
         {
             get => _emptyElement;
             set => SetProperty(ref _emptyElement, value);
@@ -120,57 +118,45 @@ namespace DatabaseManager.ViewModel
 
         #region CONSTRUCTORS
 
-        protected TypelessListViewModel()
+        protected ListViewModel()
         {
             Init();
         }
 
-        public TypelessListViewModel(
-            Func<Task<IEnumerable<JObject>>> getItemsFunc,
-            Func<JObject, Task> insertItemFunc,
-            Func<JObject, Task> updateItemFunc,
-            Func<JObject, Task> removeItemFunc,
-            Func<Task<Dictionary<string, Dictionary<string, object>>>> getAttributesFunc)
+        public ListViewModel(Func<Task<IEnumerable<T>>> getItemsFunc, Func<T, Task> insertItemFunc,
+            Func<T, Task> updateItemFunc, Func<T, Task> removeItemFunc)
         {
             Init();
-            GetAttributesFunc = getAttributesFunc;
-            GetItemsFunc = getItemsFunc;
 
-            Task.Factory.StartNew(async () =>
-            {
-                ItemsSource = await GetItemsFunc();
-                AttributesDictionary = await GetAttributesFunc();
-            });
+            GetItemsFunc = getItemsFunc;
+            Task.Factory.StartNew(async () => { return ItemsSource = await GetItemsFunc(); });
 
             InsertItemFunc = insertItemFunc;
             UpdateItemFunc = updateItemFunc;
             RemoveItemFunc = removeItemFunc;
         }
 
+        public ListViewModel(IDataService<T> dataService)
+        {
+            Init();
+            GetItemsFunc = async () => await dataService.GetAllAsync();
+            Task.Factory.StartNew(async () => { ItemsSource = await GetItemsFunc(); });
+
+            InsertItemFunc = dataService.InsertAsync;
+            UpdateItemFunc = dataService.UpdateAsync;
+            RemoveItemFunc = dataService.RemoveAsync;
+        }
+
         protected void Init()
         {
             SaveCommand = new DelegateCommand(SaveAsync);
-            DeleteCommand = new DelegateCommand<JObject>(DeleteAsync);
+            DeleteCommand = new DelegateCommand<T>(DeleteAsync);
         }
 
         #endregion CONSTRUCTORS
 
 
         #region METHODS
-
-        private void ConvertItemsSource()
-        {
-            ConvertedItemsSource = _itemsSource
-                .Select(x => new TypelessObjectEditorViewModel(x, AttributesDictionary))
-                .OrderBy(x => x.Title?.Value)
-                .ThenBy(x => x.Subtitle?.Value)
-                .ThenBy(x => x.Description?.Value);
-
-            RaisePropertyChanged(nameof(IsListEditable));
-
-            if (!EnumerableExtensions.IsNullOrEmpty(ItemsSource))
-                EmptyElement = new TypelessObjectEditorViewModel(CreateNewItem(), AttributesDictionary);
-        }
 
         private void FilterItemsSource()
         {
@@ -184,16 +170,16 @@ namespace DatabaseManager.ViewModel
             if (split.Length > 1)
                 switch (split[0])
                 {
-                    case nameof(TypelessObjectEditorViewModel.Title):
+                    case nameof(ObjectEditorViewModel<T>.Title):
                         FilteredItemsSource = ConvertedItemsSource.Where(x => FilterOnTitle(x, split[1]));
                         return;
-                    case nameof(TypelessObjectEditorViewModel.Subtitle):
+                    case nameof(ObjectEditorViewModel<T>.Subtitle):
                         FilteredItemsSource = ConvertedItemsSource.Where(x => FilterOnSubtitle(x, split[1]));
                         return;
-                    case nameof(TypelessObjectEditorViewModel.Description):
+                    case nameof(ObjectEditorViewModel<T>.Description):
                         FilteredItemsSource = ConvertedItemsSource.Where(x => FilterOnDescription(x, split[1]));
                         return;
-                    case nameof(TypelessObjectEditorViewModel.KnownTypeProperties):
+                    case nameof(ObjectEditorViewModel<T>.KnownTypeProperties):
                         FilteredItemsSource = ConvertedItemsSource.Where(x => FilterOnKnownTypeProperties(x, split[1]));
                         return;
                 }
@@ -216,24 +202,24 @@ namespace DatabaseManager.ViewModel
             FilteredItemsSource = filteredItems;
         }
 
-        private static bool FilterOnTitle(TypelessObjectEditorViewModel objectEditorViewModel, string filter)
+        private static bool FilterOnTitle(IObjectEditorViewModel<T> objectEditorViewModel, string filter)
             => objectEditorViewModel.Title.Value.ToString().Contains(filter);
 
-        private static bool FilterOnSubtitle(TypelessObjectEditorViewModel objectEditorViewModel, string filter)
+        private static bool FilterOnSubtitle(IObjectEditorViewModel<T> objectEditorViewModel, string filter)
             => objectEditorViewModel.Subtitle.Value.ToString().Contains(filter);
 
-        private static bool FilterOnDescription(TypelessObjectEditorViewModel objectEditorViewModel, string filter)
+        private static bool FilterOnDescription(IObjectEditorViewModel<T> objectEditorViewModel, string filter)
             => objectEditorViewModel.Description.Value.ToString().Contains(filter);
 
-        private static bool FilterOnKnownTypeProperties(TypelessObjectEditorViewModel objectEditorViewModel,
-            string filter)
+        private static bool FilterOnKnownTypeProperties(IObjectEditorViewModel<T> objectEditorViewModel, string filter)
             => objectEditorViewModel.KnownTypeProperties.Any(x => x.Value.ToString().Contains(filter));
 
-        protected virtual JObject CreateNewItem() => Activator.CreateInstance<JObject>();
+        protected virtual T CreateNewItem()
+            => Activator.CreateInstance<T>();
 
         public virtual async void RefreshAsync() => ItemsSource = await GetItemsFunc();
 
-        public virtual async void DeleteAsync(JObject item)
+        public virtual async void DeleteAsync(T item)
         {
             await RemoveItemFunc(item);
             RefreshAsync();

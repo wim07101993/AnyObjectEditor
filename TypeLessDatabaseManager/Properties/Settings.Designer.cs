@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TypeLessDatabaseManager.Properties
+namespace TypelessDatabaseManager.Properties
 {
 
 

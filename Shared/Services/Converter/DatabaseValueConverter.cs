@@ -4,7 +4,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Shared.Helpers.Extensions;
 
-namespace DatabaseManager.Services.DataService.Converter
+namespace Shared.Services.Converter
 {
     public static class DatabaseValueConverter
     {

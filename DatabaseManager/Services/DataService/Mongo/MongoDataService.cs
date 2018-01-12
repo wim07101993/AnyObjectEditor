@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using DatabaseManager.Models.Bases;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace DatabaseManager.Services.DataService.Mongo
 {
-    public class MongoDataService : IDataService
+    public class MongoDataService<T> : IDataService<T> where T : IMongoModel
     {
         #region FIELDS
 
@@ -38,76 +34,52 @@ namespace DatabaseManager.Services.DataService.Mongo
 
         #region METHODS
 
-        public async Task<IEnumerable<JObject>> GetAllAsync()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
-            var jObjects = new List<JObject>();
+            var ret = new List<T>();
 
-            await _database.GetCollection<BsonDocument>(_collectionName)
-                .Find(FilterDefinition<BsonDocument>.Empty)
-                .ForEachAsync(x =>
-                {
-                    // ReSharper disable once SpecifyACultureInStringConversionExplicitly
-                    var str = x.ToString();
-                    var totalMatch = new Regex(@"""_id"" : ObjectId\(""[a-z0-9]*""\)").Match(str);
-                    var idMatch = new Regex(@"""[a-z0-9]*""").Match(totalMatch.Value);
+            await _database.GetCollection<T>(_collectionName)
+                .Find(FilterDefinition<T>.Empty)
+                .ForEachAsync(x => ret.Add(x));
 
-                    var json = str.Substring(0, totalMatch.Index) +
-                               "\"id\" : " + idMatch.Value +
-                               str.Substring(totalMatch.Index + totalMatch.Length);
-
-                    jObjects.Add((JObject) JsonConvert.DeserializeObject(json));
-                });
-
-            var ret = new List<Dictionary<string, object>>();
-            foreach (var jObject in jObjects)
-            {
-                var dict = new Dictionary<string,object>();
-                foreach (var key in ((IDictionary<string, JToken>)jObject).Keys)
-                {
-                    
-                }
-            }
-
-            return jObjects;
+            return ret;
         }
 
-
-        public async Task InsertAsync(JObject item)
+        public async Task InsertAsync(T item)
         {
+            await _database.GetCollection<T>(_collectionName)
+                .InsertOneAsync(item);
+        }
+
+        public async Task UpdateAsync(T item)
+        {
+            var filter = Builders<T>.Filter
+                .Eq(filterItem => filterItem.ObjectId, item.ObjectId);
+
             await _database
-                .GetCollection<BsonDocument>(_collectionName)
-                .InsertOneAsync(item.ToBsonDocument());
+                .GetCollection<T>(_collectionName)
+                .ReplaceOneAsync(filter, item);
         }
 
-        public async Task UpdateAsync(JObject item)
+        public async Task RemoveAsync(T item)
         {
-        }
+            var filter = Builders<T>.Filter
+                .Eq(filterItem => filterItem.ObjectId, item.ObjectId);
 
-        public async Task RemoveAsync(JObject item)
-        {
+            await _database
+                .GetCollection<T>(_collectionName)
+                .DeleteOneAsync(filter);
         }
 
         public async Task<Dictionary<string, Dictionary<string, object>>> GetAttributesDictionary()
         {
-            var filter = Builders<BsonDocument>
-                .Filter.Eq("_id", ObjectId.Parse(_attributesId));
+            var filter = Builders<Dictionary<string, Dictionary<string, object>>>
+                .Filter.Eq("id", ObjectId.Parse(_attributesId));
 
-            var bsonDoc = await _database
-                .GetCollection<BsonDocument>(_attributesCollectionName)
+            return await _database
+                .GetCollection<Dictionary<string, Dictionary<string, object>>>(_attributesCollectionName)
                 .Find(filter)
                 .FirstOrDefaultAsync();
-
-            var str = bsonDoc.ToString();
-            var totalMatch = new Regex(@"""_id"" : ObjectId\(""[a-z0-9]*""\)").Match(str);
-            var idMatch = new Regex(@"""[a-z0-9]*""").Match(totalMatch.Value);
-
-            var json = str.Substring(0, totalMatch.Index) +
-                       "\"id\" : { \"id\" : " + idMatch.Value + " }" +
-                       str.Substring(totalMatch.Index + totalMatch.Length);
-
-            var ret = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, object>>>(json);
-
-            return ret;
         }
 
         #endregion METHODS

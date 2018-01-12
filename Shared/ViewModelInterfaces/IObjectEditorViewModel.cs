@@ -1,4 +1,4 @@
-﻿namespace DatabaseManager.ViewModelInterfaces
+﻿namespace Shared.ViewModelInterfaces
 {
     public interface IObjectEditorViewModel : IObjectEditorViewModel<object>
     {

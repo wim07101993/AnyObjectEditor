@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 
 namespace DatabaseManager.Services.DataService
 {
-    public interface IDataService
+    public interface IDataService<T>
     {
-        Task<IEnumerable<JObject>> GetAllAsync();
-        Task InsertAsync(JObject item);
-        Task UpdateAsync(JObject item);
-        Task RemoveAsync(JObject item);
+        Task<IEnumerable<T>> GetAllAsync();
+        Task InsertAsync(T item);
+        Task UpdateAsync(T item);
+        Task RemoveAsync(T item);
         Task<Dictionary<string, Dictionary<string, object>>> GetAttributesDictionary();
     }
 }

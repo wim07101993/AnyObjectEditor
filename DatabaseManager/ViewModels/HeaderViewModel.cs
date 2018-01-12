@@ -1,10 +1,7 @@
-﻿using System.Windows.Input;
-using System.Windows.Media.Imaging;
-using DatabaseManager.ViewModelInterfaces;
-using Prism.Commands;
-using Prism.Mvvm;
+﻿using Prism.Mvvm;
+using Shared.ViewModelInterfaces;
 
-namespace DatabaseManager.ViewModel
+namespace DatabaseManager.ViewModels
 {
     public class HeaderViewModel : BindableBase, IHeaderViewModel
     {

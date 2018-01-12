@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:DatabaseManager.Views.Controls"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewModelInterfaces="clr-namespace:DatabaseManager.ViewModelInterfaces"
+    xmlns:viewModelInterfaces="clr-namespace:Shared.ViewModelInterfaces;assembly=Shared"
     x:Name="UserControl"
     d:DataContext="{d:DesignInstance viewModelInterfaces:IObjectEditorViewModel}"
     mc:Ignorable="d">

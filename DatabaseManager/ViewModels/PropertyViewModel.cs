@@ -5,13 +5,13 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Media;
 using DatabaseManager.Services.DataService;
-using DatabaseManager.ViewModelInterfaces;
 using Prism.Mvvm;
 using Shared.Helpers.Attributes;
 using Shared.Helpers.Extensions;
+using Shared.ViewModelInterfaces;
 using DescriptionAttribute = Shared.Helpers.Attributes.DescriptionAttribute;
 
-namespace DatabaseManager.ViewModel
+namespace DatabaseManager.ViewModels
 {
     public class PropertyViewModel : BindableBase, IPropertyViewModel
     {

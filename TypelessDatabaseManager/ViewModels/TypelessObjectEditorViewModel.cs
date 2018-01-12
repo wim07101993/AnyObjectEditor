@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using Newtonsoft.Json.Linq;
 
-namespace DatabaseManager.ViewModel
+namespace DatabaseManager.ViewModels
 {
     public class TypelessObjectEditorViewModel : ObjectEditorViewModel<JObject>
     {

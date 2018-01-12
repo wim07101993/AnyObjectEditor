@@ -1,4 +1,4 @@
-﻿using DatabaseManager.ViewModel;
+﻿using DatabaseManager.ViewModels;
 
 namespace DatabaseManager.Views
 {

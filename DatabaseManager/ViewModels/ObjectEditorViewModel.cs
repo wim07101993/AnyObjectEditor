@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using DatabaseManager.ViewModelInterfaces;
 using Prism.Mvvm;
 using Shared.Helpers.Extensions;
+using Shared.ViewModelInterfaces;
 
-namespace DatabaseManager.ViewModel
+namespace DatabaseManager.ViewModels
 {
     public class ObjectEditorViewModel<T> : BindableBase, IObjectEditorViewModel<T>
     {

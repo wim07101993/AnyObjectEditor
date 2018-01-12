@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DatabaseManager.ViewModelInterfaces
+namespace Shared.ViewModelInterfaces
 {
     public interface IObjectEditorViewModel<out T>
     {

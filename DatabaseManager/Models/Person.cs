@@ -3,11 +3,11 @@ using System.ComponentModel;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using DatabaseManager.Models.Bases;
-using DatabaseManager.Services.DataService.Mongo;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using Prism.Mvvm;
 using Shared.Helpers.Attributes;
+using Shared.Services.Mongo;
 
 namespace DatabaseManager.Models
 {

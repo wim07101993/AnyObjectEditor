@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Reflection;
 
-namespace DatabaseManager.ViewModelInterfaces
+namespace Shared.ViewModelInterfaces
 {
     public interface IPropertyViewModel : INotifyPropertyChanged
     {

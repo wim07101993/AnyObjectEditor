@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewModelInterfaces="clr-namespace:DatabaseManager.ViewModelInterfaces"
+    xmlns:viewModelInterfaces="clr-namespace:Shared.ViewModelInterfaces;assembly=Shared"
     d:DataContext="{d:DesignInstance viewModelInterfaces:IHeaderViewModel}"
     mc:Ignorable="d">
 

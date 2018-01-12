@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Input;
 
-namespace DatabaseManager.ViewModelInterfaces
+namespace Shared.ViewModelInterfaces
 {
     public interface IListViewModel<T> : INotifyPropertyChanged
     {
