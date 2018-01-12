@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using DatabaseManager.Helpers.Extensions;
 using DatabaseManager.ViewModelInterfaces;
 using Prism.Mvvm;
+using Shared.Helpers.Extensions;
 
 namespace DatabaseManager.ViewModel
 {

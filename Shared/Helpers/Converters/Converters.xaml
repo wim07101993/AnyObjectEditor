@@ -1,0 +1,27 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:Shared.Helpers.Converters">
+
+    <converters:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter" />
+
+    <converters:InvertedObjectToBooleanConverter x:Key="InvertedObjectToBooleanConverter" />
+    <converters:InvertedObjectToVisibilityConverter x:Key="InvertedObjectToVisibilityConverter" />
+    <converters:InvertedStringToVisibilityConverter x:Key="InvertedStringToVisibilityConverter" />
+    <converters:InvertedNumberEqualityToVisibilityConverter x:Key="InvertedNumberEqualityToVisibilityConverter" />
+
+    <converters:MinusConverter x:Key="MinusConverter" />
+
+    <converters:MultiBooleanAndToVisibilityConverter x:Key="MultiBooleanAndToVisibilityConverter" />
+    <converters:MultiBooleanOrToVisibilityConverter x:Key="MultiBooleanOrToVisibilityConverter" />
+    <converters:MultiCommandConverter x:Key="MultiCommandConverter" />
+    <converters:MultiObjectAndToVisibilityConverter x:Key="MultiObjectAndToVisibilityConverter" />
+
+    <converters:NumberEqualityToVisibilityConverter x:Key="NumberEqualityToVisibilityConverter" />
+
+    <converters:ObjectToBooleanConverter x:Key="ObjectToBooleanConverter" />
+    <converters:ObjectToDoubleConverter x:Key="ObjectToDoubleConverter" />
+    <converters:ObjectToVisibilityConverter x:Key="ObjectToVisibilityConverter" />
+
+    <converters:StringToBooleanConverter x:Key="StringToBooleanConverter" />
+</ResourceDictionary>

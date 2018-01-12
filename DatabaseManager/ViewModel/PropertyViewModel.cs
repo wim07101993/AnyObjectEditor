@@ -4,12 +4,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Media;
-using DatabaseManager.Helpers.Attributes;
-using DatabaseManager.Helpers.Extensions;
 using DatabaseManager.Services.DataService;
 using DatabaseManager.ViewModelInterfaces;
 using Prism.Mvvm;
-using DescriptionAttribute = DatabaseManager.Helpers.Attributes.DescriptionAttribute;
+using Shared.Helpers.Attributes;
+using Shared.Helpers.Extensions;
+using DescriptionAttribute = Shared.Helpers.Attributes.DescriptionAttribute;
 
 namespace DatabaseManager.ViewModel
 {

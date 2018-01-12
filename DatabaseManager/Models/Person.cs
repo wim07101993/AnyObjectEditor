@@ -2,12 +2,12 @@
 using System.ComponentModel;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using DatabaseManager.Helpers.Attributes;
 using DatabaseManager.Models.Bases;
 using DatabaseManager.Services.DataService.Mongo;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using Prism.Mvvm;
+using Shared.Helpers.Attributes;
 
 namespace DatabaseManager.Models
 {
@@ -71,7 +71,7 @@ namespace DatabaseManager.Models
             set => SetProperty(ref _picture, value);
         }
 
-        [Helpers.Attributes.Description]
+        [Shared.Helpers.Attributes.Description]
         [DisplayName("Korte beschrijving")]
         [BsonElement("summary")]
         public string Summary

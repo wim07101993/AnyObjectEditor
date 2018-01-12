@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using DatabaseManager.Helpers;
+using Shared.Helpers;
 
 namespace DatabaseManager.Views.Controls
 {

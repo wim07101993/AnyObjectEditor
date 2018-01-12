@@ -113,9 +113,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Helpers\Converters\Converters.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Converters.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Controls\EditableHeader.xaml">
       <SubType>Designer</SubType>
@@ -145,37 +145,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Helpers\Attributes\IdAttribute.cs" />
-    <Compile Include="Helpers\Attributes\PictureAttribute.cs" />
-    <Compile Include="Helpers\Attributes\DescriptionAttribute.cs" />
-    <Compile Include="Helpers\Attributes\SubtitleAttribute.cs" />
-    <Compile Include="Helpers\Attributes\TitleAttribute.cs" />
-    <Compile Include="Helpers\ColorUtilities.cs" />
-    <Compile Include="Helpers\Converters\ColorToSolidColorBrushConverter.cs" />
-    <Compile Include="Helpers\Converters\InvertedNumberEqualityToVisibilityConverter.cs" />
-    <Compile Include="Helpers\Converters\InvertedObjectToBooleanConverter.cs" />
-    <Compile Include="Helpers\Converters\InvertedObjectToVisibilityConverter.cs" />
-    <Compile Include="Helpers\Converters\InvertedStringToVisibilityConverter.cs" />
-    <Compile Include="Helpers\Converters\MinusConverter.cs" />
-    <Compile Include="Helpers\Converters\MultiBooleanAndToVisibilityConverter.cs" />
-    <Compile Include="Helpers\Converters\MultiBooleanOrToVisibilityConverter.cs" />
-    <Compile Include="Helpers\Converters\MultiCommandConverter.cs" />
-    <Compile Include="Helpers\Converters\MultiObjectAndToVisibilityConverter.cs" />
-    <Compile Include="Helpers\Converters\NumberEqualityToVisibilityConverter.cs" />
-    <Compile Include="Helpers\Converters\ObjectToBooleanConverter.cs" />
-    <Compile Include="Helpers\Converters\ObjectToDoubleConverter.cs" />
-    <Compile Include="Helpers\Converters\ObjectToVisibilityConverter.cs" />
-    <Compile Include="Helpers\Converters\StringToBooleanConverter.cs" />
-    <Compile Include="Helpers\DialogHelper.cs" />
-    <Compile Include="Helpers\ENativeTypes.cs" />
-    <Compile Include="Helpers\Extensions\BitmapImageExtensions.cs" />
-    <Compile Include="Helpers\Extensions\ColorExtensions.cs" />
-    <Compile Include="Helpers\Extensions\EnumerableExtensions.cs" />
-    <Compile Include="Helpers\Extensions\PropertyInfoExtensions.cs" />
-    <Compile Include="Helpers\Extensions\StringExtensions.cs" />
-    <Compile Include="Helpers\Extensions\TypeExtenstions.cs" />
-    <Compile Include="Helpers\HsvColor.cs" />
-    <Compile Include="Helpers\ValueChangedEventArgs.cs" />
     <Compile Include="Models\Bases\IMongoModel.cs" />
     <Compile Include="Services\DataService\Converter\DatabaseConverterException.cs" />
     <Compile Include="Services\DataService\DatabaseConstants.cs" />
@@ -282,6 +251,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\Shared.csproj">
+      <Project>{bcbb8d8b-7856-48c5-9bf9-062ce05f6937}</Project>
+      <Name>Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

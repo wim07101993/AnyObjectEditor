@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BCBB8D8B-7856-48C5-9BF9-062CE05F6937}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Shared</RootNamespace>
+    <AssemblyName>Shared</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Prism, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Core.6.3.0\lib\net45\Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Helpers\Attributes\DescriptionAttribute.cs" />
+    <Compile Include="Helpers\Attributes\IdAttribute.cs" />
+    <Compile Include="Helpers\Attributes\PictureAttribute.cs" />
+    <Compile Include="Helpers\Attributes\SubtitleAttribute.cs" />
+    <Compile Include="Helpers\Attributes\TitleAttribute.cs" />
+    <Compile Include="Helpers\ColorUtilities.cs" />
+    <Compile Include="Helpers\Converters\ColorToSolidColorBrushConverter.cs" />
+    <Compile Include="Helpers\Converters\InvertedNumberEqualityToVisibilityConverter.cs" />
+    <Compile Include="Helpers\Converters\InvertedObjectToBooleanConverter.cs" />
+    <Compile Include="Helpers\Converters\InvertedObjectToVisibilityConverter.cs" />
+    <Compile Include="Helpers\Converters\InvertedStringToVisibilityConverter.cs" />
+    <Compile Include="Helpers\Converters\MinusConverter.cs" />
+    <Compile Include="Helpers\Converters\MultiBooleanAndToVisibilityConverter.cs" />
+    <Compile Include="Helpers\Converters\MultiBooleanOrToVisibilityConverter.cs" />
+    <Compile Include="Helpers\Converters\MultiCommandConverter.cs" />
+    <Compile Include="Helpers\Converters\MultiObjectAndToVisibilityConverter.cs" />
+    <Compile Include="Helpers\Converters\NumberEqualityToVisibilityConverter.cs" />
+    <Compile Include="Helpers\Converters\ObjectToBooleanConverter.cs" />
+    <Compile Include="Helpers\Converters\ObjectToDoubleConverter.cs" />
+    <Compile Include="Helpers\Converters\ObjectToVisibilityConverter.cs" />
+    <Compile Include="Helpers\Converters\StringToBooleanConverter.cs" />
+    <Compile Include="Helpers\DialogHelper.cs" />
+    <Compile Include="Helpers\ENativeTypes.cs" />
+    <Compile Include="Helpers\Extensions\BitmapImageExtensions.cs" />
+    <Compile Include="Helpers\Extensions\ColorExtensions.cs" />
+    <Compile Include="Helpers\Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Helpers\Extensions\PropertyInfoExtensions.cs" />
+    <Compile Include="Helpers\Extensions\StringExtensions.cs" />
+    <Compile Include="Helpers\Extensions\TypeExtenstions.cs" />
+    <Compile Include="Helpers\HsvColor.cs" />
+    <Compile Include="Helpers\ValueChangedEventArgs.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Helpers\Converters\Converters.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

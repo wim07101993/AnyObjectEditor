@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using MongoDB.Bson;
@@ -39,7 +40,7 @@ namespace DatabaseManager.Services.DataService.Mongo
 
         public async Task<IEnumerable<JObject>> GetAllAsync()
         {
-            var ret = new List<JObject>();
+            var jObjects = new List<JObject>();
 
             await _database.GetCollection<BsonDocument>(_collectionName)
                 .Find(FilterDefinition<BsonDocument>.Empty)
@@ -54,10 +55,20 @@ namespace DatabaseManager.Services.DataService.Mongo
                                "\"id\" : " + idMatch.Value +
                                str.Substring(totalMatch.Index + totalMatch.Length);
 
-                    ret.Add((JObject) JsonConvert.DeserializeObject(json));
+                    jObjects.Add((JObject) JsonConvert.DeserializeObject(json));
                 });
 
-            return ret;
+            var ret = new List<Dictionary<string, object>>();
+            foreach (var jObject in jObjects)
+            {
+                var dict = new Dictionary<string,object>();
+                foreach (var key in ((IDictionary<string, JToken>)jObject).Keys)
+                {
+                    
+                }
+            }
+
+            return jObjects;
         }
 
 

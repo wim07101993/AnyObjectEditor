@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using DatabaseManager.Helpers.Extensions;
 using DatabaseManager.Services.DataService;
 using DatabaseManager.ViewModelInterfaces;
 using Prism.Commands;
 using Prism.Mvvm;
+using Shared.Helpers.Extensions;
 
 namespace DatabaseManager.ViewModel
 {

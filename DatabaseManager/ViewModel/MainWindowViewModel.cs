@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using DatabaseManager.Models;
+﻿using DatabaseManager.Models;
 using DatabaseManager.Services.DataService;
 using DatabaseManager.Services.DataService.Mongo;
 using DatabaseManager.ViewModelInterfaces;

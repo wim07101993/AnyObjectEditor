@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Media.Imaging;
-using DatabaseManager.Helpers;
 using DatabaseManager.ViewModelInterfaces;
+using Shared.Helpers;
 
 namespace DatabaseManager.Views.Controls
 {
