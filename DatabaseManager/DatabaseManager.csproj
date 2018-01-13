@@ -146,14 +146,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\Bases\IMongoModel.cs" />
-    <Compile Include="Services\DataService\DatabaseConstants.cs" />
     <Compile Include="Services\DataService\Mongo\MongoDataService.cs" />
     <Compile Include="ViewModels\HeaderViewModel.cs" />
     <Compile Include="ViewModels\ListViewModel.cs" />
     <Compile Include="ViewModels\ObjectEditorViewModel.cs" />
     <Compile Include="ViewModels\PropertyViewModel.cs" />
     <Compile Include="Models\Person.cs" />
-    <Compile Include="Services\DataService\IDataService.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\Controls\ColorPicker.cs" />
     <Compile Include="Views\Controls\ColorSpectrumSlider.cs" />

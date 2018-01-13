@@ -1,13 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Reflection;
 
 namespace Shared.ViewModelInterfaces
 {
     public interface IPropertyViewModel : INotifyPropertyChanged
     {
-        PropertyInfo PropertyInfo { get; }
-
         string DisplayName { get; }
         string Name { get; }
 

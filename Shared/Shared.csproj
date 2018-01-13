@@ -60,7 +60,11 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\Attributes\AAttribute.cs" />
+    <Compile Include="Helpers\Attributes\BrowsableAttribute.cs" />
     <Compile Include="Helpers\Attributes\DescriptionAttribute.cs" />
+    <Compile Include="Helpers\Attributes\DisplayNameAttribute.cs" />
+    <Compile Include="Helpers\Attributes\IAttribute.cs" />
     <Compile Include="Helpers\Attributes\IdAttribute.cs" />
     <Compile Include="Helpers\Attributes\PictureAttribute.cs" />
     <Compile Include="Helpers\Attributes\SubtitleAttribute.cs" />
@@ -106,8 +110,11 @@
     </Compile>
     <Compile Include="Services\Converter\DatabaseConverterException.cs" />
     <Compile Include="Services\Converter\DatabaseValueConverter.cs" />
+    <Compile Include="Services\IDataService.cs" />
     <Compile Include="Services\Mongo\BitmapImageSerializer.cs" />
     <Compile Include="Services\Mongo\ColorSerializer.cs" />
+    <Compile Include="ViewModelAbstracts\AListViewModel.cs" />
+    <Compile Include="ViewModelAbstracts\AObjectEditorViewModel.cs" />
     <Compile Include="ViewModelInterfaces\IHeaderViewModel.cs" />
     <Compile Include="ViewModelInterfaces\IListViewModel.cs" />
     <Compile Include="ViewModelInterfaces\IListViewModel[T].cs" />

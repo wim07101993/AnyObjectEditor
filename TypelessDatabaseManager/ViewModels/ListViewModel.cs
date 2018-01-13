@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Shared.Services;
+using Shared.ViewModelAbstracts;
+using Shared.ViewModelInterfaces;
+using Object = TypelessDatabaseManager.Models.Object;
+
+namespace TypelessDatabaseManager.ViewModels
+{
+    public class ListViewModel : AListViewModel<Object>
+    {
+        public ListViewModel()
+        {
+        }
+
+        public ListViewModel(Func<Task<IEnumerable<Object>>> getItemsFunc, Func<Object, Task> insertItemFunc,
+            Func<Object, Task> updateItemFunc, Func<Object, Task> removeItemFunc)
+            : base(getItemsFunc, insertItemFunc, updateItemFunc, removeItemFunc)
+        {
+        }
+
+        public ListViewModel(IDataService<Object> dataService)
+            : base(dataService.GetAllAsync, dataService.InsertAsync, dataService.UpdateAsync, dataService.RemoveAsync)
+        {
+        }
+
+
+        public override void SaveAsync()
+        {
+        }
+
+        protected override Object CreateNewItem()
+            => new Object(ItemsSource?.FirstOrDefault());
+
+        protected override IObjectEditorViewModel<Object> ConvertToObjectEditor(Object item)
+            => new ObjectEditorViewModel(item);
+    }
+}

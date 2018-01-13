@@ -1,28 +1,31 @@
-﻿using System;
-
-namespace Shared.Helpers.Attributes
+﻿namespace Shared.Helpers.Attributes
 {
-    public class DescriptionAttribute : Attribute
+    public class DescriptionAttribute : AAttribute
     {
         public static readonly DescriptionAttribute Yes = new DescriptionAttribute(true);
         public static readonly DescriptionAttribute No = new DescriptionAttribute(false);
         public static readonly DescriptionAttribute Default = No;
 
-        public bool Description { get; } = true;
+
+        public bool Description { get; private set; }
+
+        public override string Name => "description";
+
+        public override object Value
+        {
+            get => Description;
+            protected set => Description = (bool) value;
+        }
+
+        public override object DefaultValue { get; } = true;
+
 
         public DescriptionAttribute()
         {
         }
 
-        public DescriptionAttribute(bool description)
+        public DescriptionAttribute(bool description) : base(description)
         {
-            Description = description;
         }
-
-        public override bool Equals(object obj)
-            => obj == this || obj is DescriptionAttribute other && other.Description == Description;
-
-        public override int GetHashCode()
-            => Description.GetHashCode();
     }
 }

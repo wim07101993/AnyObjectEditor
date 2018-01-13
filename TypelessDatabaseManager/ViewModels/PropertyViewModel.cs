@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Windows.Media;
 using Prism.Mvvm;
-using Shared.Helpers.Extensions;
 using Shared.ViewModelInterfaces;
+using TypelessDatabaseManager.Models;
 
-namespace DatabaseManager.ViewModels
+namespace TypelessDatabaseManager.ViewModels
 {
     public class PropertyViewModel : BindableBase, IPropertyViewModel
     {
@@ -20,8 +19,8 @@ namespace DatabaseManager.ViewModels
 
         #region PROPERTIES
 
-        public PropertyInfo PropertyInfo { get; }
-
+        public Property Property { get; }
+  
         public string DisplayName { get; }
         public string Name { get; }
 
@@ -54,41 +53,38 @@ namespace DatabaseManager.ViewModels
         {
         }
 
-        public PropertyViewModel(PropertyInfo propertyInfo, object parent) : this()
+        public PropertyViewModel(Property property) : this()
         {
-            PropertyInfo = propertyInfo;
+            Property = property;
 
-            DisplayName = propertyInfo.GetDisplayName();
-            Name = propertyInfo.Name;
+            DisplayName = property.GetDisplayName();
+            Name = property.Name;
 
-            Value = propertyInfo.GetValue(parent);
+            Value = property.Value;
 
-            Type = propertyInfo.PropertyType;
-            HasNativeType = propertyInfo.HasNativeType();
-            IsImage = propertyInfo.HasImageType();
-            IsColor = typeof(Color).IsAssignableFrom(propertyInfo.PropertyType);
+            Type = property.Type;
+            HasNativeType = property.HasNativeType();
+            IsImage = property.HasImageType();
+            IsColor = typeof(Color).IsAssignableFrom(property.Type);
 
-            IsBrowsable = propertyInfo.IsBrowsable();
-            IsTitle = propertyInfo.IsTitle();
-            IsSubTitle = propertyInfo.IsSubtitle();
-            IsDescription = propertyInfo.IsDescription();
-            IsPicture = propertyInfo.IsPicture();
+            IsBrowsable = property.IsBrowsable();
+            IsTitle = property.IsTitle();
+            IsSubTitle = property.IsSubtitle();
+            IsDescription = property.IsDescription();
+            IsPicture = property.IsPicture();
 
-            IsReadOnly = propertyInfo.CanWrite;
+            IsReadOnly = property.Writable;
         }
-
+        
         #endregion CONSTRUCTORS
 
 
         #region METHODS
 
-        public static IEnumerable<IPropertyViewModel> ConvertToProperties(IEnumerable<PropertyInfo> propertyInfos,
+        public static IEnumerable<IPropertyViewModel> ConvertToProperties(IEnumerable<Property> propertyInfos,
             object parent)
-            => propertyInfos.Select(x => new PropertyViewModel(x, parent));
-
-        public static IEnumerable<IPropertyViewModel> GetPropertiesFromObject(object parent)
-            => ConvertToProperties(parent.GetType().GetProperties(), parent);
-
+            => propertyInfos.Select(x => new PropertyViewModel(x));
+        
         protected override bool SetProperty<T>(ref T storage, T value, string propertyName = null)
         {
             var ret = base.SetProperty(ref storage, value, propertyName);

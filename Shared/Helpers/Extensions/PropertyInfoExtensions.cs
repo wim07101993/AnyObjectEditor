@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 using System.Windows.Media.Imaging;
 using Shared.Helpers.Attributes;

@@ -1,6 +1,6 @@
 ﻿using DatabaseManager.Models;
-using DatabaseManager.Services.DataService;
 using DatabaseManager.Services.DataService.Mongo;
+using Shared.Services;
 using Shared.ViewModelInterfaces;
 
 namespace DatabaseManager.ViewModels
@@ -15,11 +15,7 @@ namespace DatabaseManager.ViewModels
         {
             PersonDataService = new MongoDataService<Person>("mongodb://localhost:27017", "people", "people");
 
-            ListViewModel = new ListViewModel<Person>(
-                PersonDataService.GetAllAsync,
-                PersonDataService.InsertAsync,
-                PersonDataService.UpdateAsync,
-                PersonDataService.RemoveAsync);
+            ListViewModel = new ListViewModel<Person>(PersonDataService);
         }
     }
 }

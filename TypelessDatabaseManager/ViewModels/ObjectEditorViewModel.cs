@@ -3,39 +3,35 @@ using System.ComponentModel;
 using Shared.Helpers.Extensions;
 using Shared.ViewModelAbstracts;
 using Shared.ViewModelInterfaces;
+using TypelessDatabaseManager.Models;
 
-namespace DatabaseManager.ViewModels
+namespace TypelessDatabaseManager.ViewModels
 {
-    public class ObjectEditorViewModel<T> : AObjectEditorViewModel<T>
+    public class ObjectEditorViewModel : AObjectEditorViewModel<Object>
     {
-        #region CONSTRUCTOR
-
         public ObjectEditorViewModel()
         {
+            
         }
 
-        public ObjectEditorViewModel(T value)
+        public ObjectEditorViewModel(Object value)
         {
             Value = value;
         }
 
-        #endregion CONSTRUCTOR
-
-
-        #region METHODS
 
         protected override void CreatePropertiesFromValue()
         {
-            var properties = Value.GetType().GetProperties();
+            var properties = Value.Properties;
             var knownTypeProperties = new List<IPropertyViewModel>();
             var otherProperties = new List<IPropertyViewModel>();
 
-            foreach (var property in properties)
+            foreach (var property in properties.Values)
             {
                 if (!property.IsBrowsable())
                     continue;
 
-                var propertyVM = new PropertyViewModel(property, Value);
+                var propertyVM = new PropertyViewModel(property);
                 if (propertyVM.IsTitle)
                     Title = propertyVM;
                 else if (propertyVM.IsSubTitle)
@@ -53,21 +49,18 @@ namespace DatabaseManager.ViewModels
             KnownTypeProperties = knownTypeProperties;
             OtherProperties = otherProperties;
 
-            HeaderViewModel = new HeaderViewModel
-            {
-                Title = Title,
-                Subtitle = Subtitle,
-                Description = Description,
-                Picture = Picture
-            };
+            //HeaderViewModel = new HeaderViewModel
+            //{
+            //    Title = Title,
+            //    Subtitle = Subtitle,
+            //    Description = Description,
+            //    Picture = Picture
+            //};
         }
 
         protected override void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            var property = sender as PropertyViewModel;
-            property?.PropertyInfo.SetValue(Value, property.Value);
+            
         }
-
-        #endregion METHODS
     }
 }

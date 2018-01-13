@@ -117,11 +117,18 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Object.cs" />
+    <Compile Include="Models\Property.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\DataService\DatabaseConstants.cs" />
-    <Compile Include="Services\DataService\IDataService.cs" />
     <Compile Include="Services\DataService\Mongo\MongoDataService.cs" />
-    <Compile Include="ViewModels\TypelessListViewModel.cs" />
-    <Compile Include="ViewModels\TypelessObjectEditorViewModel.cs" />
+    <Compile Include="ViewModels\ListViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\ObjectEditorViewModel.cs" />
+    <Compile Include="ViewModels\PropertyViewModel.cs" />
+    <Compile Include="Views\Controls\List.xaml.cs">
+      <DependentUpon>List.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -159,13 +166,31 @@
       <Name>Shared</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Views\Controls\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Page Include="Converters.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Controls\List.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Styles\CustomSyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Styles\MaterialDesignThemeStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
