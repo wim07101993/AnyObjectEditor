@@ -1,0 +1,139 @@
+﻿<UserControl
+    x:Class="TypelessDatabaseManager.Views.Controls.EditableHeader"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModelInterfaces="clr-namespace:Shared.ViewModelInterfaces;assembly=Shared"
+    d:DataContext="{d:DesignInstance viewModelInterfaces:IHeaderViewModel}"
+    mc:Ignorable="d">
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+
+        <Button
+            Grid.Column="0"
+            Width="150"
+            Height="150"
+            Padding="-2"
+            VerticalAlignment="Center"
+            Click="PictureButtonClick"
+            Style="{StaticResource MaterialDesignFloatingActionButton}">
+            <Button.Visibility>
+                <MultiBinding Converter="{StaticResource MultiObjectAndToVisibilityConverter}">
+                    <Binding Path="Picture.Value.Value" />
+                    <Binding Path="Picture" />
+                </MultiBinding>
+            </Button.Visibility>
+
+            <Image
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Source="{Binding Picture.Value.Value}"
+                Stretch="UniformToFill" />
+        </Button>
+
+        <Button
+            Grid.Column="0"
+            Width="150"
+            Height="150"
+            VerticalAlignment="Center"
+            Background="Transparent"
+            Click="PictureButtonClick"
+            Style="{StaticResource MaterialDesignFloatingActionButton}">
+            <Button.Visibility>
+                <MultiBinding Converter="{StaticResource MultiBooleanAndToVisibilityConverter}">
+                    <Binding Converter="{StaticResource InvertedObjectToBooleanConverter}" Path="Picture.Value.Value" />
+                    <Binding Converter="{StaticResource ObjectToBooleanConverter}" Path="Picture" />
+                </MultiBinding>
+            </Button.Visibility>
+
+            <Rectangle
+                Width="100"
+                Height="100"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Fill="{DynamicResource MaterialDesignFlatButtonRipple}">
+                <Rectangle.Visibility>
+                    <MultiBinding Converter="{StaticResource MultiBooleanAndToVisibilityConverter}">
+                        <Binding Converter="{StaticResource InvertedObjectToBooleanConverter}" Path="Picture.Value.Value" />
+                        <Binding Converter="{StaticResource ObjectToBooleanConverter}" Path="Picture" />
+                    </MultiBinding>
+                </Rectangle.Visibility>
+
+                <Rectangle.OpacityMask>
+                    <VisualBrush Stretch="Uniform" Visual="{StaticResource IconCamera}" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+        </Button>
+
+        <Grid
+            Grid.Column="1"
+            Margin="10,0,10,0"
+            VerticalAlignment="Center">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="TextWrapping" Value="Wrap" />
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                </Style>
+            </Grid.Resources>
+
+            <TextBox
+                Grid.Row="0"
+                Margin="0,8,0,0"
+                HorizontalAlignment="Left"
+                materialDesign:TextFieldAssist.Hint="{Binding Title.DisplayName}"
+                FontSize="26"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                Text="{Binding Title.Value.Value, Mode=TwoWay}">
+                <TextBox.Visibility>
+                    <MultiBinding Converter="{StaticResource MultiBooleanOrToVisibilityConverter}">
+                        <Binding Converter="{StaticResource StringToBooleanConverter}" Path="Title.Value.Value" />
+                        <Binding Converter="{StaticResource ObjectToBooleanConverter}" Path="Title" />
+                    </MultiBinding>
+                </TextBox.Visibility>
+            </TextBox>
+            <TextBox
+                Grid.Row="1"
+                Margin="0,7,0,0"
+                HorizontalAlignment="Left"
+                materialDesign:TextFieldAssist.Hint="{Binding Subtitle.DisplayName}"
+                FontSize="18"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                Text="{Binding Subtitle.Value.Value, Mode=TwoWay}">
+                <TextBox.Visibility>
+                    <MultiBinding Converter="{StaticResource MultiBooleanOrToVisibilityConverter}">
+                        <Binding Converter="{StaticResource StringToBooleanConverter}" Path="Subtitle.Value.Value" />
+                        <Binding Converter="{StaticResource ObjectToBooleanConverter}" Path="Subtitle" />
+                    </MultiBinding>
+                </TextBox.Visibility>
+            </TextBox>
+            <TextBox
+                Grid.Row="2"
+                Margin="0,6,0,0"
+                HorizontalAlignment="Left"
+                materialDesign:TextFieldAssist.Hint="{Binding Description.DisplayName}"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                Text="{Binding Description.Value.Value, Mode=TwoWay}">
+                <TextBox.Visibility>
+                    <MultiBinding Converter="{StaticResource MultiBooleanOrToVisibilityConverter}">
+                        <Binding Converter="{StaticResource StringToBooleanConverter}" Path="Description.Value.Value" />
+                        <Binding Converter="{StaticResource ObjectToBooleanConverter}" Path="Description" />
+                    </MultiBinding>
+                </TextBox.Visibility>
+            </TextBox>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Shared.Helpers.Extensions;
 using Shared.Services;
 using Shared.ViewModelAbstracts;
 using Shared.ViewModelInterfaces;
@@ -11,6 +12,30 @@ namespace TypelessDatabaseManager.ViewModels
 {
     public class ListViewModel : AListViewModel<Object>
     {
+        private IEnumerable<Object> _itemsSource;
+
+        public override IEnumerable<Object> ItemsSource
+        {
+            get => _itemsSource;
+            set
+            {
+                if (!SetProperty(ref _itemsSource, value))
+                    return;
+
+                ConvertedItemsSource = _itemsSource
+                    .Select(ConvertToObjectEditor)
+                    .OrderBy(x => x.Title?.Value)
+                    .ThenBy(x => x.Subtitle?.Value)
+                    .ThenBy(x => x.Description?.Value);
+
+                RaisePropertyChanged(nameof(IsListEditable));
+
+                if (!EnumerableExtensions.IsNullOrEmpty(ItemsSource))
+                    EmptyElement = ConvertToObjectEditor(CreateNewItem());
+            }
+        }
+
+
         public ListViewModel()
         {
         }

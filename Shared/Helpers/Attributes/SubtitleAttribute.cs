@@ -5,11 +5,12 @@
         public static readonly SubtitleAttribute Yes = new SubtitleAttribute(true);
         public static readonly SubtitleAttribute No = new SubtitleAttribute(false);
         public static readonly SubtitleAttribute Default = No;
+        public const string NAME = "subtitle";
 
 
         public bool Subtitle { get; private set; }
 
-        public override string Name => "subtitle";
+        public override string Name => NAME;
         public override object Value
         {
             get => Subtitle;

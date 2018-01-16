@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Shared.ViewModelInterfaces;
 
-namespace DatabaseManager.Views.Controls
+namespace TypelessDatabaseManager.Views.Controls
 {
     public partial class List
     {
@@ -15,21 +15,21 @@ namespace DatabaseManager.Views.Controls
 
         private void OnListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //if (Transitioner.SelectedIndex == 0 && ListBox.SelectedItem != null)
-            //    Transitioner.SelectedIndex = 1;
+            if (Transitioner.SelectedIndex == 0 && ListBox.SelectedItem != null)
+                Transitioner.SelectedIndex = 1;
         }
 
         private void OnTransitionerSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //if (Transitioner.SelectedIndex != 0)
-            //    return;
+            if (Transitioner.SelectedIndex != 0)
+                return;
 
-            //ListBox.SelectedItem = null;
+            ListBox.SelectedItem = null;
         }
 
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
-            //Transitioner.SelectedIndex = 0;
+            Transitioner.SelectedIndex = 0;
         }
 
         private void SaveButtonClick(object sender, RoutedEventArgs e)

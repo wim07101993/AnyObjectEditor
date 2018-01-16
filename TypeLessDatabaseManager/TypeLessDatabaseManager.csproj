@@ -120,14 +120,23 @@
     <Compile Include="Models\Object.cs" />
     <Compile Include="Models\Property.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Services\DataService\DatabaseConstants.cs" />
     <Compile Include="Services\DataService\Mongo\MongoDataService.cs" />
+    <Compile Include="ViewModels\HeaderViewModel.cs" />
     <Compile Include="ViewModels\ListViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ObjectEditorViewModel.cs" />
     <Compile Include="ViewModels\PropertyViewModel.cs" />
+    <Compile Include="Views\Controls\EditableHeader.xaml.cs">
+      <DependentUpon>EditableHeader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\Header.xaml.cs">
+      <DependentUpon>Header.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Controls\List.xaml.cs">
       <DependentUpon>List.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\ObjectEditor.xaml.cs">
+      <DependentUpon>ObjectEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -172,9 +181,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Controls\EditableHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\Header.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Controls\List.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Controls\ObjectEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>

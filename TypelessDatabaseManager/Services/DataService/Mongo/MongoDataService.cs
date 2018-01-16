@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -107,14 +106,13 @@ namespace TypelessDatabaseManager.Services.DataService.Mongo
         }
 
         private Property ConvertBsonElementToProperty(BsonElement element,
-            Dictionary<string, Dictionary<string, object>> attributes)
+            IReadOnlyDictionary<string, Dictionary<string, object>> attributes)
         {
             var name = element.Name;
 
             ConvertBsonValueToTypeAndValue(element.Value, out var value);
             var obj = new Object {Value = value};
 
-            //var propAttributes = attributes[name]?.Select(x => new Attribute(x.Key, x.Value));
             var propAttributes = new List<IAttribute>();
 
             if (attributes.ContainsKey(name))
@@ -192,21 +190,20 @@ namespace TypelessDatabaseManager.Services.DataService.Mongo
         {
             switch (pair.Key)
             {
-                case nameof(DescriptionAttribute):
+                case DescriptionAttribute.NAME:
                     return new DescriptionAttribute((bool) pair.Value);
-                case nameof(IdAttribute):
+                case IdAttribute.NAME:
                     return new IdAttribute((bool) pair.Value);
-                case nameof(PictureAttribute):
+                case PictureAttribute.NAME:
                     return new PictureAttribute((bool) pair.Value);
-                case nameof(SubtitleAttribute):
+                case SubtitleAttribute.NAME:
                     return new SubtitleAttribute((bool) pair.Value);
-                case nameof(TitleAttribute):
-                    return new TitleAttribute((bool)pair.Value);
-                case nameof(BrowsableAttribute):
-                    return new BrowsableAttribute((bool)pair.Value);
-                case nameof(DisplayNameAttribute):
-                    return new DisplayNameAttribute((string)pair.Value);
-
+                case TitleAttribute.NAME:
+                    return new TitleAttribute((bool) pair.Value);
+                case BrowsableAttribute.NAME:
+                    return new BrowsableAttribute((bool) pair.Value);
+                case DisplayNameAttribute.NAME:
+                    return new DisplayNameAttribute((string) pair.Value);
                 default:
                     return null;
             }

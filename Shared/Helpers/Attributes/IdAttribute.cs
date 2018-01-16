@@ -5,11 +5,12 @@
         public static readonly IdAttribute Yes = new IdAttribute(true);
         public static readonly IdAttribute No = new IdAttribute(false);
         public static readonly IdAttribute Default = No;
+        public const string NAME = "id";
 
 
         public bool Id { get; private set; }
 
-        public override string Name => "id";
+        public override string Name => NAME;
 
         public override object Value
         {

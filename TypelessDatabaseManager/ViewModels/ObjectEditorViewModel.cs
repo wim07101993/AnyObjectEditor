@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using Shared.Helpers.Extensions;
 using Shared.ViewModelAbstracts;
 using Shared.ViewModelInterfaces;
 using TypelessDatabaseManager.Models;
@@ -10,8 +9,7 @@ namespace TypelessDatabaseManager.ViewModels
     public class ObjectEditorViewModel : AObjectEditorViewModel<Object>
     {
         public ObjectEditorViewModel()
-        {
-            
+        {   
         }
 
         public ObjectEditorViewModel(Object value)
@@ -49,13 +47,13 @@ namespace TypelessDatabaseManager.ViewModels
             KnownTypeProperties = knownTypeProperties;
             OtherProperties = otherProperties;
 
-            //HeaderViewModel = new HeaderViewModel
-            //{
-            //    Title = Title,
-            //    Subtitle = Subtitle,
-            //    Description = Description,
-            //    Picture = Picture
-            //};
+            HeaderViewModel = new HeaderViewModel
+            {
+                Title = Title,
+                Subtitle = Subtitle,
+                Description = Description,
+                Picture = Picture
+            };
         }
 
         protected override void OnPropertyChanged(object sender, PropertyChangedEventArgs e)

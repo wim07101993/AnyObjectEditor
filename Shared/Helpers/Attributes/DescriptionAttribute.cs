@@ -5,11 +5,12 @@
         public static readonly DescriptionAttribute Yes = new DescriptionAttribute(true);
         public static readonly DescriptionAttribute No = new DescriptionAttribute(false);
         public static readonly DescriptionAttribute Default = No;
+        public const string NAME = "description";
 
 
         public bool Description { get; private set; }
 
-        public override string Name => "description";
+        public override string Name => NAME;
 
         public override object Value
         {

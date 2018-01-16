@@ -7,7 +7,7 @@ using TypelessDatabaseManager.Annotations;
 
 namespace TypelessDatabaseManager.Models
 {
-    public class Object : IDictionary<string, Property>, INotifyPropertyChanged
+    public class Object : IDictionary<string, Property>, INotifyPropertyChanged, IComparable<Object>, IComparable
     {
         #region FIELDS
 
@@ -139,6 +139,12 @@ namespace TypelessDatabaseManager.Models
 
             return propDictionary;
         }
+
+        public int CompareTo(Object other) 
+            => Value.ToString().CompareTo(other.Value.ToString());
+
+        public int CompareTo(object obj)
+            => Value.ToString().CompareTo((obj as Object).Value.ToString());
 
         #endregion METHODS
 

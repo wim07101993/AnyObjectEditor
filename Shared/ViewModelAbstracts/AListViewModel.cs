@@ -34,7 +34,7 @@ namespace Shared.ViewModelAbstracts
 
         #region PROPERTIES
 
-        public IEnumerable<T> ItemsSource
+        public virtual IEnumerable<T> ItemsSource
         {
             get => _itemsSource;
             set
@@ -58,7 +58,7 @@ namespace Shared.ViewModelAbstracts
         public IEnumerable<IObjectEditorViewModel<T>> ConvertedItemsSource
         {
             get => _convertedItemsSource;
-            private set
+            protected set
             {
                 if (!SetProperty(ref _convertedItemsSource, value))
                     return;
@@ -69,7 +69,7 @@ namespace Shared.ViewModelAbstracts
         public IEnumerable<IObjectEditorViewModel<T>> FilteredItemsSource
         {
             get => _filteredItemsSource;
-            private set
+            protected set
             {
                 if (!SetProperty(ref _filteredItemsSource, value))
                     return;
@@ -128,7 +128,7 @@ namespace Shared.ViewModelAbstracts
             Init();
 
             GetItemsFunc = getItemsFunc;
-            Task.Factory.StartNew(async () => { return ItemsSource = await GetItemsFunc(); });
+            Task.Factory.StartNew(async () => { ItemsSource = await GetItemsFunc(); });
 
             InsertItemFunc = insertItemFunc;
             UpdateItemFunc = updateItemFunc;
