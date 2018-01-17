@@ -75,10 +75,12 @@
     <Compile Include="Controls\NumericTextBox\NumericTextBoxChangedRoutedEventHandler.cs" />
     <Compile Include="Helpers\Attributes\AAttribute.cs" />
     <Compile Include="Helpers\Attributes\BrowsableAttribute.cs" />
+    <Compile Include="Helpers\Attributes\ColorAttribute.cs" />
     <Compile Include="Helpers\Attributes\DescriptionAttribute.cs" />
     <Compile Include="Helpers\Attributes\DisplayNameAttribute.cs" />
     <Compile Include="Helpers\Attributes\IAttribute.cs" />
     <Compile Include="Helpers\Attributes\IdAttribute.cs" />
+    <Compile Include="Helpers\Attributes\ImageAttribute.cs" />
     <Compile Include="Helpers\Attributes\PictureAttribute.cs" />
     <Compile Include="Helpers\Attributes\SubtitleAttribute.cs" />
     <Compile Include="Helpers\Attributes\TitleAttribute.cs" />

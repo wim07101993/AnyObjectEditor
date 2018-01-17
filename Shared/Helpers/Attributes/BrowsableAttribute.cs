@@ -8,14 +8,14 @@
         public const string NAME = "browsable";
 
 
-        public bool Browsable { get; private set; }
+        public bool IsBrowsable { get; private set; }
 
         public override string Name => NAME;
 
         public override object Value
         {
-            get => Browsable;
-            protected set => Browsable = (bool) value;
+            get => IsBrowsable;
+            protected set => IsBrowsable = (bool) value;
         }
 
         public override object DefaultValue { get; } = true;

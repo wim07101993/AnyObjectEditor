@@ -1,6 +1,4 @@
-﻿using System.Collections.Specialized;
-
-namespace Shared.Helpers.Attributes
+﻿namespace Shared.Helpers.Attributes
 {
     public class TitleAttribute : AAttribute
     {
@@ -10,13 +8,13 @@ namespace Shared.Helpers.Attributes
         public const string NAME = "title";
 
 
-        public bool Title { get; set; } = true;
+        public bool IsTitle { get; set; } = true;
 
         public override string Name => NAME;
         public override object Value
         {
-            get => Title;
-            protected set => Title = (bool)value;
+            get => IsTitle;
+            protected set => IsTitle = (bool)value;
         }
 
         public override object DefaultValue { get; } = true;

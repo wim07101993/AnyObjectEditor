@@ -25,7 +25,7 @@ namespace DatabaseManager.Views.Controls
                 .GetType()
                 .GetProperties()
                 .SingleOrDefault(x =>
-                    x.Name == "Picture" && typeof(IPropertyViewModel).IsAssignableFrom(x.PropertyType));
+                    x.Name == "Color" && typeof(IPropertyViewModel).IsAssignableFrom(x.PropertyType));
 
             if (propertyInfo != null && propertyInfo.GetValue(DataContext) is IPropertyViewModel propertyViewModel)
                 propertyViewModel.Value = new BitmapImage(new Uri(path));

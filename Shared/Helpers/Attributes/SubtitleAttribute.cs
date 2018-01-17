@@ -8,13 +8,13 @@
         public const string NAME = "subtitle";
 
 
-        public bool Subtitle { get; private set; }
+        public bool IsSubtitle { get; private set; }
 
         public override string Name => NAME;
         public override object Value
         {
-            get => Subtitle;
-            protected set => Subtitle = (bool)value;
+            get => IsSubtitle;
+            protected set => IsSubtitle = (bool)value;
         }
 
         public override object DefaultValue { get; } = true;

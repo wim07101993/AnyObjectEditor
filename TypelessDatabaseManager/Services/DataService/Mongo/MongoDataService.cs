@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using MongoDB.Driver;
 using Newtonsoft.Json;
 using Shared.Helpers.Attributes;
 using Shared.Services;
+using Shared.Services.Converter;
 using TypelessDatabaseManager.Models;
 using Object = TypelessDatabaseManager.Models.Object;
 
@@ -110,18 +112,19 @@ namespace TypelessDatabaseManager.Services.DataService.Mongo
         {
             var name = element.Name;
 
-            ConvertBsonValueToTypeAndValue(element.Value, out var value);
-            var obj = new Object {Value = value};
-
             var propAttributes = new List<IAttribute>();
-
             if (attributes.ContainsKey(name))
                 propAttributes.AddRange(attributes[name].Select(ConvertAttributeKeyValuePairToIAttribute));
+
+            ConvertBsonValueToTypeAndValue(element.Value, out var value, propAttributes);
+            var obj = new Object {Value = value};
+
 
             return new Property(name, true, true, propAttributes, obj);
         }
 
-        private void ConvertBsonValueToTypeAndValue(BsonValue bsonValue, out object value)
+        private void ConvertBsonValueToTypeAndValue(BsonValue bsonValue, out object value,
+            IEnumerable<IAttribute> attributes)
         {
             switch (bsonValue.BsonType)
             {
@@ -139,7 +142,16 @@ namespace TypelessDatabaseManager.Services.DataService.Mongo
                     value = null;
                     return;
                 case BsonType.Binary:
-                    value = bsonValue.AsBsonBinaryData.Bytes;
+                    var bytes = bsonValue.AsBsonBinaryData.Bytes;
+
+                    if (attributes?.Any(x => x?.Name == PictureAttribute.NAME && x.Value as bool? == true ||
+                                             x?.Name == ImageAttribute.NAME && x.Value as bool? == true) == true)
+                        value = DatabaseValueConverter.ConvertToImage(bytes);
+                    else if (attributes?.Any(x => x?.Name == ColorAttribute.NAME && x.Value as bool? == true) == true)
+                        value = DatabaseValueConverter.ConvertToColor(bytes);
+                    else
+                        value = bytes;
+
                     return;
                 case BsonType.Boolean:
                     value = bsonValue.AsBoolean;
@@ -190,20 +202,24 @@ namespace TypelessDatabaseManager.Services.DataService.Mongo
         {
             switch (pair.Key)
             {
+                case BrowsableAttribute.NAME:
+                    return new BrowsableAttribute((bool)pair.Value);
+                case ColorAttribute.NAME:
+                    return new ColorAttribute((bool)pair.Value);
                 case DescriptionAttribute.NAME:
                     return new DescriptionAttribute((bool) pair.Value);
+                case DisplayNameAttribute.NAME:
+                    return new DisplayNameAttribute((string)pair.Value);
                 case IdAttribute.NAME:
                     return new IdAttribute((bool) pair.Value);
+                case ImageAttribute.NAME:
+                    return new ImageAttribute((bool)pair.Value);
                 case PictureAttribute.NAME:
                     return new PictureAttribute((bool) pair.Value);
                 case SubtitleAttribute.NAME:
                     return new SubtitleAttribute((bool) pair.Value);
                 case TitleAttribute.NAME:
                     return new TitleAttribute((bool) pair.Value);
-                case BrowsableAttribute.NAME:
-                    return new BrowsableAttribute((bool) pair.Value);
-                case DisplayNameAttribute.NAME:
-                    return new DisplayNameAttribute((string) pair.Value);
                 default:
                     return null;
             }

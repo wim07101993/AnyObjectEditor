@@ -8,14 +8,14 @@
         public const string NAME = "description";
 
 
-        public bool Description { get; private set; }
+        public bool IsDescription { get; private set; }
 
         public override string Name => NAME;
 
         public override object Value
         {
-            get => Description;
-            protected set => Description = (bool) value;
+            get => IsDescription;
+            protected set => IsDescription = (bool) value;
         }
 
         public override object DefaultValue { get; } = true;

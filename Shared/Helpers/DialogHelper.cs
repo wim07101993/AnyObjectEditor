@@ -10,7 +10,7 @@ namespace Shared.Helpers
         {
             var dialog = new OpenFileDialog
             {
-                Title = "Open Image",
+                Title = "Open IsImage",
                 Filter = "Afbeeldingsbestanden (*.bmp;*.jpg;*.jpeg,*.png)|*.bmp;*.jpg;*.jpeg;*.png"
             };
 

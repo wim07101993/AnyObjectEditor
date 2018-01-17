@@ -14,37 +14,37 @@ namespace Shared.Helpers.Extensions
         public static bool IsId(this PropertyInfo This)
         {
             var attr = This.GetCustomAttribute<IdAttribute>();
-            return attr != null && attr.Id || attr == null && IdAttribute.Default.Id;
+            return attr != null && attr.IsId || attr == null && IdAttribute.Default.IsId;
         }
 
         public static bool IsTitle(this PropertyInfo This)
         {
             var attr = This.GetCustomAttribute<TitleAttribute>();
-            return attr != null && attr.Title || attr == null && TitleAttribute.Default.Title;
+            return attr != null && attr.IsTitle || attr == null && TitleAttribute.Default.IsTitle;
         }
 
         public static bool IsSubtitle(this PropertyInfo This)
         {
             var attr = This.GetCustomAttribute<SubtitleAttribute>();
-            return attr != null && attr.Subtitle || attr == null && SubtitleAttribute.Default.Subtitle;
+            return attr != null && attr.IsSubtitle || attr == null && SubtitleAttribute.Default.IsSubtitle;
         }
 
         public static bool IsDescription(this PropertyInfo This)
         {
             var attr = This.GetCustomAttribute<DescriptionAttribute>();
-            return attr != null && attr.Description || attr == null && DescriptionAttribute.Default.Description;
+            return attr != null && attr.IsDescription || attr == null && DescriptionAttribute.Default.IsDescription;
         }
 
         public static bool IsPicture(this PropertyInfo This)
         {
             var attr = This.GetCustomAttribute<PictureAttribute>();
-            return attr != null && attr.Picture || attr == null && PictureAttribute.Default.Picture;
+            return attr != null && attr.IsPicture || attr == null && PictureAttribute.Default.IsPicture;
         }
 
         public static bool IsBrowsable(this PropertyInfo This)
         {
             var attr = This.GetCustomAttribute<BrowsableAttribute>();
-            return attr != null && attr.Browsable || attr == null && BrowsableAttribute.Default.Browsable;
+            return attr != null && attr.IsBrowsable || attr == null && BrowsableAttribute.Default.IsBrowsable;
         }
 
         public static bool HasNativeType(this PropertyInfo This)

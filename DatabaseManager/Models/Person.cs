@@ -82,6 +82,7 @@ namespace DatabaseManager.Models
         [DisplayName("Favoriete afbeelding")]
         [BsonElement("favoriteImage")]
         [BsonSerializer(typeof(BitmapImageSerializer))]
+        [Image]
         public BitmapImage FavoriteImage
         {
             get => _favoriteImage;
@@ -91,6 +92,7 @@ namespace DatabaseManager.Models
         [DisplayName("Favoriete kleur")]
         [BsonElement("favoriteColor")]
         [BsonSerializer(typeof(ColorSerializer))]
+        [Color]
         public Color FavoriteColor
         {
             get => _favoriteColor;
@@ -103,6 +105,7 @@ namespace DatabaseManager.Models
         [DisplayName("Hond")]
         [BsonElement("dog")]
         [BsonSerializer(typeof(BitmapImageSerializer))]
+        [Image]
         public BitmapImage Dog { get; set; }
     }
 }

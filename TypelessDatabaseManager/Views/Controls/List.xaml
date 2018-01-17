@@ -80,7 +80,7 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         FontSize="23"
-                        Text="{Binding SelectedItem.Title.Value}" />
+                        Text="{Binding SelectedItem.Title.Value.Value}" />
 
                     <Button
                         Grid.Column="2"

@@ -69,37 +69,37 @@ namespace TypelessDatabaseManager.Models
         public bool IsId()
         {
             var attr = Attributes.FirstOrDefault(x => x is IdAttribute);
-            return attr != null && (bool) attr.Value || attr == null && IdAttribute.Default.Id;
+            return attr != null && (bool) attr.Value || attr == null && IdAttribute.Default.IsId;
         }
 
         public bool IsTitle()
         {
             var attr = Attributes.FirstOrDefault(x => x is TitleAttribute);
-            return attr != null && (bool) attr.Value || attr == null && TitleAttribute.Default.Title;
+            return attr != null && (bool) attr.Value || attr == null && TitleAttribute.Default.IsTitle;
         }
 
         public bool IsSubtitle()
         {
             var attr = Attributes.FirstOrDefault(x => x is SubtitleAttribute);
-            return attr != null && (bool) attr.Value || attr == null && SubtitleAttribute.Default.Subtitle;
+            return attr != null && (bool) attr.Value || attr == null && SubtitleAttribute.Default.IsSubtitle;
         }
 
         public bool IsDescription()
         {
             var attr = Attributes.FirstOrDefault(x => x is DescriptionAttribute);
-            return attr != null && (bool) attr.Value || attr == null && DescriptionAttribute.Default.Description;
+            return attr != null && (bool) attr.Value || attr == null && DescriptionAttribute.Default.IsDescription;
         }
 
         public bool IsPicture()
         {
             var attr = Attributes.FirstOrDefault(x => x is PictureAttribute);
-            return attr != null && (bool) attr.Value || attr == null && PictureAttribute.Default.Picture;
+            return attr != null && (bool) attr.Value || attr == null && PictureAttribute.Default.IsPicture;
         }
 
         public bool IsBrowsable()
         {
             var attr = Attributes.FirstOrDefault(x => x is BrowsableAttribute);
-            return attr != null && (bool) attr.Value || attr == null && BrowsableAttribute.Default.Browsable;
+            return attr != null && (bool) attr.Value || attr == null && BrowsableAttribute.Default.IsBrowsable;
         }
 
         public bool HasNativeType()
