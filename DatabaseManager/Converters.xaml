@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:converters="clr-namespace:Shared.Helpers.Converters;assembly=Shared">
+    xmlns:converters="clr-namespace:Shared.Helpers.Converters;assembly=Shared"
+    xmlns:numericConverters="clr-namespace:Shared.Helpers.Converters.NumericConverters;assembly=Shared">
 
     <converters:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter" />
 
@@ -24,4 +25,20 @@
     <converters:ObjectToVisibilityConverter x:Key="ObjectToVisibilityConverter" />
 
     <converters:StringToBooleanConverter x:Key="StringToBooleanConverter" />
+
+    <numericConverters:ByteToDoubleConverter x:Key="ByteToDoubleConverter" />
+    <numericConverters:SByteToDoubleConverter x:Key="SByteToDoubleConverter" />
+
+    <numericConverters:ShortToDoubleConverter x:Key="ShortToDoubleConverter" />
+    <numericConverters:UShortToDoubleConverter x:Key="UShortToDoubleConverter" />
+
+    <numericConverters:IntToDoubleConverter x:Key="IntToDoubleConverter" />
+    <numericConverters:UIntToDoubleConverter x:Key="UIntToDoubleConverter" />
+
+    <numericConverters:LongToDoubleConverter x:Key="LongToDoubleConverter" />
+    <numericConverters:ULongToDoubleConverter x:Key="ULongToDoubleConverter" />
+
+    <numericConverters:DecimalToDoubleConverter x:Key="DecimalToDoubleConverter" />
+    <numericConverters:FloatToDoubleConverter x:Key="FloatToDoubleConverter" />
+
 </ResourceDictionary>

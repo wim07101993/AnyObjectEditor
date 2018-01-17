@@ -96,6 +96,16 @@
     <Compile Include="Helpers\Converters\MultiCommandConverter.cs" />
     <Compile Include="Helpers\Converters\MultiObjectAndToVisibilityConverter.cs" />
     <Compile Include="Helpers\Converters\NumberEqualityToVisibilityConverter.cs" />
+    <Compile Include="Helpers\Converters\NumericConverters\ByteToDoubleConverter.cs" />
+    <Compile Include="Helpers\Converters\NumericConverters\LongToDoubleConverter.cs" />
+    <Compile Include="Helpers\Converters\NumericConverters\UShortToDoubleConverter.cs" />
+    <Compile Include="Helpers\Converters\NumericConverters\ULongToDoubleConverter.cs" />
+    <Compile Include="Helpers\Converters\NumericConverters\UIntToDoubleConverter.cs" />
+    <Compile Include="Helpers\Converters\NumericConverters\ShortToDoubleConverter.cs" />
+    <Compile Include="Helpers\Converters\NumericConverters\SByteToDoubleConverter.cs" />
+    <Compile Include="Helpers\Converters\NumericConverters\FloatToDoubleConverter.cs" />
+    <Compile Include="Helpers\Converters\NumericConverters\DecimalToDoubleConverter.cs" />
+    <Compile Include="Helpers\Converters\NumericConverters\IntToDoubleConverter.cs" />
     <Compile Include="Helpers\Converters\ObjectToBooleanConverter.cs" />
     <Compile Include="Helpers\Converters\ObjectToDoubleConverter.cs" />
     <Compile Include="Helpers\Converters\ObjectToVisibilityConverter.cs" />

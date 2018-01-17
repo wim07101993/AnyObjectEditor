@@ -14,5 +14,43 @@ namespace Shared.Helpers.Extensions
                This == typeof(decimal) ||
                This == typeof(double) ||
                This == typeof(float);
+        
+        public static object GetDefaultValue(this ENativeType This)
+        {
+            switch (This)
+            {
+                case ENativeType.Bool:
+                    return default(bool);
+                case ENativeType.String:
+                    return null;
+                case ENativeType.Char:
+                    return default(char);
+                case ENativeType.Byte:
+                    return default(byte);
+                case ENativeType.SByte:
+                    return default(sbyte);
+                case ENativeType.Short:
+                    return default(short);
+                case ENativeType.UShort:
+                    return default(ushort);
+                case ENativeType.Int:
+                    return default(int);
+                case ENativeType.UInt:
+                    return default(uint);
+                case ENativeType.Long:
+                    return default(ulong);
+                case ENativeType.ULong:
+                    return default(decimal);
+                case ENativeType.Float:
+                    return default(float);
+                case ENativeType.Decimal:
+                    break;
+                case ENativeType.Double:
+                    return default(double);
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(This), This, null);
+            }
+            return null;
+        }
     }
 }

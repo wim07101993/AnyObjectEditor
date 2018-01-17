@@ -46,7 +46,7 @@
                                 Visibility="Collapsed" />
 
                             <numericTextBox:NumericTextBox
-                                x:Name="NumericTextBox"
+                                x:Name="ByteTextBox"
                                 Margin="1"
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalAlignment="Top"
@@ -56,8 +56,175 @@
                                 FontStyle="{TemplateBinding FontStyle}"
                                 FontWeight="{TemplateBinding FontWeight}"
                                 Foreground="{TemplateBinding Foreground}"
+                                HasDecimals="False"
+                                Maximum="255"
+                                Minimum="0"
                                 Visibility="Collapsed"
-                                Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Mode=TwoWay, Converter={StaticResource ObjectToDoubleConverter}}" />
+                                Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Mode=TwoWay, Converter={StaticResource ByteToDoubleConverter}}" />
+
+                            <numericTextBox:NumericTextBox
+                                x:Name="SByteTextBox"
+                                Margin="1"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="Top"
+                                FontFamily="{TemplateBinding FontFamily}"
+                                FontSize="{TemplateBinding FontSize}"
+                                FontStretch="{TemplateBinding FontStretch}"
+                                FontStyle="{TemplateBinding FontStyle}"
+                                FontWeight="{TemplateBinding FontWeight}"
+                                Foreground="{TemplateBinding Foreground}"
+                                HasDecimals="False"
+                                Maximum="127"
+                                Minimum="-128"
+                                Visibility="Collapsed"
+                                Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Mode=TwoWay, Converter={StaticResource SByteToDoubleConverter}}" />
+
+                            <numericTextBox:NumericTextBox
+                                x:Name="ShortTextBox"
+                                Margin="1"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="Top"
+                                FontFamily="{TemplateBinding FontFamily}"
+                                FontSize="{TemplateBinding FontSize}"
+                                FontStretch="{TemplateBinding FontStretch}"
+                                FontStyle="{TemplateBinding FontStyle}"
+                                FontWeight="{TemplateBinding FontWeight}"
+                                Foreground="{TemplateBinding Foreground}"
+                                HasDecimals="False"
+                                Maximum="32767"
+                                Minimum="-32768"
+                                Visibility="Collapsed"
+                                Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Mode=TwoWay, Converter={StaticResource ShortToDoubleConverter}}" />
+
+                            <numericTextBox:NumericTextBox
+                                x:Name="UShortTextBox"
+                                Margin="1"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="Top"
+                                FontFamily="{TemplateBinding FontFamily}"
+                                FontSize="{TemplateBinding FontSize}"
+                                FontStretch="{TemplateBinding FontStretch}"
+                                FontStyle="{TemplateBinding FontStyle}"
+                                FontWeight="{TemplateBinding FontWeight}"
+                                Foreground="{TemplateBinding Foreground}"
+                                HasDecimals="False"
+                                Maximum="65535"
+                                Minimum="0"
+                                Visibility="Collapsed"
+                                Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Mode=TwoWay, Converter={StaticResource UShortToDoubleConverter}}" />
+
+                            <numericTextBox:NumericTextBox
+                                x:Name="IntTextBox"
+                                Margin="1"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="Top"
+                                FontFamily="{TemplateBinding FontFamily}"
+                                FontSize="{TemplateBinding FontSize}"
+                                FontStretch="{TemplateBinding FontStretch}"
+                                FontStyle="{TemplateBinding FontStyle}"
+                                FontWeight="{TemplateBinding FontWeight}"
+                                Foreground="{TemplateBinding Foreground}"
+                                HasDecimals="False"
+                                Maximum="2147483647"
+                                Minimum="-2147483648"
+                                Visibility="Collapsed"
+                                Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Mode=TwoWay, Converter={StaticResource IntToDoubleConverter}}" />
+
+                            <numericTextBox:NumericTextBox
+                                x:Name="UIntTextBox"
+                                Margin="1"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="Top"
+                                FontFamily="{TemplateBinding FontFamily}"
+                                FontSize="{TemplateBinding FontSize}"
+                                FontStretch="{TemplateBinding FontStretch}"
+                                FontStyle="{TemplateBinding FontStyle}"
+                                FontWeight="{TemplateBinding FontWeight}"
+                                Foreground="{TemplateBinding Foreground}"
+                                HasDecimals="False"
+                                Maximum="4294967295"
+                                Minimum="0"
+                                Visibility="Collapsed"
+                                Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Mode=TwoWay, Converter={StaticResource UIntToDoubleConverter}}" />
+
+                            <numericTextBox:NumericTextBox
+                                x:Name="LongTextBox"
+                                Margin="1"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="Top"
+                                FontFamily="{TemplateBinding FontFamily}"
+                                FontSize="{TemplateBinding FontSize}"
+                                FontStretch="{TemplateBinding FontStretch}"
+                                FontStyle="{TemplateBinding FontStyle}"
+                                FontWeight="{TemplateBinding FontWeight}"
+                                Foreground="{TemplateBinding Foreground}"
+                                HasDecimals="False"
+                                Maximum="9223372036854775807"
+                                Minimum="-9223372036854775808"
+                                Visibility="Collapsed"
+                                Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Mode=TwoWay, Converter={StaticResource LongToDoubleConverter}}" />
+
+                            <numericTextBox:NumericTextBox
+                                x:Name="ULongTextBox"
+                                Margin="1"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="Top"
+                                FontFamily="{TemplateBinding FontFamily}"
+                                FontSize="{TemplateBinding FontSize}"
+                                FontStretch="{TemplateBinding FontStretch}"
+                                FontStyle="{TemplateBinding FontStyle}"
+                                FontWeight="{TemplateBinding FontWeight}"
+                                Foreground="{TemplateBinding Foreground}"
+                                HasDecimals="False"
+                                Maximum="18446744073709551615"
+                                Minimum="0"
+                                Visibility="Collapsed"
+                                Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Mode=TwoWay, Converter={StaticResource ULongToDoubleConverter}}" />
+
+                            <numericTextBox:NumericTextBox
+                                x:Name="DecimalTextBox"
+                                Margin="1"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="Top"
+                                FontFamily="{TemplateBinding FontFamily}"
+                                FontSize="{TemplateBinding FontSize}"
+                                FontStretch="{TemplateBinding FontStretch}"
+                                FontStyle="{TemplateBinding FontStyle}"
+                                FontWeight="{TemplateBinding FontWeight}"
+                                Foreground="{TemplateBinding Foreground}"
+                                HasDecimals="True"
+                                Visibility="Collapsed"
+                                Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Mode=TwoWay, Converter={StaticResource DecimalToDoubleConverter}}" />
+
+                            <numericTextBox:NumericTextBox
+                                x:Name="FloatTextBox"
+                                Margin="1"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="Top"
+                                FontFamily="{TemplateBinding FontFamily}"
+                                FontSize="{TemplateBinding FontSize}"
+                                FontStretch="{TemplateBinding FontStretch}"
+                                FontStyle="{TemplateBinding FontStyle}"
+                                FontWeight="{TemplateBinding FontWeight}"
+                                Foreground="{TemplateBinding Foreground}"
+                                HasDecimals="True"
+                                Visibility="Collapsed"
+                                Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Mode=TwoWay, Converter={StaticResource FloatToDoubleConverter}}" />
+
+                            <numericTextBox:NumericTextBox
+                                x:Name="DoubleTextBox"
+                                Margin="1"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="Top"
+                                FontFamily="{TemplateBinding FontFamily}"
+                                FontSize="{TemplateBinding FontSize}"
+                                FontStretch="{TemplateBinding FontStretch}"
+                                FontStyle="{TemplateBinding FontStyle}"
+                                FontWeight="{TemplateBinding FontWeight}"
+                                Foreground="{TemplateBinding Foreground}"
+                                HasDecimals="True"
+                                Visibility="Collapsed"
+                                Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Mode=TwoWay}" />
 
                             <ToggleButton
                                 Name="ToggleSwitch"
@@ -86,58 +253,47 @@
                         </Trigger>
 
                         <Trigger Property="Type" Value="Byte">
-                            <Setter TargetName="NumericTextBox" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="NumericTextBox" Property="HasDecimals" Value="false" />
+                            <Setter TargetName="ByteTextBox" Property="Visibility" Value="Visible" />
                         </Trigger>
 
                         <Trigger Property="Type" Value="SByte">
-                            <Setter TargetName="NumericTextBox" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="NumericTextBox" Property="HasDecimals" Value="false" />
+                            <Setter TargetName="SByteTextBox" Property="Visibility" Value="Visible" />
                         </Trigger>
 
                         <Trigger Property="Type" Value="Short">
-                            <Setter TargetName="NumericTextBox" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="NumericTextBox" Property="HasDecimals" Value="false" />
+                            <Setter TargetName="ShortTextBox" Property="Visibility" Value="Visible" />
                         </Trigger>
 
                         <Trigger Property="Type" Value="UShort">
-                            <Setter TargetName="NumericTextBox" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="NumericTextBox" Property="HasDecimals" Value="false" />
+                            <Setter TargetName="UShortTextBox" Property="Visibility" Value="Visible" />
                         </Trigger>
 
                         <Trigger Property="Type" Value="Int">
-                            <Setter TargetName="NumericTextBox" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="NumericTextBox" Property="HasDecimals" Value="false" />
+                            <Setter TargetName="IntTextBox" Property="Visibility" Value="Visible" />
                         </Trigger>
 
                         <Trigger Property="Type" Value="UInt">
-                            <Setter TargetName="NumericTextBox" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="NumericTextBox" Property="HasDecimals" Value="false" />
+                            <Setter TargetName="UIntTextBox" Property="Visibility" Value="Visible" />
                         </Trigger>
 
                         <Trigger Property="Type" Value="Long">
-                            <Setter TargetName="NumericTextBox" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="NumericTextBox" Property="HasDecimals" Value="false" />
+                            <Setter TargetName="LongTextBox" Property="Visibility" Value="Visible" />
                         </Trigger>
 
                         <Trigger Property="Type" Value="ULong">
-                            <Setter TargetName="NumericTextBox" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="NumericTextBox" Property="HasDecimals" Value="false" />
+                            <Setter TargetName="ULongTextBox" Property="Visibility" Value="Visible" />
                         </Trigger>
 
                         <Trigger Property="Type" Value="Float">
-                            <Setter TargetName="NumericTextBox" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="NumericTextBox" Property="HasDecimals" Value="true" />
+                            <Setter TargetName="FloatTextBox" Property="Visibility" Value="Visible" />
                         </Trigger>
 
                         <Trigger Property="Type" Value="Decimal">
-                            <Setter TargetName="NumericTextBox" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="NumericTextBox" Property="HasDecimals" Value="true" />
+                            <Setter TargetName="DecimalTextBox" Property="Visibility" Value="Visible" />
                         </Trigger>
 
                         <Trigger Property="Type" Value="Double">
-                            <Setter TargetName="NumericTextBox" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="NumericTextBox" Property="HasDecimals" Value="true" />
+                            <Setter TargetName="DoubleTextBox" Property="Visibility" Value="Visible" />
                         </Trigger>
 
                     </ControlTemplate.Triggers>
