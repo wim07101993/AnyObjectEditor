@@ -2,6 +2,7 @@
     x:Class="DatabaseManager.Views.Controls.ObjectEditor"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Shared.Controls;assembly=Shared"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:DatabaseManager.Views.Controls"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -50,19 +51,19 @@
                                         Text="{Binding DisplayName}"
                                         TextWrapping="Wrap" />
 
-                                    <local:NativeTypeEditor
+                                    <controls:NativeTypeEditor
                                         Grid.Row="1"
                                         Margin="10,0,10,10"
                                         HorizontalAlignment="Right"
                                         Visibility="{Binding HasNativeType, Converter={StaticResource BooleanToVisibilityConverter}}"
                                         Value="{Binding Value, Mode=TwoWay}" />
 
-                                    <local:ImagePicker
+                                    <controls:ImagePicker
                                         Grid.Row="1"
                                         Image="{Binding Value, Mode=TwoWay}"
                                         Visibility="{Binding IsImage, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                                    <local:ColorPicker
+                                    <controls:ColorPicker
                                         Grid.Row="1"
                                         Width="250"
                                         Height="250"

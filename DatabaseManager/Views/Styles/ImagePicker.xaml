@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="clr-namespace:DatabaseManager.Views.Controls">
+    xmlns:controls="clr-namespace:Shared.Controls;assembly=Shared">
 
     <Style x:Key="RectangularImageButton" TargetType="{x:Type Button}">
         <Setter Property="Template">

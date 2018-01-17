@@ -153,22 +153,15 @@
     <Compile Include="ViewModels\PropertyViewModel.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="Views\Controls\ColorPicker.cs" />
-    <Compile Include="Views\Controls\ColorSpectrumSlider.cs" />
     <Compile Include="Views\Controls\EditableHeader.xaml.cs">
       <DependentUpon>EditableHeader.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\Header.xaml.cs">
       <DependentUpon>Header.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Controls\ImagePicker.cs" />
     <Compile Include="Views\Controls\List.xaml.cs">
       <DependentUpon>List.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Controls\NativeTypeEditor.cs" />
-    <Compile Include="Views\Controls\NumericTextBox\NumericTextBox.cs" />
-    <Compile Include="Views\Controls\NumericTextBox\NumericTextBoxChangedRoutedEventArgs.cs" />
-    <Compile Include="Views\Controls\NumericTextBox\NumericTextBoxChangedRoutedEventHandler.cs" />
     <Compile Include="Views\Controls\ObjectEditor.xaml.cs">
       <DependentUpon>ObjectEditor.xaml</DependentUpon>
     </Compile>

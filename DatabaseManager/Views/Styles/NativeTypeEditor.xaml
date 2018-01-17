@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="clr-namespace:DatabaseManager.Views.Controls"
-    xmlns:numericTextBox="clr-namespace:DatabaseManager.Views.Controls.NumericTextBox">
+    xmlns:controls="clr-namespace:Shared.Controls;assembly=Shared"
+    xmlns:numericTextBox="clr-namespace:Shared.Controls.NumericTextBox;assembly=Shared">
 
     <Style TargetType="{x:Type controls:NativeTypeEditor}">
         <Setter Property="Template">

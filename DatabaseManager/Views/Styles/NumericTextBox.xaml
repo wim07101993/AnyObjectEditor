@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:converters="http://metro.mahapps.com/winfx/xaml/shared"
-    xmlns:numericTextBox="clr-namespace:DatabaseManager.Views.Controls.NumericTextBox">
+    xmlns:numericTextBox="clr-namespace:Shared.Controls.NumericTextBox;assembly=Shared">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Shared.xaml" />
