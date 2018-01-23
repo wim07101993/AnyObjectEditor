@@ -14,7 +14,7 @@ namespace Shared.Helpers.Extensions
                This == typeof(decimal) ||
                This == typeof(double) ||
                This == typeof(float);
-        
+
         public static object GetDefaultValue(this ENativeType This)
         {
             switch (This)
@@ -52,5 +52,10 @@ namespace Shared.Helpers.Extensions
             }
             return null;
         }
+
+        public static object GetDefault(this Type This)
+            => This.IsValueType
+                ? Activator.CreateInstance(This)
+                : null;
     }
 }

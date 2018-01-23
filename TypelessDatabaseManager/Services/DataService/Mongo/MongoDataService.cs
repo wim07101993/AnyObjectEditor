@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -9,12 +8,13 @@ using Newtonsoft.Json;
 using Shared.Helpers.Attributes;
 using Shared.Services;
 using Shared.Services.Converter;
+using TypelessDatabaseManager.Helpers;
 using TypelessDatabaseManager.Models;
 using Object = TypelessDatabaseManager.Models.Object;
 
 namespace TypelessDatabaseManager.Services.DataService.Mongo
 {
-    public class MongoDataService : IDataService<Object>
+    public class MongoDataService : IDataService<Object>, IObjectConverter, IObjectConverter<BsonDocument>
     {
         #region FIELDS
 
@@ -46,30 +46,76 @@ namespace TypelessDatabaseManager.Services.DataService.Mongo
 
         #region METHODS
 
+        #region data service
+
         public async Task<IEnumerable<Object>> GetAllAsync()
         {
             var objects = new List<Object>();
 
             await _database.GetCollection<BsonDocument>(_collectionName)
                 .Find(FilterDefinition<BsonDocument>.Empty)
-                .ForEachAsync(x => objects.Add(ConvertBsonDocumentToObject(x)));
+                .ForEachAsync(x => objects.Add(ConvertToObject(x)));
 
             return objects;
         }
 
-
         public async Task InsertAsync(Object item)
         {
+            await _database.GetCollection<BsonDocument>(_collectionName)
+                .InsertOneAsync(ConvertBack(item));
         }
 
         public async Task UpdateAsync(Object item)
         {
+            var document = ConvertBack(item);
+            var filter = Builders<BsonDocument>.Filter
+                .Eq(filterItem => filterItem["ObjectID"], document["ObjectID"]);
+
+            await _database
+                .GetCollection<BsonDocument>(_collectionName)
+                .ReplaceOneAsync(filter, document);
         }
 
         public async Task RemoveAsync(Object item)
         {
+            var document = ConvertBack(item);
+            var filter = Builders<BsonDocument>.Filter
+                .Eq(filterItem => filterItem["ObjectID"], document["ObjectID"]);
+
+            await _database
+                .GetCollection<BsonDocument>(_collectionName)
+                .DeleteOneAsync(filter);
         }
 
+        #endregion data service
+
+        #region object converter
+
+        public Object ConvertToObject(object obj)
+            => ConvertToObject(obj as BsonDocument);
+
+        public Object ConvertToObject(BsonDocument document)
+        {
+            if (_attributes == null)
+                _attributes = GetAttributesDictionary(_attributesId, _attributesCollectionName).Result;
+
+            var properties = document
+                .Elements
+                .Select(x => ConvertBsonElementToProperty(x, _attributes))
+                .ToDictionary(x => x.Name, x => x);
+
+            return new Object(properties);
+        }
+
+        public BsonDocument ConvertBack(Object obj)
+            => new BsonDocument(obj.ToDictionary(x => x.Key, x => x.Value.Value));
+
+        object IObjectConverter.ConvertBack(Object obj)
+            => ConvertBack(obj);
+
+        #endregion object converter
+
+        
         public async Task<Dictionary<string, Dictionary<string, object>>> GetAttributesDictionary(string attributesId,
             string attributesCollectionName)
         {
@@ -93,20 +139,7 @@ namespace TypelessDatabaseManager.Services.DataService.Mongo
 
             return ret;
         }
-
-        private Object ConvertBsonDocumentToObject(BsonDocument document)
-        {
-            if (_attributes == null)
-                _attributes = GetAttributesDictionary(_attributesId, _attributesCollectionName).Result;
-
-            var properties = document
-                .Elements
-                .Select(x => ConvertBsonElementToProperty(x, _attributes))
-                .ToDictionary(x => x.Name, x => x);
-
-            return new Object(properties);
-        }
-
+        
         private Property ConvertBsonElementToProperty(BsonElement element,
             IReadOnlyDictionary<string, Dictionary<string, object>> attributes)
         {
@@ -135,7 +168,7 @@ namespace TypelessDatabaseManager.Services.DataService.Mongo
                     value = bsonValue.AsString;
                     return;
                 case BsonType.Document:
-                    value = ConvertBsonDocumentToObject(bsonValue.AsBsonDocument);
+                    value = ConvertToObject(bsonValue.AsBsonDocument);
                     return;
                 case BsonType.Array:
                     // TODO
@@ -198,22 +231,22 @@ namespace TypelessDatabaseManager.Services.DataService.Mongo
             }
         }
 
-        private IAttribute ConvertAttributeKeyValuePairToIAttribute(KeyValuePair<string, object> pair)
+        private static IAttribute ConvertAttributeKeyValuePairToIAttribute(KeyValuePair<string, object> pair)
         {
             switch (pair.Key)
             {
                 case BrowsableAttribute.NAME:
-                    return new BrowsableAttribute((bool)pair.Value);
+                    return new BrowsableAttribute((bool) pair.Value);
                 case ColorAttribute.NAME:
-                    return new ColorAttribute((bool)pair.Value);
+                    return new ColorAttribute((bool) pair.Value);
                 case DescriptionAttribute.NAME:
                     return new DescriptionAttribute((bool) pair.Value);
                 case DisplayNameAttribute.NAME:
-                    return new DisplayNameAttribute((string)pair.Value);
+                    return new DisplayNameAttribute((string) pair.Value);
                 case IdAttribute.NAME:
                     return new IdAttribute((bool) pair.Value);
                 case ImageAttribute.NAME:
-                    return new ImageAttribute((bool)pair.Value);
+                    return new ImageAttribute((bool) pair.Value);
                 case PictureAttribute.NAME:
                     return new PictureAttribute((bool) pair.Value);
                 case SubtitleAttribute.NAME:

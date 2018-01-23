@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Shared.Helpers.Extensions;
 using TypelessDatabaseManager.Annotations;
+// ReSharper disable All
 
 namespace TypelessDatabaseManager.Models
 {
@@ -12,7 +14,7 @@ namespace TypelessDatabaseManager.Models
         #region FIELDS
 
         private object _value;
-
+      
         #endregion FIELDS
 
 
@@ -141,10 +143,17 @@ namespace TypelessDatabaseManager.Models
         }
 
         public int CompareTo(Object other) 
-            => Value.ToString().CompareTo(other.Value.ToString());
+            => Value?.ToString().CompareTo(other?.Value?.ToString()) ?? default(int);
 
         public int CompareTo(object obj)
-            => Value.ToString().CompareTo((obj as Object).Value.ToString());
+            => Value?.ToString().CompareTo((obj as Object)?.Value?.ToString()) ?? default(int);
+
+
+        public void ClearValues()
+        {
+            foreach (var key in Keys)
+                this[key].Value.Value = this[key].Value.Value.GetType().GetDefault();
+        }
 
         #endregion METHODS
 
@@ -158,5 +167,6 @@ namespace TypelessDatabaseManager.Models
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         #endregion NOTIFY PROPERTYCHANGED
+
     }
 }

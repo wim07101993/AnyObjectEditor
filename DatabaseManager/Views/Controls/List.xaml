@@ -47,8 +47,8 @@
                             MinWidth="200"
                             Margin="8,0,0,0"
                             VerticalAlignment="Center"
+                            materialDesign:HintAssist.Hint="Zoeken..."
                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                            materialDesign:TextFieldAssist.Hint="Zoeken..."
                             BorderThickness="0"
                             Text="{Binding SearchString}" />
                     </Grid>

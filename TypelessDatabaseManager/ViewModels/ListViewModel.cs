@@ -52,12 +52,26 @@ namespace TypelessDatabaseManager.ViewModels
         }
 
 
-        public override void SaveAsync()
+        public override async void SaveAsync()
         {
+            if (SelectedItem != null)
+                await UpdateItemFunc(SelectedItem.Value);
+            else
+            {
+                // TODO
+            }
+
+            RefreshAsync();
+
+            CurrentPage = 0;
         }
 
         protected override Object CreateNewItem()
-            => new Object(ItemsSource?.FirstOrDefault());
+        {
+            var obj = new Object(ItemsSource?.FirstOrDefault().Clone());
+            obj.ClearValues();
+            return obj;
+        }
 
         protected override IObjectEditorViewModel<Object> ConvertToObjectEditor(Object item)
             => new ObjectEditorViewModel(item);
